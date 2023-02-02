@@ -7,6 +7,7 @@ plugins {
 
 group 'com.firekey'
 version '1.0-SNAPSHOT'
+mainClassName='com.firekey.configurator.Main'
 
 repositories {
     mavenCentral()
@@ -30,13 +31,26 @@ application {
 
 javafx {
     version = '17.0.2'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javafx.version, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javafx.version, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javafx.version, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javafx.version, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javafx.version, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javafx.version, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javafx.version, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javafx.version, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javafx.version, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafx.version, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafx.version, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafx.version, classifier: 'linux'
 }
 
 test {
@@ -53,4 +67,14 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': "${mainClassName}"
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
