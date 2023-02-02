@@ -1,8 +1,9 @@
-package com.firekey.configurator;
+package com.firekey.configurator.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+//TODO remove me / rename
 public class HelloController {
     @FXML
     private Label welcomeText;

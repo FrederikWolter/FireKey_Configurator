@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.firekey.configurator'
-    mainClass = 'com.firekey.configurator.HelloApplication'
+    mainClass = 'com.firekey.configurator.Main'
 }
 
 javafx {
