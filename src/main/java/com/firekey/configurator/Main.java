@@ -3,6 +3,10 @@ package com.firekey.configurator;
 import com.firekey.configurator.gui.HelloApplication;
 import javafx.application.Application;
 
+
+/**
+ * Main entrypoint in this app.
+ */
 public class Main {
 
     public static void main(String[] args) {
