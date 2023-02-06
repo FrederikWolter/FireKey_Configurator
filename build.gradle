@@ -50,6 +50,8 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafx.version, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafx.version, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javafx.version, classifier: 'linux'
+
+    implementation 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
 }
 
 test {
