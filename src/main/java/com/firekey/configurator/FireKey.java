@@ -7,7 +7,7 @@ import javafx.application.Application;
 /**
  * Main entrypoint in this app.
  */
-public class Main {
+public class FireKey {
 
     public static void main(String[] args) {
         //TODO HelloApplication Controller remove / rename -> FireKey Controller

@@ -7,7 +7,6 @@ plugins {
 
 group 'com.firekey'
 version '1.0-SNAPSHOT'
-mainClassName='com.firekey.configurator.Main'
 
 repositories {
     mavenCentral()
@@ -26,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.firekey.configurator'
-    mainClass = 'com.firekey.configurator.Main'
+    mainClass = 'com.firekey.configurator.FireKey'
 }
 
 javafx {
@@ -68,13 +67,13 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
-
+/* re-add to build jar with all dep.
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes 'Main-Class': "${mainClassName}"
+        attributes 'Main-Class': "${application.classMain}"
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-}
+}*/
