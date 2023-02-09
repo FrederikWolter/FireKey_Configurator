@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * @see Layer
  */
 public class Key {
-    //region attributes
+    // region attributes
     /**
      * The display name of this {@link Key}-object
      */
@@ -33,7 +33,7 @@ public class Key {
      * @see Layer
      */
     private Color defaultColor;
-    //endregion
+    // endregion
 
     /**
      * Default constructor of a {@link Key}-object for a corresponding {@link Layer}.
