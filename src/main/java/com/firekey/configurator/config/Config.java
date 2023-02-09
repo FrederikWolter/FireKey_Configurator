@@ -56,7 +56,6 @@ public class Config {
     }
 
     public void loadConfig() throws IOException {
-        //TODO load default config if file does not exist
         JSONObject configJSONObj;
         //Check if file exists and load it
         try (FileInputStream fis = new FileInputStream(jarFolder + File.separator + CONFIG_FILE_NAME)) {
@@ -64,7 +63,15 @@ public class Config {
             JSONTokener tokenizer = new JSONTokener(fis);
             configJSONObj = new JSONObject(tokenizer);
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();    //TODO own exception?
+            try (FileInputStream fis = new FileInputStream(jarFolder + File.separator + DEFAULT_CONFIG_FILE_NAME)) {
+
+                JSONTokener tokenizer = new JSONTokener(fis);
+                configJSONObj = new JSONObject(tokenizer);
+            } catch (FileNotFoundException e2) {
+                throw new FileNotFoundException();    //TODO own exception?
+            } catch (IOException e2) {
+                throw new IOException(e2);    //TODO own exception?
+            }
         } catch (IOException e) {
             throw new IOException(e);    //TODO own exception?
         }
