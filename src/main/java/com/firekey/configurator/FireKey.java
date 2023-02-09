@@ -1,5 +1,6 @@
 package com.firekey.configurator;
 
+import com.firekey.configurator.config.Config;
 import com.firekey.configurator.config.Key;
 import com.firekey.configurator.config.KeyType;
 import com.firekey.configurator.config.Layer;
@@ -19,7 +20,9 @@ public class FireKey {
         Key k = new Key("test", KeyType.Action, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
         Layer l = new Layer("Layer1");
         l.addKey(0, k);
-        JSONObject obj = l.toJSON();
+        Config c = new Config(50, 15, 10, 60, 50);
+        c.addLayer(0, l);
+        JSONObject obj = c.toJSON();
 
         //TODO HelloApplication Controller remove / rename -> FireKey Controller
         Application.launch(HelloApplication.class, args);

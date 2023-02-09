@@ -5,6 +5,9 @@ import org.json.JSONObject;
 
 /**
  * Represents a single layer of the macro-keyboard FireKey.
+ *
+ * @see Key
+ * @see Config
  */
 public class Layer {
 
@@ -55,20 +58,23 @@ public class Layer {
      * Containing all {@link Key}-objects in a {@link JSONArray}.
      *
      * @return The corresponding {@link JSONObject}
+     * @see Key
      * @see JSONObject
      * @see JSONArray
      */
     public JSONObject toJSON() {
         JSONObject layerJSONObj = new JSONObject();
-        JSONArray layerKeysArray = new JSONArray();
+        JSONArray layerKeysJSONArray = new JSONArray();
         layerJSONObj.put("name", this.name);
+
         for (int idx = 0; idx < NUM_KEYS; idx++) {
-            if(this.keys[idx] != null)
-                layerKeysArray.put(idx, this.keys[idx].toJSON());
+            if (this.keys[idx] != null)
+                layerKeysJSONArray.put(idx, this.keys[idx].toJSON());
             else
-                layerKeysArray.put(idx, "null");
+                layerKeysJSONArray.put(idx, "null");
         }
-        layerJSONObj.put("keys", layerKeysArray);
+        layerJSONObj.put("keys", layerKeysJSONArray);
+
         return layerJSONObj;
     }
 
