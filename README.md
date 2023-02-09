@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="" height="100" src="https://user-images.githubusercontent.com/35914049/210417180-676096d7-a9f0-4359-a83d-85045c853c2d.svg">
+  <img width="" height="100" src="https://user-images.githubusercontent.com/35914049/210417180-676096d7-a9f0-4359-a83d-85045c853c2d.svg" alt="FireKey-Logo">
 </p>
 
 # FireKey - Configurator
