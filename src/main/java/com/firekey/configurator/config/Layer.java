@@ -8,7 +8,7 @@ import org.json.JSONObject;
  */
 public class Layer {
 
-    // region variables
+    // region attributes
     /**
      * Number of keys per {@link Layer} the macro-keyboard FireKey has.
      */
@@ -84,7 +84,7 @@ public class Layer {
      * Adds/Overrides a {@link Key} to the {@link #keys} array
      * Arrays index starts at 0 so the first key needs to have array index 0. (Key1 -> idx 0)
      *
-     * @param idx The idx between 0 and 15. (15 excluding)
+     * @param idx The idx between 0 and {@link #NUM_KEYS}. ({@link #NUM_KEYS} excluding)
      * @param key The {@link Key}-Object to store.
      */
     public void addKey(int idx, Key key) {
