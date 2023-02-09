@@ -3,6 +3,11 @@ package com.firekey.configurator.config;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 /**
  * Represents a whole FireKey config including its {@link Layer}s and the corresponding {@link Key}
  *
@@ -11,11 +16,13 @@ import org.json.JSONObject;
  */
 public class Config {
     //TODO comments
-    //TODO implement loadConfig, saveConfig, toFirmware & helpers
+    //TODO implement loadConfig, toFirmware & helpers
 
     // region attributes
 
     private static final int NUM_LAYERS = 5;
+    private static final String CONFIG_FILE_NAME = "firekey_config.json";
+    private static final String DEFAULT_CONFIG_FILE_NAME = "firekey_default_config.json";
 
     private int spamDelay;
 
@@ -29,26 +36,38 @@ public class Config {
 
     private final Layer[] layers;
 
+    private final String jarFolder;
+
     // endregion
 
-    public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright) {
+    public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright) throws URISyntaxException {
         this.spamDelay = spamDelay;
         this.holdDelay = holdDelay;
         this.debounceDelay = debounceDelay;
         this.sleepDelay = sleepDelay;
         this.ledBright = ledBright;
         this.layers = new Layer[NUM_LAYERS];
+        jarFolder = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
     }
 
-    public void loadConfig(){
+    public void loadConfig() {
         //TODO
     }
 
-    public void saveConfig(){
-        //TODO
+    /**
+     * Saves this {@link Config} to the {@link #CONFIG_FILE_NAME}-file next to the jar-file.
+     *
+     * @throws IOException
+     */
+    public void saveConfig() throws IOException {
+        try (FileWriter fw = new FileWriter(jarFolder + File.separator + CONFIG_FILE_NAME)) {
+            fw.write(this.toJSON().toString(1));
+        } catch (IOException e) {
+            throw new IOException();    //TODO own exception?
+        }
     }
 
-    public void toFirmware(){
+    public void toFirmware() {
         //TODO
     }
 
@@ -86,7 +105,7 @@ public class Config {
      * Containing all {@link Layer}-objects in a {@link JSONArray}.
      *
      * @return The corresponding {@link JSONObject}
-     * @see Layer
+     * @see Layer#toJSON()
      * @see JSONObject
      * @see JSONArray
      */

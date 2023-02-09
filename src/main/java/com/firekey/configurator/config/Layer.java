@@ -58,7 +58,7 @@ public class Layer {
      * Containing all {@link Key}-objects in a {@link JSONArray}.
      *
      * @return The corresponding {@link JSONObject}
-     * @see Key
+     * @see Key#toJSON()
      * @see JSONObject
      * @see JSONArray
      */
