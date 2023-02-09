@@ -1,11 +1,11 @@
 package com.firekey.configurator.config;
 
+import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 
 /**
@@ -16,11 +16,11 @@ import java.net.URISyntaxException;
  */
 public class Config {
     //TODO comments
-    //TODO implement loadConfig, toFirmware & helpers
+    //TODO implement toFirmware & helpers
 
     // region attributes
 
-    private static final int NUM_LAYERS = 5;
+    public static final int NUM_LAYERS = 5;
     private static final String CONFIG_FILE_NAME = "firekey_config.json";
     private static final String DEFAULT_CONFIG_FILE_NAME = "firekey_default_config.json";
 
@@ -40,6 +40,11 @@ public class Config {
 
     // endregion
 
+    public Config() throws URISyntaxException {
+        this.layers = new Layer[NUM_LAYERS];
+        jarFolder = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
+    }
+
     public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright) throws URISyntaxException {
         this.spamDelay = spamDelay;
         this.holdDelay = holdDelay;
@@ -50,8 +55,56 @@ public class Config {
         jarFolder = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
     }
 
-    public void loadConfig() {
-        //TODO
+    public void loadConfig() throws IOException {
+        //TODO load default config if file does not exist
+        JSONObject configJSONObj;
+        //Check if file exists and load it
+        try (FileInputStream fis = new FileInputStream(jarFolder + File.separator + CONFIG_FILE_NAME)) {
+
+            JSONTokener tokenizer = new JSONTokener(fis);
+            configJSONObj = new JSONObject(tokenizer);
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException();    //TODO own exception?
+        } catch (IOException e) {
+            throw new IOException(e);    //TODO own exception?
+        }
+
+        this.setSpamDelay(configJSONObj.getInt("spamDelay"));
+        this.setHoldDelay(configJSONObj.getInt("holdDelay"));
+        this.setDebounceDelay(configJSONObj.getInt("debounceDelay"));
+        this.setSleepDelay(configJSONObj.getInt("sleepDelay"));
+        this.setLedBright(configJSONObj.getInt("ledBright"));
+
+        JSONArray layerJSONArray = configJSONObj.getJSONArray("layers");
+
+        for (int layerIdx = 0; layerIdx < NUM_LAYERS; layerIdx++) {
+            // Create Layer and add to Config
+            JSONObject layerJSONObj = layerJSONArray.optJSONObject(layerIdx);
+
+            if (layerJSONObj != null) {
+                JSONArray keyJSONArray = layerJSONObj.getJSONArray("keys");
+
+                Layer layer = new Layer(layerJSONObj.getString("name"));
+
+                for (int keyIdx = 0; keyIdx < Layer.NUM_KEYS; keyIdx++) {
+                    // Create Key and add to Layer
+                    JSONObject keyJSONObj = keyJSONArray.optJSONObject(keyIdx);
+
+                    if (keyJSONObj != null) {
+                        String name = keyJSONObj.getString("name");
+                        KeyType type = keyJSONObj.getEnum(KeyType.class, "type");
+                        String function = keyJSONObj.getString("function");
+                        Color defaultColor = Color.web(keyJSONObj.getString("defaultColor"));
+
+                        Key key = new Key(name, type, function, defaultColor);
+                        layer.addKey(keyIdx, key);
+                    }
+
+                }
+
+                this.addLayer(layerIdx, layer);
+            }
+        }
     }
 
     /**
@@ -122,7 +175,7 @@ public class Config {
             if (this.layers[idx] != null)
                 configLayerJSONArray.put(idx, this.layers[idx].toJSON());
             else
-                configLayerJSONArray.put(idx, "null");
+                configLayerJSONArray.put(idx, JSONObject.NULL);
         }
         configJSONObj.put("layers", configLayerJSONArray);
 

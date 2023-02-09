@@ -10,6 +10,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -33,6 +34,21 @@ public class FireKey {
         JSONObject obj = c.toJSON();
         try {
             c.saveConfig();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Config c2 = null;
+        try {
+            c2 = new Config();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            c2.loadConfig();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

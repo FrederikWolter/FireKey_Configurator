@@ -15,7 +15,7 @@ public class Layer {
     /**
      * Number of keys per {@link Layer} the macro-keyboard FireKey has.
      */
-    private static final int NUM_KEYS = 15;
+    public static final int NUM_KEYS = 15;
 
     /**
      * The display name of the layer
@@ -71,7 +71,7 @@ public class Layer {
             if (this.keys[idx] != null)
                 layerKeysJSONArray.put(idx, this.keys[idx].toJSON());
             else
-                layerKeysJSONArray.put(idx, "null");
+                layerKeysJSONArray.put(idx, JSONObject.NULL);
         }
         layerJSONObj.put("keys", layerKeysJSONArray);
 
