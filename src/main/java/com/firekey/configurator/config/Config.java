@@ -43,6 +43,7 @@ public class Config {
     public Config() throws URISyntaxException {
         this.layers = new Layer[NUM_LAYERS];
         jarFolder = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
+        // TODO simplify? (maybe get Path stuff from installer part of FireKey?)
     }
 
     public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright) throws URISyntaxException {
@@ -53,6 +54,7 @@ public class Config {
         this.ledBright = ledBright;
         this.layers = new Layer[NUM_LAYERS];
         jarFolder = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
+        // TODO simplify?
     }
 
     public void loadConfig() throws IOException {
