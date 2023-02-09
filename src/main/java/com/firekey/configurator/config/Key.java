@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
 /**
- * Represents a single key on a {@link Layer}.
+ * Represents a single key on a {@link Layer} of the macro-keyboard FireKey.
  *
  * @see Layer
  */
@@ -81,6 +81,21 @@ public class Key {
     public Color getDefaultColor() {
         return defaultColor;
     }
+
+    /**
+     * Converts a {@link Key}-object into a {@link JSONObject} to save it in a JSON-file.
+     *
+     * @return The corresponding {@link JSONObject}
+     */
+    public JSONObject toJSON() {
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("name", this.getName());
+        jsonObj.put("type", this.getType());
+        jsonObj.put("function", this.getFunction());
+        jsonObj.put("defaultColor", this.getDefaultColor());
+        return jsonObj;
+    }
+
     // endregion
 
     // region setter
@@ -125,18 +140,5 @@ public class Key {
         this.defaultColor = defaultColor;
     }
 
-    /**
-     * Converts a {@link Key}-object into a {@link JSONObject} to save it in a JSON-file.
-     *
-     * @return The corresponding {@link JSONObject}
-     */
-    public JSONObject toJSON() {
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("name", this.getName());
-        jsonObj.put("type", this.getType());
-        jsonObj.put("function", this.getFunction());
-        jsonObj.put("defaultColor", this.getDefaultColor());
-        return jsonObj;
-    }
     // endregion
 }
