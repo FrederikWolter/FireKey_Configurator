@@ -52,15 +52,11 @@ public class Key {
      * @return converted {@link JSONObject}
      */
     public JSONObject toJSON() {
-        JSONObject jsonObj = new JSONObject();
-
-        // add data
-        jsonObj.put("name", this.getName());
-        jsonObj.put("type", this.getType());
-        jsonObj.put("function", this.getFunction());
-        jsonObj.put("defaultColor", this.getDefaultColor());
-
-        return jsonObj;
+        return new JSONObject()
+                .put("name", this.getName())
+                .put("type", this.getType())
+                .put("function", this.getFunction())
+                .put("defaultColor", this.getDefaultColor());
     }
 
     // region getter
