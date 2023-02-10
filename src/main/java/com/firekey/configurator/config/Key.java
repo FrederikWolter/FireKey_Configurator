@@ -4,39 +4,34 @@ import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
 /**
- * Represents a single key on a {@link Layer} of the macro-keyboard FireKey.
- *
- * @see Layer
+ * Represents a single key on a specific {@link Layer} of the macro-keyboard FireKey.
  */
 public class Key {
     // region attributes
     /**
-     * The display name of this {@link Key}-object
+     * The display name of this {@link Key}
      */
     private String name;
 
     /**
-     * The {@link KeyType} of this {@link Key}-object
+     * The {@link KeyType} of this {@link Key}<br>
+     * This can be used to identify how to interpret other attributes like {@link #function}.
      */
     private KeyType type;
 
     /**
-     * The function of this {@link Key}-object, which is executed on the keyboard if the corresponding key is pressed (depending on layer)
-     *
-     * @see Layer
+     * The function of this {@link Key} executed on the keyboard if the key is pressed with the corresponding {@link Layer} selected .
      */
     private String function;
 
     /**
-     * The default color of this {@link Key}-object (depending on layer)
-     *
-     * @see Layer
+     * The default color of this {@link Key} with the corresponding {@link Layer} selected.
      */
     private Color defaultColor;
     // endregion
 
     /**
-     * Default constructor of a {@link Key}-object for a corresponding {@link Layer}.
+     * Default constructor of a {@link Key} for a corresponding {@link Layer}.
      *
      * @param name         The display name of this {@link Key}
      * @param type         The {@link KeyType} of this {@link Key}
@@ -51,60 +46,62 @@ public class Key {
         this.defaultColor = defaultColor;
     }
 
+    /**
+     * Converts a {@link Key} into a {@link JSONObject} to save it to the config file.
+     *
+     * @return converted {@link JSONObject}
+     */
+    public JSONObject toJSON() {
+        JSONObject jsonObj = new JSONObject();
+
+        // add data
+        jsonObj.put("name", this.getName());
+        jsonObj.put("type", this.getType());
+        jsonObj.put("function", this.getFunction());
+        jsonObj.put("defaultColor", this.getDefaultColor());
+
+        return jsonObj;
+    }
+
     // region getter
 
     /**
-     * @return The {@link #name} of this {@link Key}-object
+     * @return The {@link #name} of this {@link Key}
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return The {@link #type} of this {@link Key}-object
-     * @see KeyType
+     * @return The {@link #type} of this {@link Key}
      */
     public KeyType getType() {
         return type;
     }
 
     /**
-     * @return The {@link #function} of this {@link Key}-object
+     * @return The {@link #function} of this {@link Key}
      */
     public String getFunction() {
         return function;
     }
 
     /**
-     * @return The {@link #defaultColor} of this {@link Key}-object
+     * @return The {@link #defaultColor} of this {@link Key}
      */
     public Color getDefaultColor() {
         return defaultColor;
     }
-
-    /**
-     * Converts a {@link Key}-object into a {@link JSONObject} to save it in a JSON-file.
-     *
-     * @return The corresponding {@link JSONObject}
-     */
-    public JSONObject toJSON() {
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("name", this.getName());
-        jsonObj.put("type", this.getType());
-        jsonObj.put("function", this.getFunction());
-        jsonObj.put("defaultColor", this.getDefaultColor());
-        return jsonObj;
-    }
-
     // endregion
+
 
     // region setter
 
     /**
-     * Sets the {@link #name} of this {@link Key}-object.
+     * Sets the {@link #name} of this {@link Key}.<br>
      * Only if the {@link #type} is not {@link KeyType#Layer}.
      *
-     * @param name The new name of this {@link Key}-object
+     * @param name The new name of this {@link Key}
      */
     public void setName(String name) {
         if (this.getType() != KeyType.Layer)
@@ -112,19 +109,19 @@ public class Key {
     }
 
     /**
-     * Sets the {@link #type} of this {@link Key}-object
+     * Sets the {@link #type} of this {@link Key}.
      *
-     * @param type The new typee of this {@link Key}-object
+     * @param type The new type of this {@link Key}
      */
     public void setType(KeyType type) {
         this.type = type;
     }
 
     /**
-     * Sets the {@link #function} of this {@link Key}-object.
+     * Sets the {@link #function} of this {@link Key}.<br>
      * Only if the {@link #type} is not {@link KeyType#Layer}.
      *
-     * @param function The new action-function of this {@link Key}-object
+     * @param function The new action-function of this {@link Key}
      */
     public void setFunction(String function) {
         if (this.getType() != KeyType.Layer)
@@ -132,13 +129,13 @@ public class Key {
     }
 
     /**
-     * Sets the {@link #defaultColor} of this {@link Key}-object
+     * Sets the {@link #defaultColor} of this {@link Key}.
      *
-     * @param defaultColor The new default layer color of this {@link Key}-object
+     * @param defaultColor The new default layer color of this {@link Key}
      */
     public void setDefaultColor(Color defaultColor) {
         this.defaultColor = defaultColor;
     }
-
     // endregion
+
 }
