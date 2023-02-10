@@ -10,6 +10,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -56,4 +57,10 @@ public class FireKey {
         //TODO HelloApplication Controller remove / rename -> FireKey Controller
         Application.launch(HelloApplication.class, args);
     }
+
+    public static String getDataPath() throws URISyntaxException {
+        // TODO use System.getProperty("user.dir") instead?
+        return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
+    }
+
 }
