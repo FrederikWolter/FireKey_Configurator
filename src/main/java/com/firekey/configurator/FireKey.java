@@ -1,5 +1,6 @@
 package com.firekey.configurator;
 
+import com.firekey.configurator.arduino.ArduinoCLI;
 import com.firekey.configurator.config.Config;
 import com.firekey.configurator.config.Key;
 import com.firekey.configurator.config.KeyType;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Main entrypoint in this app.
@@ -28,7 +30,6 @@ public class FireKey {
             throw new RuntimeException(e);
         }
 
-        SerialPort[] ports = SerialPort.getCommPorts();
         Key k = new Key("test", KeyType.Action, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
         Layer l = new Layer("Layer1");
         l.addKey(0, k);
@@ -52,6 +53,9 @@ public class FireKey {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        ArduinoCLI arduinoCLI = new ArduinoCLI(dataPath);
+        List<String> ports = arduinoCLI.getPorts();
 
         //TODO HelloApplication Controller remove / rename -> FireKey Controller
         Application.launch(HelloApplication.class, args);
