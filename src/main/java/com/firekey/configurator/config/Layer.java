@@ -70,8 +70,6 @@ public class Layer {
         for (int idx = 0; idx < NUM_KEYS; idx++) {
             if (this.keys[idx] != null)
                 layerKeysJSONArray.put(idx, this.keys[idx].toJSON());
-            else
-                layerKeysJSONArray.put(idx, JSONObject.NULL);
         }
         layerJSONObj.put("keys", layerKeysJSONArray);
 

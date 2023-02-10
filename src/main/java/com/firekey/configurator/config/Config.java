@@ -183,8 +183,6 @@ public class Config {
         for (int idx = 0; idx < NUM_LAYERS; idx++) {
             if (this.layers[idx] != null)
                 configLayerJSONArray.put(idx, this.layers[idx].toJSON());
-            else
-                configLayerJSONArray.put(idx, JSONObject.NULL);
         }
         configJSONObj.put("layers", configLayerJSONArray);
 
