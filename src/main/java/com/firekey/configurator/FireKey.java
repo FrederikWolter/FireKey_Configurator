@@ -60,6 +60,7 @@ public class FireKey {
 
     public static String getDataPath() throws URISyntaxException {
         // TODO use System.getProperty("user.dir") instead?
+        // TODO/CHECK: don't make static but pass it to config-obj,etc?
         return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
     }
 
