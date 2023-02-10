@@ -89,7 +89,7 @@ public class Config {
                         Color defaultColor = Color.web(keyJSONObj.getString("defaultColor"));
 
                         Key key = new Key(name, type, function, defaultColor);
-                        layer.addKey(keyIdx, key);
+                        layer.setKey(keyIdx, key);
                     }
 
                 }

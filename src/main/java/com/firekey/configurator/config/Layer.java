@@ -4,29 +4,30 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Represents a single layer of the macro-keyboard FireKey.
- *
- * @see Key
- * @see Config
+ * Represents a single layer of the macro-keyboard FireKey managing all its {@link Key}s.
  */
 public class Layer {
-
-    // region attributes
+    // region constants
     /**
      * Number of keys per {@link Layer} the macro-keyboard FireKey has.
      */
     public static final int NUM_KEYS = 15;
+    // endregion
 
+    // region attributes
     /**
-     * The display name of the layer
+     * The display name of the {@link Layer}
      */
     private String name;
 
+    /**
+     * The list of {@link Key}s in this {@link Layer}
+     */
     private final Key[] keys;
     //  endregion
 
     /**
-     * Default constructor for a {@link Layer} of the macro-keyboard FireKey.
+     * Default constructor for a {@link Layer}.
      *
      * @param name The display name of this {@link Layer}
      */
@@ -35,66 +36,67 @@ public class Layer {
         this.keys = new Key[NUM_KEYS];
     }
 
-    // region getter
+    /**
+     * Converts this {@link Layer} into a {@link JSONObject} to save it to the config file.<br>
+     * Containing all {@link Key}s in a {@link JSONArray}.
+     *
+     * @return The corresponding {@link JSONObject}
+     * @see Key#toJSON()
+     */
+    public JSONObject toJSON() {
+        // convert all Keys
+        JSONArray keysJson = new JSONArray();
+        for (Key k : this.keys) {
+            if (k != null)
+                keysJson.put(k.toJSON());
+        }
 
+        return new JSONObject()
+                .put("name", this.name)
+                .put("keys", keysJson);
+    }
+
+    // region getter
+    /**
+     * @return The {@link #name} of the {@link Layer}
+     */
     public String getName() {
         return name;
     }
 
     /**
-     * Gets the specific {@link Key} object.
+     * Gets the specific {@link Key}.
      *
-     * @param idx The index of the {@link Key}, which should be returned.
-     * @return The {@link Key}-object or null, if the idx is out of bounce or the {@link Key}-object does not exist.
+     * @param idx The index of the {@link Key}
+     * @return The {@link Key} or null, if the idx is out of bounce or the {@link Key} does not exist.
      */
     public Key getKey(int idx) {
         if (0 <= idx && idx < NUM_KEYS)
             return this.keys[idx];
         return null;
     }
-
-    /**
-     * Converts this {@link Layer}-object into a {@link JSONObject} to save it in a JSON-file.
-     * Containing all {@link Key}-objects in a {@link JSONArray}.
-     *
-     * @return The corresponding {@link JSONObject}
-     * @see Key#toJSON()
-     * @see JSONObject
-     * @see JSONArray
-     */
-    public JSONObject toJSON() {
-        JSONObject layerJSONObj = new JSONObject();
-        JSONArray layerKeysJSONArray = new JSONArray();
-        layerJSONObj.put("name", this.name);
-
-        for (int idx = 0; idx < NUM_KEYS; idx++) {
-            if (this.keys[idx] != null)
-                layerKeysJSONArray.put(idx, this.keys[idx].toJSON());
-        }
-        layerJSONObj.put("keys", layerKeysJSONArray);
-
-        return layerJSONObj;
-    }
-
     // endregion
 
     // region setter
 
+    /**
+     * Sets the {@link #name} of this {@link Layer}.
+     *
+     * @param name The new {@link #name} of this {@link Layer}
+     */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Adds/Overrides a {@link Key} to the {@link #keys} array
-     * Arrays index starts at 0 so the first key needs to have array index 0. (Key1 -> idx 0)
+     * Sets a {@link Key} to the {@link #keys} array.<br>
      *
-     * @param idx The idx between 0 and {@link #NUM_KEYS}. ({@link #NUM_KEYS} excluding)
-     * @param key The {@link Key}-Object to store.
+     * @param idx The idx between 0 and {@link #NUM_KEYS}-1
+     * @param key The {@link Key} to store
      */
-    public void addKey(int idx, Key key) {
+    public void setKey(int idx, Key key) {
         if (0 <= idx && idx < NUM_KEYS)
             this.keys[idx] = key;
     }
-
     // endregion
 }

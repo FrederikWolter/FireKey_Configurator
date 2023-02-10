@@ -32,7 +32,7 @@ public class FireKey {
 
         Key k = new Key("test", KeyType.Action, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
         Layer l = new Layer("Layer1");
-        l.addKey(0, k);
+        l.setKey(0, k);
         Config c = null;
         c = new Config(50, 15, 10, 60, 50, dataPath);
         c.addLayer(0, l);
