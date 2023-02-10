@@ -7,7 +7,6 @@ import com.firekey.configurator.config.KeyType;
 import com.firekey.configurator.config.Layer;
 import com.firekey.configurator.gui.HelloApplication;
 import javafx.application.Application;
-import com.fazecast.jSerialComm.SerialPort;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
@@ -33,21 +32,19 @@ public class FireKey {
         Key k = new Key("test", KeyType.Action, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
         Layer l = new Layer("Layer1");
         l.setKey(0, k);
-        Config c = null;
-        c = new Config(50, 15, 10, 60, 50, dataPath);
-        c.addLayer(0, l);
-        JSONObject obj = c.toJSON();
+        Config c = new Config(50, 15, 10, 60, 50, dataPath);
+        c.setLayer(0, l);
+
+        JSONObject obj = c.toJSON();    // not part of the actual workflow
         try {
             c.saveConfig();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Config c2 = null;
-        c2 = new Config(dataPath);
-
+        Config c2;
         try {
-            c2.loadConfig();
+            c2 = new Config(dataPath).load();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -63,7 +60,7 @@ public class FireKey {
 
     private static String getDataPath() throws URISyntaxException {
         // TODO use System.getProperty("user.dir") instead?
-        return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
+        return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator) + File.separator;
     }
 
 }
