@@ -58,25 +58,9 @@ public class Config {
     }
 
     public void loadConfig() throws IOException {
-        JSONObject configJSONObj;
-        //Check if file exists and load it
-        try (FileInputStream fis = new FileInputStream(jarFolder + File.separator + CONFIG_FILE_NAME)) {
-
-            JSONTokener tokenizer = new JSONTokener(fis);
-            configJSONObj = new JSONObject(tokenizer);
-        } catch (FileNotFoundException e) {
-            try (FileInputStream fis = new FileInputStream(jarFolder + File.separator + DEFAULT_CONFIG_FILE_NAME)) {
-
-                JSONTokener tokenizer = new JSONTokener(fis);
-                configJSONObj = new JSONObject(tokenizer);
-            } catch (FileNotFoundException e2) {
-                throw new FileNotFoundException();    //TODO own exception?
-            } catch (IOException e2) {
-                throw new IOException(e2);    //TODO own exception?
-            }
-        } catch (IOException e) {
-            throw new IOException(e);    //TODO own exception?
-        }
+        JSONObject configJSONObj = this.getConfigJSONData();
+        if(configJSONObj == null)
+            return; // TODO Throw exception?
 
         this.setSpamDelay(configJSONObj.getInt("spamDelay"));
         this.setHoldDelay(configJSONObj.getInt("holdDelay"));
@@ -114,6 +98,30 @@ public class Config {
                 this.addLayer(layerIdx, layer);
             }
         }
+    }
+
+    private JSONObject getConfigJSONData() throws IOException {
+        JSONObject configJSONObj;
+        File configFile = new File(jarFolder + File.separator + CONFIG_FILE_NAME);
+        File defaultConfigFile = new File(jarFolder + File.separator + DEFAULT_CONFIG_FILE_NAME);
+        File handledConfigFile;
+
+        if (configFile.exists()) {
+            handledConfigFile = configFile;
+        } else if (defaultConfigFile.exists()) {
+            handledConfigFile = defaultConfigFile;
+        } else {
+            // General error
+            //TODO handling in gui (exception?)
+            return null;
+        }
+
+        try (FileInputStream fis = new FileInputStream(handledConfigFile)) {
+            JSONTokener tokenizer = new JSONTokener(fis);
+            configJSONObj = new JSONObject(tokenizer);
+        }
+
+        return configJSONObj;
     }
 
     /**
