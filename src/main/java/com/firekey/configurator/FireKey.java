@@ -21,16 +21,19 @@ import java.net.URISyntaxException;
 public class FireKey {
 
     public static void main(String[] args) {
+        String dataPath;
+        try {
+            dataPath = getDataPath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
         SerialPort[] ports = SerialPort.getCommPorts();
         Key k = new Key("test", KeyType.Action, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
         Layer l = new Layer("Layer1");
         l.addKey(0, k);
         Config c = null;
-        try {
-            c = new Config(50, 15, 10, 60, 50);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        c = new Config(50, 15, 10, 60, 50, dataPath);
         c.addLayer(0, l);
         JSONObject obj = c.toJSON();
         try {
@@ -40,11 +43,7 @@ public class FireKey {
         }
 
         Config c2 = null;
-        try {
-            c2 = new Config();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        c2 = new Config(dataPath);
 
         try {
             c2.loadConfig();
@@ -58,9 +57,8 @@ public class FireKey {
         Application.launch(HelloApplication.class, args);
     }
 
-    public static String getDataPath() throws URISyntaxException {
+    private static String getDataPath() throws URISyntaxException {
         // TODO use System.getProperty("user.dir") instead?
-        // TODO/CHECK: don't make static but pass it to config-obj,etc?
         return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator);
     }
 

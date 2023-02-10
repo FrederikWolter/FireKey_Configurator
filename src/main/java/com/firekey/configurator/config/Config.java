@@ -37,23 +37,23 @@ public class Config {
 
     private final Layer[] layers;
 
-    private final String jarFolder;
+    private final String dataPath;
 
     // endregion
 
-    public Config() throws URISyntaxException {
+    public Config(String dataPath) {
         this.layers = new Layer[NUM_LAYERS];
-        jarFolder = FireKey.getDataPath();
+        this.dataPath = dataPath;
     }
 
-    public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright) throws URISyntaxException {
+    public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright, String dataPath) {
         this.spamDelay = spamDelay;
         this.holdDelay = holdDelay;
         this.debounceDelay = debounceDelay;
         this.sleepDelay = sleepDelay;
         this.ledBright = ledBright;
         this.layers = new Layer[NUM_LAYERS];
-        jarFolder = FireKey.getDataPath();
+        this.dataPath = dataPath;
     }
 
     public void loadConfig() throws IOException {
@@ -101,8 +101,8 @@ public class Config {
 
     private JSONObject getConfigJSONData() throws IOException {
         JSONObject configJSONObj;
-        File configFile = new File(jarFolder + File.separator + CONFIG_FILE_NAME);
-        File defaultConfigFile = new File(jarFolder + File.separator + DEFAULT_CONFIG_FILE_NAME);
+        File configFile = new File(dataPath + File.separator + CONFIG_FILE_NAME);
+        File defaultConfigFile = new File(dataPath + File.separator + DEFAULT_CONFIG_FILE_NAME);
         File handledConfigFile;
 
         if (configFile.exists()) {
@@ -129,7 +129,7 @@ public class Config {
      * @throws IOException
      */
     public void saveConfig() throws IOException {
-        try (FileWriter fw = new FileWriter(jarFolder + File.separator + CONFIG_FILE_NAME)) {
+        try (FileWriter fw = new FileWriter(dataPath + File.separator + CONFIG_FILE_NAME)) {
             fw.write(this.toJSON().toString(1));
         } catch (IOException e) {
             throw new IOException();    //TODO own exception?
