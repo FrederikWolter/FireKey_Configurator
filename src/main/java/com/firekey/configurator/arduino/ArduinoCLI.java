@@ -29,11 +29,9 @@ public class ArduinoCLI {
     public List<String> getPorts() {
         SerialPort[] ports = SerialPort.getCommPorts();
         List<String> deviceNames = new ArrayList<>();
-        if (ports.length > 0) {
-            for (int i = 0; i < ports.length; i++) {
-                String deviceName = ports[i].getPortDescription() + " (" + ports[i].getSystemPortName() + ")";
-                deviceNames.add(deviceName);
-            }
+        for (SerialPort port : ports) {
+            String deviceName = port.getPortDescription() + " (" + port.getSystemPortName() + ")";
+            deviceNames.add(deviceName);
         }
         return deviceNames;
     }
