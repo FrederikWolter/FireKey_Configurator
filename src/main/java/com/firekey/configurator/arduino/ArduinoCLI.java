@@ -25,7 +25,7 @@ public class ArduinoCLI {
 
     // region libs
     private static final String KEYBOARD_LIB = "Keyboard";
-    private static final String USBHost_LIB = "USBHost";
+    private static final String USB_HOST_LIB = "USBHost";
     private static final String NEO_PIXEL_LIB = "\"Adafruit NeoPixel\"";
     private static final String BUS_IO_LIB = "\"Adafruit BusIO\"";
     private static final String GFX_LIB = "\"Adafruit GFX Library\"";
@@ -73,7 +73,7 @@ public class ArduinoCLI {
 
         executeArduinoCLI(LIB_INSTALL_CMD + KEYBOARD_LIB);
 
-        executeArduinoCLI(LIB_INSTALL_CMD + USBHost_LIB);
+        executeArduinoCLI(LIB_INSTALL_CMD + USB_HOST_LIB);
 
         executeArduinoCLI(LIB_INSTALL_CMD + NEO_PIXEL_LIB);
 
