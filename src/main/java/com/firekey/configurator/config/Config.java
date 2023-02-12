@@ -114,7 +114,7 @@ public class Config {
      *
      * @throws IOException
      */
-    public void saveConfig() throws IOException {
+    public void save() throws IOException {
         try (FileWriter fw = new FileWriter(dataPath + CONFIG_FILE_NAME)) {
             fw.write(this.toJSON().toString(1));
         } catch (IOException e) {
