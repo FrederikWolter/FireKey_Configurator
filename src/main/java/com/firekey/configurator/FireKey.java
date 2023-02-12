@@ -12,8 +12,10 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 /**
@@ -27,6 +29,15 @@ public class FireKey {
         try {
             dataPath = getDataPath();
         } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArduinoCLI arduinoCLI = new ArduinoCLI(dataPath);
+        List<String> ports = arduinoCLI.getPorts();
+
+        try {
+            install(arduinoCLI);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -52,9 +63,6 @@ public class FireKey {
             throw new RuntimeException(e);
         }
 
-        ArduinoCLI arduinoCLI = new ArduinoCLI(dataPath);
-        List<String> ports = arduinoCLI.getPorts();
-
         //TODO HelloApplication Controller remove / rename -> FireKey Controller
         Application.launch(HelloApplication.class, args);
     }
@@ -67,8 +75,17 @@ public class FireKey {
     // region install
     // TODO Move to separate class? (Class Diagram defines it inside the FireKey-class)
 
-    private static void install() throws Exception {
-        exportResource("arduino-cli.exe", "arduino-cli.exe");
+    private static void install(ArduinoCLI arduinoCLI) throws Exception {
+        // TODO create install status bar
+        exportResource("arduino-cli.exe");
+        exportResource("arduino-cli.yaml");
+        exportResource("firmware/Config.h");
+        exportResource("firmware/Debug.h");
+        exportResource("firmware/Firmware.ino");
+        exportResource("firmware/Key.h");
+
+
+        arduinoCLI.init();
     }
 
     /**
@@ -77,8 +94,18 @@ public class FireKey {
      * @param resourceName The name of the resource
      * @throws Exception If the target file cant be found.
      */
-    private static void exportResource(String resourceName, String targetName) throws Exception {
-        File exportFile = new File(dataPath + targetName);
+    public static void exportResource(String resourceName) throws Exception {
+        exportResource(resourceName, resourceName);
+    }
+
+    /**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName The name of the resource
+     * @throws Exception If the target file cant be found.
+     */
+    public static void exportResource(String resourceName, String targetName) throws Exception {
+        File exportFile = new File(dataPath + resourceName);
         if (exportFile.exists()) {
             return;
         }
@@ -86,8 +113,14 @@ public class FireKey {
             if (stream == null) {
                 throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file."); // TODO custom exception?
             }
+            // create needed folders
+            Path newFilePath = Path.of(dataPath + targetName);
+            int fileNameSplitPos = newFilePath.toString().lastIndexOf(File.separator);
+            Path folders = Path.of(newFilePath.toString().substring(0, fileNameSplitPos + 1));
+            Files.createDirectories(folders);
 
-            Files.copy(stream, Path.of(dataPath + targetName));
+            // copy file
+            Files.copy(stream, newFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
 
     }
