@@ -79,7 +79,6 @@ public class ArduinoCLI {
 
         executeArduinoCLI(LIB_INSTALL_CMD + BUS_IO_LIB);
 
-
         executeArduinoCLI(LIB_INSTALL_CMD + GFX_LIB);
 
         executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB);

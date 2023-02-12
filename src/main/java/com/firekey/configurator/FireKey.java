@@ -91,8 +91,9 @@ public class FireKey {
     /**
      * Export a resource embedded into a Jar file to the local file path.
      *
-     * @param resourceName The name of the resource
+     * @param resourceName The name of the resource to copy
      * @throws Exception If the target file cant be found.
+     * @see #exportResource(String, String)
      */
     public static void exportResource(String resourceName) throws Exception {
         exportResource(resourceName, resourceName);
@@ -101,8 +102,10 @@ public class FireKey {
     /**
      * Export a resource embedded into a Jar file to the local file path.
      *
-     * @param resourceName The name of the resource
+     * @param resourceName TThe name of the resource to copy
+     * @param targetName   The target output file
      * @throws Exception If the target file cant be found.
+     * @see #dataPath
      */
     public static void exportResource(String resourceName, String targetName) throws Exception {
         File exportFile = new File(dataPath + resourceName);
