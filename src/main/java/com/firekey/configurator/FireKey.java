@@ -10,10 +10,10 @@ import javafx.application.Application;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -21,8 +21,9 @@ import java.util.List;
  */
 public class FireKey {
 
+    private static String dataPath;
+
     public static void main(String[] args) {
-        String dataPath;
         try {
             dataPath = getDataPath();
         } catch (URISyntaxException e) {
@@ -37,7 +38,7 @@ public class FireKey {
 
         JSONObject obj = c.toJSON();    // not part of the actual workflow
         try {
-            c.saveConfig();
+            c.save();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -62,5 +63,35 @@ public class FireKey {
         // TODO use System.getProperty("user.dir") instead?
         return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator) + File.separator;
     }
+
+    // region install
+    // TODO Move to separate class? (Class Diagram defines it inside the FireKey-class)
+
+    private static void install() throws Exception {
+        exportResource("arduino-cli.exe", "arduino-cli.exe");
+    }
+
+    /**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName The name of the resource
+     * @throws Exception If the target file cant be found.
+     */
+    private static void exportResource(String resourceName, String targetName) throws Exception {
+        File exportFile = new File(dataPath + targetName);
+        if (exportFile.exists()) {
+            return;
+        }
+        try (InputStream stream = FireKey.class.getResourceAsStream(resourceName)) {
+            if (stream == null) {
+                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file."); // TODO custom exception?
+            }
+
+            Files.copy(stream, Path.of(dataPath + targetName));
+        }
+
+    }
+
+    // endregion
 
 }
