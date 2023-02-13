@@ -2,6 +2,8 @@ package com.firekey.configurator.config;
 
 // TODO comments
 public enum KeyType {
-    NAVIGATION,
+    NAV_UP,
+    NAV_HOME,
+    NAV_DOWN,
     ACTION
 }

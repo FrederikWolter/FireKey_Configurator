@@ -88,7 +88,7 @@ public class Key {
     // region setter
     /**
      * Sets the {@link #name} of this {@link Key}.<br>
-     * Not used if {@link #type} is {@link KeyType#NAVIGATION}.
+     * Not used if {@link #type} is {@link KeyType#NAV_UP}, {@link KeyType#NAV_DOWN}, {@link KeyType#NAV_HOME}.
      *
      * @param name The new name of this {@link Key}
      */
@@ -107,7 +107,7 @@ public class Key {
 
     /**
      * Sets the {@link #function} of this {@link Key}.<br>
-     * Not used if the {@link #type} is {@link KeyType#NAVIGATION}.
+     * Not used if the {@link #type} is {@link KeyType#NAV_UP}, {@link KeyType#NAV_DOWN}, {@link KeyType#NAV_HOME}.
      *
      * @param function The new action-function of this {@link Key}
      */
