@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 //TODO remove me / rename
-public class HelloController {
+public class MainController {
     @FXML
     private Label welcomeText;
 

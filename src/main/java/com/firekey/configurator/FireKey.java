@@ -5,7 +5,7 @@ import com.firekey.configurator.config.Config;
 import com.firekey.configurator.config.Key;
 import com.firekey.configurator.config.KeyType;
 import com.firekey.configurator.config.Layer;
-import com.firekey.configurator.gui.HelloApplication;
+import com.firekey.configurator.gui.MainApplication;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
@@ -61,7 +61,7 @@ public class FireKey {
         }
 
         //TODO HelloApplication Controller remove / rename -> FireKey Controller
-        Application.launch(HelloApplication.class, args);
+        Application.launch(MainApplication.class, args);
     }
 
     private static String getDataPath() throws URISyntaxException {
