@@ -1,9 +1,9 @@
 package com.firekey.configurator.arduino;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,6 @@ import com.firekey.configurator.FireKey;
 public class ArduinoCLI {
 
     // region attributes
-    public static final String PATH_TO_CLI = "";
     private static final String CLI_RESOURCES_PATH = "arduino" + File.separator;
 
     //TODO make version dynamic
@@ -66,8 +65,18 @@ public class ArduinoCLI {
      * @throws IOException
      * @see #executeArduinoCLI(String)
      */
-    public void init() throws IOException {
-        // TODO optimize (maybe use bat-file to install?) or (simplify usage)
+    public void init() throws Exception {
+        // region copy required files
+        exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe");
+        exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml");
+        exportResource("firmware/Config.h");
+        exportResource("firmware/Config.h", "firmware/Config_default.h");
+        exportResource("firmware/Debug.h");
+        exportResource("firmware/Firmware.ino");
+        exportResource("firmware/Key.h");
+        // endregion
+
+
         // region install libs
 
         executeArduinoCLI(LIB_INSTALL_CMD + KEYBOARD_LIB);
@@ -90,7 +99,7 @@ public class ArduinoCLI {
             try {
                 // copy boards.txt with FireKey corresponding data
                 // TODO make dynamic (path could change in future)
-                FireKey.exportResource("boards.txt", AVR_PATH + "boards.txt");
+                exportResource("boards.txt", AVR_PATH + "boards.txt");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -100,8 +109,8 @@ public class ArduinoCLI {
 
     private Process executeArduinoCLI(String command) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(
-                "cmd.exe", "/c", dataPath + PATH_TO_CLI + "arduino-cli.exe " + command + " --config-file \"" + dataPath + PATH_TO_CLI + "arduino-cli.yaml\"");
-        processBuilder.directory(new File(dataPath + PATH_TO_CLI));
+                "cmd.exe", "/c", dataPath + CLI_RESOURCES_PATH + "arduino-cli.exe " + command + " --config-file \"" + dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
+        processBuilder.directory(new File(dataPath + CLI_RESOURCES_PATH));
         processBuilder.redirectErrorStream(true);
         Process p = processBuilder.start();
         BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -116,6 +125,47 @@ public class ArduinoCLI {
             System.out.println(line);
         }
         return p;
+    }
+
+    /**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName The name of the resource to copy
+     * @throws Exception If the target file cant be found.
+     * @see #exportResource(String, String)
+     */
+    private void exportResource(String resourceName) throws Exception {
+        exportResource(resourceName, resourceName);
+    }
+
+    /**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName TThe name of the resource to copy
+     * @param targetName   The target output file
+     * @throws Exception If the target file cant be found.
+     * @see #dataPath
+     */
+    private void exportResource(String resourceName, String targetName) throws Exception {
+        File exportFile = new File(dataPath + resourceName);
+        if (exportFile.exists()) {
+            return;
+        }
+        // We use FireKey here to use the FireKey-level as resource root
+        try (InputStream stream = FireKey.class.getResourceAsStream(resourceName)) {
+            if (stream == null) {
+                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file."); // TODO custom exception?
+            }
+            // create needed folders
+            Path newFilePath = Path.of(dataPath + targetName);
+            int fileNameSplitPos = newFilePath.toString().lastIndexOf(File.separator);
+            Path folders = Path.of(newFilePath.toString().substring(0, fileNameSplitPos + 1));
+            Files.createDirectories(folders);
+
+            // copy file
+            Files.copy(stream, newFilePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+
     }
 
 }
