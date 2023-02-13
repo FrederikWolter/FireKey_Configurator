@@ -19,7 +19,6 @@ public class Layer {
      * The display name of the {@link Layer}
      */
     private String name;
-
     /**
      * The list of {@link Key}s in this {@link Layer}
      */
@@ -78,7 +77,6 @@ public class Layer {
     // endregion
 
     // region setter
-
     /**
      * Sets the {@link #name} of this {@link Layer}.
      *
