@@ -41,7 +41,7 @@ public class FireKey {
             throw new RuntimeException(e);
         }
 
-        Key k = new Key("test", KeyType.Action, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
+        Key k = new Key("test", KeyType.ACTION, "Keyboard.press('x');\nKeyboard.press('y');", Color.GREEN);
         Layer l = new Layer("Layer1");
         l.setKey(0, k);
         Config c = new Config(50, 15, 10, 60, 50, dataPath);

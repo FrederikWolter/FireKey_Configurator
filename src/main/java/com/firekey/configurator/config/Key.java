@@ -35,13 +35,13 @@ public class Key {
      *
      * @param name         The display name of this {@link Key}
      * @param type         The {@link KeyType} of this {@link Key}
-     * @param function     The function, this {@link Key} is executing on press. Only set, if {@link #type} is not {@link KeyType#Layer}!
+     * @param function     The function, this {@link Key} is executing on press. Only set, if {@link #type} is not {@link KeyType#NAVIGATION}!
      * @param defaultColor The default color for this {@link Key}
      */
     public Key(String name, KeyType type, String function, Color defaultColor) {
         this.name = name;
         this.type = type;
-        if (type != KeyType.Layer)
+        if (type != KeyType.NAVIGATION)
             this.function = function;
         this.defaultColor = defaultColor;
     }
@@ -94,12 +94,12 @@ public class Key {
     // region setter
     /**
      * Sets the {@link #name} of this {@link Key}.<br>
-     * Only if the {@link #type} is not {@link KeyType#Layer}.
+     * Only if the {@link #type} is not {@link KeyType#NAVIGATION}.
      *
      * @param name The new name of this {@link Key}
      */
     public void setName(String name) {
-        if (this.getType() != KeyType.Layer)
+        if (this.getType() != KeyType.NAVIGATION)
             this.name = name;
     }
 
@@ -114,12 +114,12 @@ public class Key {
 
     /**
      * Sets the {@link #function} of this {@link Key}.<br>
-     * Only if the {@link #type} is not {@link KeyType#Layer}.
+     * Only if the {@link #type} is not {@link KeyType#NAVIGATION}.
      *
      * @param function The new action-function of this {@link Key}
      */
     public void setFunction(String function) {
-        if (this.getType() != KeyType.Layer)
+        if (this.getType() != KeyType.NAVIGATION)
             this.function = function;
     }
 
