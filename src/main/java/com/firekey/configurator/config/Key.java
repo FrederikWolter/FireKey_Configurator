@@ -92,7 +92,6 @@ public class Key {
 
 
     // region setter
-
     /**
      * Sets the {@link #name} of this {@link Key}.<br>
      * Only if the {@link #type} is not {@link KeyType#Layer}.
