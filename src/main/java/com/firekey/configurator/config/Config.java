@@ -13,7 +13,6 @@ import java.io.*;
 public class Config {
     // TODO comments
     // TODO implement changed system incl. getter
-    // TODO implement toFirmware & helpers
 
     // region constants
     public static final int NUM_LAYERS = 5;
@@ -36,6 +35,7 @@ public class Config {
         this.dataPath = dataPath;
     }
 
+    // TODO remove this constructor
     public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright, String dataPath) {
         this.spamDelay = spamDelay;
         this.holdDelay = holdDelay;
@@ -117,7 +117,7 @@ public class Config {
     }
 
     public void toFirmware() {
-        //TODO
+        // TODO implement toFirmware & helpers
     }
 
     /**
