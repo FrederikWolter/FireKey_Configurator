@@ -12,7 +12,6 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -22,8 +21,9 @@ import java.util.List;
  * Main entrypoint in this app.
  */
 public class FireKey {
-
+    // region attributes
     private static String dataPath;
+    // endregion
 
     public static void main(String[] args) {
         try {
@@ -33,7 +33,6 @@ public class FireKey {
         }
 
         ArduinoCLI arduinoCLI = new ArduinoCLI(dataPath);
-        List<String> ports = arduinoCLI.getPorts();
 
         try {
             install(arduinoCLI);
@@ -57,8 +56,6 @@ public class FireKey {
         Config c2;
         try {
             c2 = new Config(dataPath).load();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -83,7 +80,6 @@ public class FireKey {
         exportResource("firmware/Debug.h");
         exportResource("firmware/Firmware.ino");
         exportResource("firmware/Key.h");
-
 
         arduinoCLI.init();
     }

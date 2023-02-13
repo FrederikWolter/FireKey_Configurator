@@ -13,7 +13,6 @@ import com.firekey.configurator.FireKey;
 public class ArduinoCLI {
 
     // region attributes
-
     public static final String PATH_TO_CLI = "";
     private static final String CLI_RESOURCES_PATH = "arduino" + File.separator;
 

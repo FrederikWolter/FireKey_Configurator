@@ -11,9 +11,9 @@ import java.io.*;
  * Represents a whole FireKey config including its {@link Layer}s and the corresponding {@link Key}.
  */
 public class Config {
-    //TODO comments
+    // TODO comments
     // TODO implement changed system incl. getter
-    //TODO implement toFirmware & helpers
+    // TODO implement toFirmware & helpers
 
     // region constants
     public static final int NUM_LAYERS = 5;
@@ -23,17 +23,11 @@ public class Config {
 
     // region attributes
     private int spamDelay;
-
     private int holdDelay;
-
     private int debounceDelay;
-
     private int sleepDelay;
-
     private int ledBright;
-
     private final Layer[] layers;
-
     private final String dataPath;
     // endregion
 
@@ -149,7 +143,6 @@ public class Config {
                 .put("ledBright", this.ledBright)
                 .put("layers", layersJson);
     }
-
 
     // region getter
     public int getSpamDelay() {
