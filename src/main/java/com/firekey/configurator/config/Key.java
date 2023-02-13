@@ -12,18 +12,15 @@ public class Key {
      * The display name of this {@link Key}
      */
     private String name;
-
     /**
      * The {@link KeyType} of this {@link Key}<br>
      * This can be used to identify how to interpret other attributes like {@link #function}.
      */
     private KeyType type;
-
     /**
      * The function of this {@link Key} executed on the keyboard if the key is pressed with the corresponding {@link Layer} selected .
      */
     private String function;
-
     /**
      * The default color of this {@link Key} with the corresponding {@link Layer} selected.
      */
@@ -35,14 +32,13 @@ public class Key {
      *
      * @param name         The display name of this {@link Key}
      * @param type         The {@link KeyType} of this {@link Key}
-     * @param function     The function, this {@link Key} is executing on press. Only set, if {@link #type} is not {@link KeyType#NAVIGATION}!
+     * @param function     The function, this {@link Key} is executing on press.
      * @param defaultColor The default color for this {@link Key}
      */
     public Key(String name, KeyType type, String function, Color defaultColor) {
         this.name = name;
         this.type = type;
-        if (type != KeyType.NAVIGATION)
-            this.function = function;
+        this.function = function;
         this.defaultColor = defaultColor;
     }
 
@@ -60,7 +56,6 @@ public class Key {
     }
 
     // region getter
-
     /**
      * @return The {@link #name} of this {@link Key}
      */
@@ -90,17 +85,15 @@ public class Key {
     }
     // endregion
 
-
     // region setter
     /**
      * Sets the {@link #name} of this {@link Key}.<br>
-     * Only if the {@link #type} is not {@link KeyType#NAVIGATION}.
+     * Not used if {@link #type} is {@link KeyType#NAVIGATION}.
      *
      * @param name The new name of this {@link Key}
      */
     public void setName(String name) {
-        if (this.getType() != KeyType.NAVIGATION)
-            this.name = name;
+        this.name = name;
     }
 
     /**
@@ -114,13 +107,12 @@ public class Key {
 
     /**
      * Sets the {@link #function} of this {@link Key}.<br>
-     * Only if the {@link #type} is not {@link KeyType#NAVIGATION}.
+     * Not used if the {@link #type} is {@link KeyType#NAVIGATION}.
      *
      * @param function The new action-function of this {@link Key}
      */
     public void setFunction(String function) {
-        if (this.getType() != KeyType.NAVIGATION)
-            this.function = function;
+        this.function = function;
     }
 
     /**
