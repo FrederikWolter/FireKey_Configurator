@@ -16,10 +16,9 @@
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="NEVER" />
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="NEVER" />
         <RowConstraints vgrow="SOMETIMES" />
-        <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
+        <VBox styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowIndex="2">
             <children>
                 <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGeneralButtonClick" selected="true" styleClass="nav-button" stylesheets="@main-styling.css" text="General">
                    <toggleGroup>
@@ -73,6 +72,6 @@
             <String fx:value="head-pane" />
          </styleClass></HBox>
       <HBox alignment="TOP_RIGHT" styleClass="head-background" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
-      <AnchorPane fx:id="paneContent" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+      <AnchorPane fx:id="paneContent" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
     </children>
 </GridPane>

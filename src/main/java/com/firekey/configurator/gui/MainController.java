@@ -1,6 +1,7 @@
 package com.firekey.configurator.gui;
 
 import com.firekey.configurator.arduino.ArduinoCLI;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //TODO remove me / rename
 public class MainController implements Initializable {
@@ -28,8 +30,6 @@ public class MainController implements Initializable {
     private AnchorPane paneContent;
     @FXML
     private ToggleGroup tgNavigation;
-    @FXML
-    private TextArea cliOutput;
 
 
     /**
@@ -41,7 +41,26 @@ public class MainController implements Initializable {
     public void initArduinoCLI(String dataPath) throws Exception {
         this.dataPath = dataPath;
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
-        this.arduinoCLI.init(cliOutput);
+        TextArea ta = (TextArea) command.lookup("#taCliOutput");
+        ta.appendText("Hello\n");
+        ta.appendText("geht das?\n");
+
+        new Thread(){
+            @Override
+            public void run() {
+                AtomicInteger i = new AtomicInteger();
+                while (i.get() < 50){
+                    Platform.runLater(() -> ta.appendText("Ping " + i.getAndIncrement() + "\n") );
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+
+        //this.arduinoCLI.init(cliOutput);  // TODO cool design pattern?
     }
 
     // region listener
