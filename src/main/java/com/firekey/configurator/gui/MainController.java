@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     private GridPane general;
     private GridPane command;
+    private GridPane layer;
 
     @FXML
     private AnchorPane paneContent;
@@ -36,7 +37,7 @@ public class MainController implements Initializable {
     @FXML
     protected void onLayerButtonClick() {
         paneContent.getChildren().clear();
-        // TODO paneContent.getChildren().add(command);
+        paneContent.getChildren().add(layer);
     }
 
     @Override
@@ -44,6 +45,7 @@ public class MainController implements Initializable {
         try {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
+            layer   = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
             onGeneralButtonClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
