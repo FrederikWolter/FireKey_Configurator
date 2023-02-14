@@ -3,6 +3,7 @@ package com.firekey.configurator.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -17,6 +18,8 @@ public class MainController implements Initializable {
 
     @FXML
     private AnchorPane paneContent;
+    @FXML
+    private ToggleGroup tgNavigation;
 
     @FXML
     protected void onGeneralButtonClick() {
@@ -30,13 +33,25 @@ public class MainController implements Initializable {
         paneContent.getChildren().add(command);
     }
 
+    @FXML
+    protected void onLayerButtonClick() {
+        paneContent.getChildren().clear();
+        // TODO paneContent.getChildren().add(command);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
+            onGeneralButtonClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        // keep always one button in navigation selected
+        tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+            if (newVal == null) oldVal.setSelected(true);
+        });
     }
 }

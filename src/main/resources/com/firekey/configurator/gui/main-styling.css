@@ -14,10 +14,7 @@
 .nav-button:hover{
     -fx-background-color: #3c3c3c;
 }
-.nav-button:pressed{
-    -fx-background-color: #0178ba;
-}
-.nav-button:focused{
+.nav-button:selected{
     -fx-background-color: #0178ba;
 }
 .nav-separator{
