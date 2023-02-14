@@ -2,7 +2,6 @@ package com.firekey.configurator.gui;
 
 import com.firekey.configurator.arduino.ArduinoCLI;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,20 +15,22 @@ import java.util.ResourceBundle;
 
 //TODO remove me / rename
 public class MainController implements Initializable {
+    // region attributes
     private GridPane general;
     private GridPane command;
     private GridPane layer;
+
+    private ArduinoCLI arduinoCLI;
+    private String dataPath;
+    // endregion
 
     @FXML
     private AnchorPane paneContent;
     @FXML
     private ToggleGroup tgNavigation;
-
     @FXML
     private TextArea cliOutput;
 
-    private ArduinoCLI arduinoCLI;
-    private String dataPath;
 
     /**
      * Init the {@link ArduinoCLI}
@@ -43,6 +44,7 @@ public class MainController implements Initializable {
         this.arduinoCLI.init(cliOutput);
     }
 
+    // region listener
     @FXML
     protected void onGeneralButtonClick() {
         paneContent.getChildren().clear();
@@ -60,6 +62,7 @@ public class MainController implements Initializable {
         paneContent.getChildren().clear();
         paneContent.getChildren().add(layer);
     }
+    // endregion
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

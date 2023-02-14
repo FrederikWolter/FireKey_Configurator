@@ -15,12 +15,9 @@ import java.util.List;
 
 public class ArduinoCLI {
 
-    // region attributes
+    // region constants
     private static final String CLI_RESOURCES_PATH = "arduino" + File.separator;
-
-    //TODO make version dynamic
-    private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;
-
+    private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;       //TODO make version dynamic
     private static final String LIB_INSTALL_CMD = "lib install ";
     private static final String CORE_INSTALL_CMD = "core install ";
 
@@ -33,10 +30,11 @@ public class ArduinoCLI {
     private static final String U8G2_LIB = "\"U8g2\"";
     // endregion
 
-    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr";
+    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr";    // TODO really needed as const?
+    // endregion
 
+    // region attributes
     private final String dataPath;
-
     // endregion
 
     public ArduinoCLI(String dataPath) {
@@ -68,6 +66,7 @@ public class ArduinoCLI {
      * @throws Exception
      */
     public void init(TextArea textArea) throws Exception {
+        // TODO use constants (+ separator?)
         // region copy required files
         exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe");
         exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml");
@@ -77,7 +76,6 @@ public class ArduinoCLI {
         exportResource("firmware/Firmware.ino");
         exportResource("firmware/Key.h");
         // endregion
-
 
         // region install libs
         executeArduinoCLI(LIB_INSTALL_CMD + KEYBOARD_LIB, textArea);
@@ -105,9 +103,11 @@ public class ArduinoCLI {
     private Process executeArduinoCLI(String command, TextArea textArea) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "cmd.exe", "/c", dataPath + CLI_RESOURCES_PATH + "arduino-cli.exe " + command + " --config-file \"" + dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
+        // TODO cmd.exe etc. not needed?
         processBuilder.directory(new File(dataPath + CLI_RESOURCES_PATH));
         processBuilder.redirectErrorStream(true);
         Process p = processBuilder.start();
+        // TODO use cool design pattern for chaining?
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
         Task<Void> task = new Task<>() {
@@ -116,7 +116,7 @@ public class ArduinoCLI {
                 try {
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        String finalLine = line;
+                        String finalLine = line;    // TODO why?
                         Platform.runLater(() -> {
                             textArea.appendText(">" + finalLine + "\n");
                             textArea.setScrollTop(Double.MAX_VALUE);
@@ -152,11 +152,12 @@ public class ArduinoCLI {
      * @throws Exception If the target file cant be found.
      * @see #dataPath
      */
-    private void exportResource(String resourceName, String targetName) throws Exception {
+    private void exportResource(String resourceName, String targetName) throws Exception {  // TODO generalize this?
         File exportFile = new File(dataPath + resourceName);
-        if (exportFile.exists()) {
+
+        if (exportFile.exists())
             return;
-        }
+
         // We use FireKey here to use the FireKey-level as resource root
         try (InputStream stream = FireKey.class.getResourceAsStream(resourceName)) {
             if (stream == null) {
@@ -171,7 +172,5 @@ public class ArduinoCLI {
             // copy file
             Files.copy(stream, newFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
-
-    }
-
+    }   // TODO cleanup installation / file moving procedure
 }

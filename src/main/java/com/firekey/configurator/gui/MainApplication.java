@@ -20,7 +20,7 @@ public class MainApplication extends Application {
 
     public MainApplication() {
         try {
-            dataPath = getDataPath();
+            dataPath = getDataPath();   // TODO maybe move to start method?
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -31,11 +31,14 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = fxmlLoader.load();
         MainController controller = fxmlLoader.getController();
+
+        // TODO move to controller?
         try {
             controller.initArduinoCLI(dataPath);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         Scene scene = new Scene(root);     // TODO use 900, 600?
         stage.setTitle("Hello FireKey!");               // TODO change title
         stage.initStyle(StageStyle.DECORATED);      // TODO change to undecorated?
@@ -43,8 +46,9 @@ public class MainApplication extends Application {
         stage.show();
     }
 
+    // TODO only once used method?
     private static String getDataPath() throws URISyntaxException {
-        // TODO use System.getProperty("user.dir") instead?
+        // TODO use simpler way - e.g. System.getProperty("user.dir") instead?
         return new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator) + File.separator;
     }
 }
