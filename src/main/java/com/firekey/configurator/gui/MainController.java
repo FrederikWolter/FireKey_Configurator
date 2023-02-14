@@ -42,8 +42,6 @@ public class MainController implements Initializable {
         this.dataPath = dataPath;
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        ta.appendText("Hello\n");
-        ta.appendText("geht das?\n");
 
         new Thread(){
             @Override
@@ -99,6 +97,4 @@ public class MainController implements Initializable {
             if (newVal == null) oldVal.setSelected(true);
         });
     }
-
-
 }
