@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.firekey.configurator.gui.MainController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.firekey.configurator.gui.MainController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="NEVER" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <VBox styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
+            <children>
+                <Button id="btGeneral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="General" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="Command-Out" />
+            <Separator prefWidth="200.0" styleClass="nav-separator" stylesheets="@main-styling.css" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 1" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 2" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 3" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 4" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 5" />
+            </children>
+        </VBox>
+      <VBox alignment="CENTER" styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowSpan="2">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/FireKey_Logo_Basic_293x85.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <HBox alignment="BOTTOM_LEFT" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TextField maxWidth="1.7976931348623157E308" styleClass="head-layer-input" stylesheets="@main-styling.css" HBox.hgrow="SOMETIMES" />
+         </children>
+         <styleClass>
+            <String fx:value="head-background" />
+            <String fx:value="head-pane" />
+         </styleClass></HBox>
+      <HBox alignment="BOTTOM_RIGHT" spacing="5.0" stylesheets="@main-styling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <ChoiceBox prefWidth="150.0" styleClass="head-control" stylesheets="@main-styling.css" />
+            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic></Button>
+            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button" />
+            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button" />
+         </children>
+         <styleClass>
+            <String fx:value="head-background" />
+            <String fx:value="head-pane" />
+         </styleClass></HBox>
+      <HBox styleClass="head-background" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+    </children>
+</GridPane>
