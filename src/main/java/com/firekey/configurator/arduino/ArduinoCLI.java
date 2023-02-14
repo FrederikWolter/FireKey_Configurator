@@ -1,5 +1,11 @@
 package com.firekey.configurator.arduino;
 
+import com.fazecast.jSerialComm.SerialPort;
+import com.firekey.configurator.FireKey;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.scene.control.TextArea;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,16 +13,13 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fazecast.jSerialComm.SerialPort;
-import com.firekey.configurator.FireKey;
-
 public class ArduinoCLI {
 
     // region attributes
     private static final String CLI_RESOURCES_PATH = "arduino" + File.separator;
 
     //TODO make version dynamic
-    private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator +"avr" + File.separator + "1.8.6" + File.separator;
+    private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;
 
     private static final String LIB_INSTALL_CMD = "lib install ";
     private static final String CORE_INSTALL_CMD = "core install ";
@@ -41,7 +44,7 @@ public class ArduinoCLI {
     }
 
     public void upload(String port) {
-
+        // TODO
     }
 
     /**
@@ -62,10 +65,9 @@ public class ArduinoCLI {
     /**
      * Install all required libs and boards
      *
-     * @throws IOException
-     * @see #executeArduinoCLI(String)
+     * @throws Exception
      */
-    public void init() throws Exception {
+    public void init(TextArea textArea) throws Exception {
         // region copy required files
         exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe");
         exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml");
@@ -78,24 +80,17 @@ public class ArduinoCLI {
 
 
         // region install libs
-
-        executeArduinoCLI(LIB_INSTALL_CMD + KEYBOARD_LIB);
-
-        executeArduinoCLI(LIB_INSTALL_CMD + USB_HOST_LIB);
-
-        executeArduinoCLI(LIB_INSTALL_CMD + NEO_PIXEL_LIB);
-
-        executeArduinoCLI(LIB_INSTALL_CMD + BUS_IO_LIB);
-
-        executeArduinoCLI(LIB_INSTALL_CMD + GFX_LIB);
-
-        executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB);
-
-        executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB);
+        executeArduinoCLI(LIB_INSTALL_CMD + KEYBOARD_LIB, textArea);
+        executeArduinoCLI(LIB_INSTALL_CMD + USB_HOST_LIB, textArea);
+        executeArduinoCLI(LIB_INSTALL_CMD + NEO_PIXEL_LIB, textArea);
+        executeArduinoCLI(LIB_INSTALL_CMD + BUS_IO_LIB, textArea);
+        executeArduinoCLI(LIB_INSTALL_CMD + GFX_LIB, textArea);
+        executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB, textArea);
+        executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB, textArea);
         // endregion
 
         // region install board
-        executeArduinoCLI(CORE_INSTALL_CMD + FIRE_KEY_BOARD_CORE).onExit().thenAccept(process -> {
+        executeArduinoCLI(CORE_INSTALL_CMD + FIRE_KEY_BOARD_CORE, textArea).onExit().thenAccept(process -> {
             try {
                 // copy boards.txt with FireKey corresponding data
                 // TODO make dynamic (path could change in future)
@@ -107,24 +102,35 @@ public class ArduinoCLI {
         // region install board
     }
 
-    private Process executeArduinoCLI(String command) throws IOException {
+    private Process executeArduinoCLI(String command, TextArea textArea) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "cmd.exe", "/c", dataPath + CLI_RESOURCES_PATH + "arduino-cli.exe " + command + " --config-file \"" + dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
         processBuilder.directory(new File(dataPath + CLI_RESOURCES_PATH));
         processBuilder.redirectErrorStream(true);
         Process p = processBuilder.start();
-        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        // TODO create install status bar
-        // TODO remove sync prints
-        String line;
-        while (true) {
-            line = r.readLine();
-            if (line == null) {
-                break;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                try {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String finalLine = line;
+                        Platform.runLater(() -> {
+                            textArea.appendText(">" + finalLine + "\n");
+                            textArea.setScrollTop(Double.MAX_VALUE);
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-            System.out.println(line);
-        }
-        return p;
+        };
+        new Thread(task).start();
+
+        return p;   // TODO/CHECK: Add "Consumer<Process> onExit" as lambda action on exit to the function?
     }
 
     /**

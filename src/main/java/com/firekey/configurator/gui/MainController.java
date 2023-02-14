@@ -1,6 +1,9 @@
 package com.firekey.configurator.gui;
 
+import com.firekey.configurator.arduino.ArduinoCLI;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleGroup;
@@ -21,6 +24,24 @@ public class MainController implements Initializable {
     private AnchorPane paneContent;
     @FXML
     private ToggleGroup tgNavigation;
+
+    @FXML
+    private TextArea cliOutput;
+
+    private ArduinoCLI arduinoCLI;
+    private String dataPath;
+
+    /**
+     * Init the {@link ArduinoCLI}
+     *
+     * @param dataPath The root resource path next to the jar.
+     * @throws Exception TODO
+     */
+    public void initArduinoCLI(String dataPath) throws Exception {
+        this.dataPath = dataPath;
+        this.arduinoCLI = new ArduinoCLI(this.dataPath);
+        this.arduinoCLI.init(cliOutput);
+    }
 
     @FXML
     protected void onGeneralButtonClick() {
@@ -56,4 +77,6 @@ public class MainController implements Initializable {
             if (newVal == null) oldVal.setSelected(true);
         });
     }
+
+
 }
