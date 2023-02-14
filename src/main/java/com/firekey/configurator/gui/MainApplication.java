@@ -39,8 +39,10 @@ public class MainApplication extends Application {
             throw new RuntimeException(e);
         }
 
-        Scene scene = new Scene(root);     // TODO use 900, 600?
-        stage.setTitle("Hello FireKey!");               // TODO change title
+        Scene scene = new Scene(root);
+        stage.setMinHeight(600.0 + 40);
+        stage.setMinWidth(950.0 + 20);
+        stage.setTitle("FireKey-Configurator " + FireKey.VERSION);
         stage.initStyle(StageStyle.DECORATED);      // TODO change to undecorated?
         stage.setScene(scene);
         stage.show();

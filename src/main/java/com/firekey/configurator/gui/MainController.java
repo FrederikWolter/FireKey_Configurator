@@ -100,6 +100,4 @@ public class MainController implements Initializable {
             if (newVal == null) oldVal.setSelected(true);
         });
     }
-
-
 }
