@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.firekey.configurator.gui.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.firekey.configurator.gui.MainController">
     <columnConstraints>
-        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="230.0" />
         <ColumnConstraints hgrow="SOMETIMES" />
         <ColumnConstraints hgrow="SOMETIMES" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="NEVER" />
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="NEVER" />
         <RowConstraints vgrow="SOMETIMES" />
         <RowConstraints vgrow="SOMETIMES" />
@@ -33,7 +33,7 @@
         </VBox>
       <VBox alignment="CENTER" styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowSpan="2">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="100.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/FireKey_Logo_Basic_293x85.png" />
                </image>
@@ -42,7 +42,7 @@
       </VBox>
       <HBox alignment="BOTTOM_LEFT" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <TextField maxWidth="1.7976931348623157E308" styleClass="head-layer-input" stylesheets="@main-styling.css" HBox.hgrow="SOMETIMES" />
+            <TextField maxWidth="1.7976931348623157E308" promptText="Layer Name" styleClass="head-layer-input" stylesheets="@main-styling.css" HBox.hgrow="SOMETIMES" />
          </children>
          <styleClass>
             <String fx:value="head-background" />
@@ -50,18 +50,24 @@
          </styleClass></HBox>
       <HBox alignment="BOTTOM_RIGHT" spacing="5.0" stylesheets="@main-styling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <ChoiceBox prefWidth="150.0" styleClass="head-control" stylesheets="@main-styling.css" />
-            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css">
+            <ChoiceBox prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
                <graphic>
-                  <FontIcon iconLiteral="fab-adversal" strokeType="OUTSIDE" />
+                  <FontIcon iconLiteral="fas-trash-alt" iconSize="32" styleClass="head-icon" />
                </graphic></Button>
-            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button" />
-            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
+               <graphic>
+                  <FontIcon iconLiteral="fas-save" iconSize="32" styleClass="head-icon" />
+               </graphic></Button>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
+               <graphic>
+                  <FontIcon iconLiteral="fas-download" iconSize="30" styleClass="head-icon" />
+               </graphic></Button>
          </children>
          <styleClass>
             <String fx:value="head-background" />
             <String fx:value="head-pane" />
          </styleClass></HBox>
-      <HBox styleClass="head-background" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+      <HBox alignment="TOP_RIGHT" styleClass="head-background" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
     </children>
 </GridPane>

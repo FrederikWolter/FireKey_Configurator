@@ -2,13 +2,12 @@
 .nav-background{
     -fx-background-color: #161616;
 }
-
 .nav-button{
     -fx-text-fill: #c7c7c7;
     -fx-background-color: #161616;
     -fx-background-radius: 0;
     -fx-alignment: BASELINE_LEFT;
-    -fx-padding: 0 0 0 25;
+    -fx-padding: 0 0 0 35;
     -fx-font-size: 18;
     -fx-pref-height: 40;
 }
@@ -16,10 +15,10 @@
     -fx-background-color: #3c3c3c;
 }
 .nav-button:pressed{
-    -fx-background-color: #2979bc;
+    -fx-background-color: #0178ba;
 }
 .nav-button:focused{
-    -fx-background-color: #2979bc;
+    -fx-background-color: #0178ba;
 }
 .nav-separator{
     -fx-padding: 10 20 10 20;
@@ -40,7 +39,14 @@
     -fx-pref-height: 40;
     -fx-font-size: 18;
 }
-.head-control{
+.head-button{
     -fx-pref-height: 40;
+    -fx-pref-width: 40;
+}
+.head-ports{
+    -fx-pref-height: 40;
+}
+.head-icon{
+    -fx-icon-color: #f67b42;
 }
 /* endregion */
