@@ -4,6 +4,9 @@ module com.firekey.configurator {
     requires javafx.graphics;
     requires com.fazecast.jSerialComm;
     requires org.json;
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.fontawesome5;
 
     exports com.firekey.configurator;
     exports com.firekey.configurator.gui;

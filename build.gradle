@@ -32,9 +32,8 @@ javafx {
     version = '17.0.2'
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
-
+// TODO cleanup file
 dependencies {
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
@@ -54,6 +53,8 @@ dependencies {
     implementation group: 'org.json', name: 'json', version: '20220924'
 
     implementation 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1'
 }
 
 test {
@@ -71,6 +72,7 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+
 /* re-add to build jar with all dep.
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

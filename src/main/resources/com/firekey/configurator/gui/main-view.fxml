@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.firekey.configurator.gui.MainController">
     <columnConstraints>
@@ -50,9 +51,9 @@
       <HBox alignment="BOTTOM_RIGHT" spacing="5.0" stylesheets="@main-styling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
             <ChoiceBox prefWidth="150.0" styleClass="head-control" stylesheets="@main-styling.css" />
-            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button">
+            <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <FontIcon iconLiteral="fab-adversal" strokeType="OUTSIDE" />
                </graphic></Button>
             <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button" />
             <Button mnemonicParsing="false" styleClass="head-control" stylesheets="@main-styling.css" text="Button" />
