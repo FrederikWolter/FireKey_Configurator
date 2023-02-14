@@ -7,19 +7,32 @@ import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ArduinoCLI {
 
     // region constants
-    private static final String CLI_RESOURCES_PATH = "arduino" + File.separator;
-    private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;       //TODO make version dynamic
-    private static final String LIB_INSTALL_CMD = "lib install ";
-    private static final String CORE_INSTALL_CMD = "core install ";
+    /**
+     * Path to the firmware-files inside the resources.
+     * We have to use '/', because this is the separator inside a jar file.
+     */
+    private static final String FIRMWARE_RESOURCE_PATH = "firmware/";
+    private static final String FIRMWARE_DATA_PATH = "Firmware" + File.separator;
+    private static final String CLI_RESOURCES_PATH = "Arduino" + File.separator;
+
+    private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;
+
+    private static final String LIB_CMD = "lib";
+    private static final String CORE_CMD = "core";
+    private static final String INSTALL_CMD = "install";
+    private static final String UPLOAD_CMD = "upload";
+    private static final String COMPILE_CMD = "compile";
 
     // region libs
     private static final String KEYBOARD_LIB = "Keyboard";
@@ -30,7 +43,8 @@ public class ArduinoCLI {
     private static final String U8G2_LIB = "\"U8g2\"";
     // endregion
 
-    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr";    // TODO really needed as const?
+    // region arduino core
+    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr@1.8.6";  // TODO/CHECK: Don't limit version? really needed as const?
     // endregion
 
     // region attributes
@@ -41,8 +55,14 @@ public class ArduinoCLI {
         this.dataPath = dataPath;
     }
 
-    public void upload(String port) {
-        // TODO
+    public void upload(String port, TextArea textArea) throws IOException {
+        this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
+            try {
+                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -70,28 +90,26 @@ public class ArduinoCLI {
         // region copy required files
         exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe");
         exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml");
-        exportResource("firmware/Config.h");
-        exportResource("firmware/Config.h", "firmware/Config_default.h");
-        exportResource("firmware/Debug.h");
-        exportResource("firmware/Firmware.ino");
-        exportResource("firmware/Key.h");
+        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_DATA_PATH + "Config.h");
+        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_RESOURCE_PATH + "Config_default.h");
+        exportResource(FIRMWARE_RESOURCE_PATH + "Debug.h", FIRMWARE_DATA_PATH + "Debug.h");
+        exportResource(FIRMWARE_RESOURCE_PATH + "Firmware.ino", FIRMWARE_DATA_PATH + "Firmware.ino");
+        exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h");
         // endregion
 
         // region install libs
-        executeArduinoCLI(LIB_INSTALL_CMD + KEYBOARD_LIB, textArea);
-        executeArduinoCLI(LIB_INSTALL_CMD + USB_HOST_LIB, textArea);
-        executeArduinoCLI(LIB_INSTALL_CMD + NEO_PIXEL_LIB, textArea);
-        executeArduinoCLI(LIB_INSTALL_CMD + BUS_IO_LIB, textArea);
-        executeArduinoCLI(LIB_INSTALL_CMD + GFX_LIB, textArea);
-        executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB, textArea);
-        executeArduinoCLI(LIB_INSTALL_CMD + U8G2_LIB, textArea);
+        runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, KEYBOARD_LIB);
+        runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, USB_HOST_LIB);
+        runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, NEO_PIXEL_LIB);
+        runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, BUS_IO_LIB);
+        runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, GFX_LIB);
+        runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, U8G2_LIB);
         // endregion
 
         // region install board
-        executeArduinoCLI(CORE_INSTALL_CMD + FIRE_KEY_BOARD_CORE, textArea).onExit().thenAccept(process -> {
+        runArduinoCLI(textArea, CORE_CMD, INSTALL_CMD, FIRE_KEY_BOARD_CORE).onExit().thenAccept(process -> {
             try {
                 // copy boards.txt with FireKey corresponding data
-                // TODO make dynamic (path could change in future)
                 exportResource("boards.txt", AVR_PATH + "boards.txt");
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -100,15 +118,21 @@ public class ArduinoCLI {
         // region install board
     }
 
-    private Process executeArduinoCLI(String command, TextArea textArea) throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder(
-                "cmd.exe", "/c", dataPath + CLI_RESOURCES_PATH + "arduino-cli.exe " + command + " --config-file \"" + dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
-        // TODO cmd.exe etc. not needed?
+    private Process runArduinoCLI(TextArea textArea, String... commands) throws IOException {
+        List<String> runCommands = new ArrayList<>();
+        runCommands.add(dataPath + CLI_RESOURCES_PATH + "arduino-cli.exe");
+        Collections.addAll(runCommands, commands);
+        return buildArduinoCLIProcess(textArea, runCommands);
+    }
+
+    private Process buildArduinoCLIProcess(TextArea textArea, List<String> commands) throws IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder(commands);
+        processBuilder.environment().put("config-file", dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
         processBuilder.directory(new File(dataPath + CLI_RESOURCES_PATH));
         processBuilder.redirectErrorStream(true);
         Process p = processBuilder.start();
         // TODO use cool design pattern for chaining?
-        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
 
         Task<Void> task = new Task<>() {
             @Override
@@ -116,10 +140,10 @@ public class ArduinoCLI {
                 try {
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        String finalLine = line;    // TODO why?
+                        String finalLine = line;
                         Platform.runLater(() -> {
-                            textArea.appendText(">" + finalLine + "\n");
-                            textArea.setScrollTop(Double.MAX_VALUE);
+                                textArea.appendText(">" + finalLine + "\n");
+                                textArea.setScrollTop(Double.MAX_VALUE);
                         });
                     }
                 } catch (IOException e) {
@@ -130,18 +154,7 @@ public class ArduinoCLI {
         };
         new Thread(task).start();
 
-        return p;   // TODO/CHECK: Add "Consumer<Process> onExit" as lambda action on exit to the function?
-    }
-
-    /**
-     * Export a resource embedded into a Jar file to the local file path.
-     *
-     * @param resourceName The name of the resource to copy
-     * @throws Exception If the target file cant be found.
-     * @see #exportResource(String, String)
-     */
-    private void exportResource(String resourceName) throws Exception {
-        exportResource(resourceName, resourceName);
+        return p;
     }
 
     /**
@@ -153,7 +166,7 @@ public class ArduinoCLI {
      * @see #dataPath
      */
     private void exportResource(String resourceName, String targetName) throws Exception {  // TODO generalize this?
-        File exportFile = new File(dataPath + resourceName);
+        File exportFile = new File(dataPath + targetName);
 
         if (exportFile.exists())
             return;

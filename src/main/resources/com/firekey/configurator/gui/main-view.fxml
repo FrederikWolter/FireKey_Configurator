@@ -62,7 +62,7 @@
                <graphic>
                   <FontIcon iconLiteral="fas-save" iconSize="32" styleClass="head-icon" />
                </graphic></Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
+            <Button onAction="#onUploadFirmwareClick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
                <graphic>
                   <FontIcon iconLiteral="fas-download" iconSize="30" styleClass="head-icon" />
                </graphic></Button>

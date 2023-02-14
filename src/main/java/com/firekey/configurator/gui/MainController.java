@@ -1,11 +1,10 @@
 package com.firekey.configurator.gui;
 
 import com.firekey.configurator.arduino.ArduinoCLI;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -13,7 +12,8 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //TODO remove me / rename
 public class MainController implements Initializable {
@@ -42,25 +42,7 @@ public class MainController implements Initializable {
         this.dataPath = dataPath;
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        ta.appendText("Hello\n");
-        ta.appendText("geht das?\n");
-
-        new Thread(){
-            @Override
-            public void run() {
-                AtomicInteger i = new AtomicInteger();
-                while (i.get() < 50){
-                    Platform.runLater(() -> ta.appendText("Ping " + i.getAndIncrement() + "\n") );
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-
-        //this.arduinoCLI.init(cliOutput);  // TODO cool design pattern?
+        this.arduinoCLI.init(ta);  // TODO cool design pattern?
     }
 
     // region listener
@@ -68,6 +50,25 @@ public class MainController implements Initializable {
     protected void onGeneralButtonClick() {
         paneContent.getChildren().clear();
         paneContent.getChildren().add(general);
+    }
+
+    @FXML
+    protected void onUploadFirmwareClick() {
+        // TODO get correct port
+        TextArea ta = (TextArea) command.lookup("#taCliOutput");
+        String port = arduinoCLI.getPorts().get(0);
+        Pattern pattern = Pattern.compile("(COM[0-9])");
+        Matcher matcher = pattern.matcher(port);
+        if (!matcher.find())
+        {
+            return;
+        }
+        port = matcher.group();
+        try {
+            arduinoCLI.upload(port, ta);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
