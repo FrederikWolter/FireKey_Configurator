@@ -1,15 +1,42 @@
 package com.firekey.configurator.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 //TODO remove me / rename
-public class MainController {
-    @FXML
-    private Label welcomeText;
+public class MainController implements Initializable {
+    private GridPane general;
+    private GridPane command;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private AnchorPane paneContent;
+
+    @FXML
+    protected void onGeneralButtonClick() {
+        paneContent.getChildren().clear();
+        paneContent.getChildren().add(general);
+    }
+
+    @FXML
+    protected void onCommandButtonClick() {
+        paneContent.getChildren().clear();
+        paneContent.getChildren().add(command);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
+            command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
