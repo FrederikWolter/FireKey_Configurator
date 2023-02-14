@@ -12,15 +12,13 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.List;
 
 /**
  * Main entrypoint in this app.
  */
 public class FireKey {
+    public static final String VERSION = "V0.0.0";
+
     // region attributes
     private static String dataPath;
     // endregion
