@@ -114,18 +114,6 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);  // TODO handling
         }
 
-        Config config = new Config(1, 2, 3, 4, 5, dataPath); // TODO load
-        Layer layer = new Layer("Test");
-        Key key = new Key("Action1", KeyType.ACTION, "Keyboard.press('t');\nKeyboard.press('z');", Color.rgb(255, 0, 0, 1));
-        layer.setKey(0, key);
-        config.setLayer(0, layer);
-
-        try {
-            config.toFirmware();
-        } catch (IOException e) {
-            throw new RuntimeException(e); // TODO handling
-        }
-
         // keep always one button in navigation selected
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null) oldVal.setSelected(true);
