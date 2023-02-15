@@ -1,6 +1,8 @@
 package com.firekey.configurator.gui;
 
+import com.firekey.configurator.FireKey;
 import com.firekey.configurator.arduino.ArduinoCLI;
+import com.firekey.configurator.config.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,7 +11,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -71,8 +75,7 @@ public class MainController implements Initializable {
         String port = arduinoCLI.getPorts().get(0);
         Pattern pattern = Pattern.compile("(COM[0-9])");
         Matcher matcher = pattern.matcher(port);
-        if (!matcher.find())
-        {
+        if (!matcher.find()) {
             return;
         }
         port = matcher.group();
@@ -87,12 +90,31 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            this.dataPath = new File(FireKey.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace("\\", File.separator) + File.separator;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e); // TODO handling
+        }
+
+        try {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
-            layer   = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
+            layer = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
             onGeneralClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        try {
+            this.initArduinoCLI(dataPath);
+        } catch (Exception e) {
+            throw new RuntimeException(e);  // TODO handling
+        }
+
+        Config config = new Config(dataPath); // TODO load
+        try {
+            config.toFirmware();
+        } catch (IOException e) {
+            throw new RuntimeException(e); // TODO handling
         }
 
         // keep always one button in navigation selected
