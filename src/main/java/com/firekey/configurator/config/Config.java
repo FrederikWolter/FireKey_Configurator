@@ -152,6 +152,11 @@ public class Config {
         return definitions;
     }
 
+    /**
+     * Add the general information to the definitions map
+     *
+     * @param definitions The definitions-map
+     */
     private void addGeneralDefinitions(Map<String, String> definitions) {
         definitions.put("SPAM_DELAY 15", "SPAM_DELAY " + this.getSpamDelay());
         definitions.put("HOLD_DELAY 100", "HOLD_DELAY " + this.getHoldDelay());
@@ -160,6 +165,11 @@ public class Config {
         definitions.put("LED_BRIGHT 64", "LED_BRIGHT " + this.getLedBright());
     }
 
+    /**
+     * Add the layer information to the definitions map
+     *
+     * @param definitions The definitions-map
+     */
     private void addLayerDefinitions(Map<String, String> definitions) {
         for (int layerIdx = 0; layerIdx < NUM_LAYERS; layerIdx++) {
             Layer layer = this.getLayer(layerIdx);
@@ -171,6 +181,13 @@ public class Config {
         }
     }
 
+    /**
+     * Add the key information to the definitions map
+     *
+     * @param definitions The definitions-map
+     * @param layerIdx The current layer index
+     * @param layer The current layer
+     */
     private void addKeyDefinitions(Map<String, String> definitions, int layerIdx, Layer layer) {
         for (int keyIdx = 0; keyIdx < Layer.NUM_KEYS; keyIdx++) {
             Key key = layer.getKey(keyIdx);
