@@ -23,7 +23,7 @@ public class ArduinoCLI {
      * We have to use '/', because this is the separator inside a jar file.
      */
     private static final String FIRMWARE_RESOURCE_PATH = "firmware/";
-    private static final String FIRMWARE_DATA_PATH = "Firmware" + File.separator;
+    public static final String FIRMWARE_DATA_PATH = "Firmware" + File.separator;
     private static final String CLI_RESOURCES_PATH = "Arduino" + File.separator;
 
     private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;

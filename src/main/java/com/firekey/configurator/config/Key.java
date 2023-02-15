@@ -7,6 +7,10 @@ import org.json.JSONObject;
  * Represents a single key on a specific {@link Layer} of the macro-keyboard FireKey.
  */
 public class Key {
+    public static final String NAME = "name";
+    public static final String TYPE = "type";
+    public static final String FUNCTION = "function";
+    public static final String DEFAULT_COLOR = "defaultColor";
     // region attributes
     /**
      * The display name of this {@link Key}
@@ -49,10 +53,10 @@ public class Key {
      */
     public JSONObject toJSON() {
         return new JSONObject()
-                .put("name", this.getName())
-                .put("type", this.getType())
-                .put("function", this.getFunction())
-                .put("defaultColor", this.getDefaultColor());
+                .put(NAME, this.getName())
+                .put(TYPE, this.getType())
+                .put(FUNCTION, this.getFunction())
+                .put(DEFAULT_COLOR, this.getDefaultColor());
     }
 
     // region getter

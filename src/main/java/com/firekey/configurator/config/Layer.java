@@ -12,6 +12,8 @@ public class Layer {
      * Number of keys per {@link Layer} the macro-keyboard FireKey has.
      */
     public static final int NUM_KEYS = 15;
+    public static final String NAME = "name";
+    public static final String KEYS = "keys";
     // endregion
 
     // region attributes
@@ -51,8 +53,8 @@ public class Layer {
         }
 
         return new JSONObject()
-                .put("name", this.name)
-                .put("keys", keysJson);
+                .put(NAME, this.name)
+                .put(KEYS, keysJson);
     }
 
     // region getter

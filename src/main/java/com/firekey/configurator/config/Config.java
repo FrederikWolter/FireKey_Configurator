@@ -1,11 +1,16 @@
 package com.firekey.configurator.config;
 
+import com.firekey.configurator.arduino.ArduinoCLI;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.*;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Represents a whole FireKey config including its {@link Layer}s and the corresponding {@link Key}.
@@ -18,6 +23,12 @@ public class Config {
     public static final int NUM_LAYERS = 5;
     private static final String CONFIG_FILE_NAME = "firekey_config.json";
     private static final String DEFAULT_CONFIG_FILE_NAME = "firekey_config_default.json";
+    public static final String HOLD_DELAY = "holdDelay";
+    public static final String DEBOUNCE_DELAY = "debounceDelay";
+    public static final String SLEEP_DELAY = "sleepDelay";
+    public static final String LED_BRIGHT = "ledBright";
+    public static final String SPAM_DELAY = "spamDelay";
+    public static final String LAYERS = "layers";
     // endregion
 
     // region attributes
@@ -50,32 +61,32 @@ public class Config {
         JSONObject configJson = this.loadJsonConfig();
 
         // get config values
-        this.setSpamDelay(configJson.getInt("spamDelay"));  // TODO extract all names to const?
-        this.setHoldDelay(configJson.getInt("holdDelay"));
-        this.setDebounceDelay(configJson.getInt("debounceDelay"));
-        this.setSleepDelay(configJson.getInt("sleepDelay"));
-        this.setLedBright(configJson.getInt("ledBright"));
+        this.setSpamDelay(configJson.getInt(SPAM_DELAY));
+        this.setHoldDelay(configJson.getInt(HOLD_DELAY));
+        this.setDebounceDelay(configJson.getInt(DEBOUNCE_DELAY));
+        this.setSleepDelay(configJson.getInt(SLEEP_DELAY));
+        this.setLedBright(configJson.getInt(LED_BRIGHT));
 
         // get layers
-        JSONArray layerJSONArray = configJson.getJSONArray("layers");
+        JSONArray layerJSONArray = configJson.getJSONArray(LAYERS);
         for (int layerIdx = 0; layerIdx < NUM_LAYERS; layerIdx++) {
             // get current layer
             JSONObject layerJson = layerJSONArray.optJSONObject(layerIdx);
             if (layerJson != null) {
                 // get layer values
-                Layer layer = new Layer(layerJson.getString("name"));
+                Layer layer = new Layer(layerJson.getString(Layer.NAME));
 
                 // get keys
-                JSONArray keyJSONArray = layerJson.getJSONArray("keys");
+                JSONArray keyJSONArray = layerJson.getJSONArray(Layer.KEYS);
                 for (int keyIdx = 0; keyIdx < Layer.NUM_KEYS; keyIdx++) {
                     // get current key
                     JSONObject keyJson = keyJSONArray.optJSONObject(keyIdx);
                     if (keyJson != null) {
                         Key key = new Key(
-                                keyJson.getString("name"),
-                                keyJson.getEnum(KeyType.class, "type"),
-                                keyJson.getString("function"),
-                                Color.web(keyJson.getString("defaultColor"))
+                                keyJson.getString(Key.NAME),
+                                keyJson.getEnum(KeyType.class, Key.TYPE),
+                                keyJson.getString(Key.FUNCTION),
+                                Color.web(keyJson.getString(Key.DEFAULT_COLOR))
                         );
                         // add key to layer
                         layer.setKey(keyIdx, key);
@@ -116,8 +127,22 @@ public class Config {
         }
     }
 
-    public void toFirmware() {
-        // TODO implement toFirmware & helpers
+    public void toFirmware() throws IOException {
+        replaceFirmwareConfigFile();
+        // TODO
+    }
+
+    /**
+     * Replaces the Config.h-file inside the {@link #dataPath} with Config_default.h
+     *
+     * @throws IOException {@link  Files#copy(Path, Path, CopyOption...)}
+     */
+    private void replaceFirmwareConfigFile() throws IOException {
+        if (!new File(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config_default.h").exists()) {
+            return; // TODO error
+        }
+        // TODO/CHECK: instead of copy the file inside the data path, copy it from the resources?
+        Files.copy(Path.of(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config_default.h"), Path.of(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config.h"), StandardCopyOption.REPLACE_EXISTING);
     }
 
     /**
@@ -136,12 +161,12 @@ public class Config {
         }
 
         return new JSONObject()
-                .put("spamDelay", this.spamDelay)
-                .put("holdDelay", this.holdDelay)
-                .put("debounceDelay", this.debounceDelay)
-                .put("sleepDelay", this.sleepDelay)
-                .put("ledBright", this.ledBright)
-                .put("layers", layersJson);
+                .put(SPAM_DELAY, this.spamDelay)
+                .put(HOLD_DELAY, this.holdDelay)
+                .put(DEBOUNCE_DELAY, this.debounceDelay)
+                .put(SLEEP_DELAY, this.sleepDelay)
+                .put(LED_BRIGHT, this.ledBright)
+                .put(LAYERS, layersJson);
     }
 
     // region getter
