@@ -56,9 +56,9 @@ public class ArduinoCLI {
     }
 
     public void upload(String port, TextArea textArea) throws IOException {
-        this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
+        this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, "-b", "arduino:avr:firekey", dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
             try {
-                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH);
+                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, "-b", "arduino:avr:firekey", dataPath + FIRMWARE_DATA_PATH);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
