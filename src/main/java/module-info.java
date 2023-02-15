@@ -7,6 +7,7 @@ module com.firekey.configurator {
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome5;
+    requires org.apache.commons.lang3;
 
     exports com.firekey.configurator;
     exports com.firekey.configurator.gui;
