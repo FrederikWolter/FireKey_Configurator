@@ -16,7 +16,7 @@ metrics:
   addr: :9090
   enabled: true
 output:
-  no_color: false
+  no_color: true
 sketch:
   always_export_binaries: false
 updater:
