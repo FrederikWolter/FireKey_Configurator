@@ -123,6 +123,11 @@ public class Config {
         }
     }
 
+    /**
+     * Updates the Config.h using the current config data
+     *
+     * @throws IOException
+     */
     public void toFirmware() throws IOException {
         replaceFirmwareConfigFile();
         File configFile = new File(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config.h");
@@ -141,7 +146,7 @@ public class Config {
 
     /**
      * Build the config replacement map.
-     * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50'
+     * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50' means replace the string 'SPAM_DELAY 15' with 'SPAM_DELAY 50'
      *
      * @return
      */
@@ -185,8 +190,8 @@ public class Config {
      * Add the key information to the definitions map
      *
      * @param definitions The definitions-map
-     * @param layerIdx The current layer index
-     * @param layer The current layer
+     * @param layerIdx    The current layer index
+     * @param layer       The current layer
      */
     private void addKeyDefinitions(Map<String, String> definitions, int layerIdx, Layer layer) {
         for (int keyIdx = 0; keyIdx < Layer.NUM_KEYS; keyIdx++) {
@@ -210,12 +215,13 @@ public class Config {
     }
 
     /**
-     * TODO
-     * <a href='https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618'> Resource </a>
+     * Replaces in a given string all strings based on the definitions map.
+     * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50' means replace the string 'SPAM_DELAY 15' with 'SPAM_DELAY 50'
+     * <a href='https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618'> Code from Stackoverflow </a>
      *
-     * @param text
-     * @param definitions
-     * @return
+     * @param text        The text, in which the strings should be replaced
+     * @param definitions The string replacement map
+     * @return The updated input text
      */
     private String replaceConfigData(final String text, final Map<String, String> definitions) {
         final String[] keys = definitions.keySet().toArray(new String[0]);
