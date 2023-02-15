@@ -8,10 +8,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.*;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,12 +83,7 @@ public class Config {
                     // get current key
                     JSONObject keyJson = keyJSONArray.optJSONObject(keyIdx);
                     if (keyJson != null) {
-                        Key key = new Key(
-                                keyJson.getString(Key.NAME),
-                                keyJson.getEnum(KeyType.class, Key.TYPE),
-                                keyJson.getString(Key.FUNCTION),
-                                Color.web(keyJson.getString(Key.DEFAULT_COLOR))
-                        );
+                        Key key = new Key(keyJson.getString(Key.NAME), keyJson.getEnum(KeyType.class, Key.TYPE), keyJson.getString(Key.FUNCTION), Color.web(keyJson.getString(Key.DEFAULT_COLOR)));
                         // add key to layer
                         layer.setKey(keyIdx, key);
                     }
@@ -132,14 +125,71 @@ public class Config {
 
     public void toFirmware() throws IOException {
         replaceFirmwareConfigFile();
+        File configFile = new File(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config.h");
 
+        if (configFile.exists()) {
+            Path configPath = Path.of(configFile.getPath());
+            Map<String, String> definitions = buildConfigDefinitionsMap();
+
+            String configFileString = Files.readString(configPath);
+
+            String updatedConfigFileString = replaceConfigData(configFileString, definitions);
+
+            Files.writeString(configPath, updatedConfigFileString);
+        }
+    }
+
+    /**
+     * Build the config replacement map.
+     * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50'
+     *
+     * @return
+     */
+    private Map<String, String> buildConfigDefinitionsMap() {
         Map<String, String> definitions = new HashMap<>();
-        definitions.put("TEST 5", "TEST 50");
-        definitions.put("{1,2,3}", "{1,2,5}");
+        addGeneralDefinitions(definitions);
+        addLayerDefinitions(definitions);
+        return definitions;
+    }
 
-        String result = replaceConfigData(
-                "TEST 5\n" +
-                        "{1,2,3}", definitions);
+    private void addGeneralDefinitions(Map<String, String> definitions) {
+        definitions.put("SPAM_DELAY 15", "SPAM_DELAY " + this.getSpamDelay());
+        definitions.put("HOLD_DELAY 100", "HOLD_DELAY " + this.getHoldDelay());
+        definitions.put("DEBOUNCE_DELAY 10", "DEBOUNCE_DELAY " + this.getDebounceDelay());
+        definitions.put("SLEEP_DELAY 60", "SLEEP_DELAY " + this.getSleepDelay());
+        definitions.put("LED_BRIGHT 64", "LED_BRIGHT " + this.getLedBright());
+    }
+
+    private void addLayerDefinitions(Map<String, String> definitions) {
+        for (int layerIdx = 0; layerIdx < NUM_LAYERS; layerIdx++) {
+            Layer layer = this.getLayer(layerIdx);
+            if (layer != null) {
+                // update layer name
+                definitions.put("Layer" + layerIdx, layer.getName());
+                addKeyDefinitions(definitions, layerIdx, layer);
+            }
+        }
+    }
+
+    private void addKeyDefinitions(Map<String, String> definitions, int layerIdx, Layer layer) {
+        for (int keyIdx = 0; keyIdx < Layer.NUM_KEYS; keyIdx++) {
+            Key key = layer.getKey(keyIdx);
+            if (key != null) {
+                // add key function name
+                if (key.getType() != KeyType.NAV_DOWN && key.getType() != KeyType.NAV_UP && key.getType() != KeyType.NAV_HOME)  // we can't change the navigation texts
+                    definitions.put("L" + layerIdx + "K" + keyIdx, key.getName());
+
+                // add default color
+                int red = (int) (key.getDefaultColor().getRed() * 255);
+                int green = (int) (key.getDefaultColor().getGreen() * 255);
+                int blue = (int) (key.getDefaultColor().getBlue() * 255);
+                definitions.put("{ 0, " + layerIdx + ", " + keyIdx + " }", "{ " + red + ", " + green + ", " + blue + " }");
+
+                // add function
+                if (key.getType() != KeyType.NAV_DOWN && key.getType() != KeyType.NAV_UP && key.getType() != KeyType.NAV_HOME) // we can't change the navigation functions
+                    definitions.put("//K" + (keyIdx + 1) + "L" + layerIdx, key.getFunction());
+            }
+        }
     }
 
     /**
@@ -181,17 +231,10 @@ public class Config {
         // convert all layers
         JSONArray layersJson = new JSONArray();
         for (Layer l : this.layers) {
-            if (l != null)
-                layersJson.put(l.toJSON());
+            if (l != null) layersJson.put(l.toJSON());
         }
 
-        return new JSONObject()
-                .put(SPAM_DELAY, this.spamDelay)
-                .put(HOLD_DELAY, this.holdDelay)
-                .put(DEBOUNCE_DELAY, this.debounceDelay)
-                .put(SLEEP_DELAY, this.sleepDelay)
-                .put(LED_BRIGHT, this.ledBright)
-                .put(LAYERS, layersJson);
+        return new JSONObject().put(SPAM_DELAY, this.spamDelay).put(HOLD_DELAY, this.holdDelay).put(DEBOUNCE_DELAY, this.debounceDelay).put(SLEEP_DELAY, this.sleepDelay).put(LED_BRIGHT, this.ledBright).put(LAYERS, layersJson);
     }
 
     // region getter
@@ -216,8 +259,7 @@ public class Config {
     }
 
     public Layer getLayer(int idx) {
-        if (0 <= idx && idx < NUM_LAYERS)
-            return this.layers[idx];
+        if (0 <= idx && idx < NUM_LAYERS) return this.layers[idx];
         return null;
     }
     // endregion
@@ -250,8 +292,7 @@ public class Config {
      * @param layer The {@link Layer}-Object to store
      */
     public void setLayer(int idx, Layer layer) {
-        if (0 <= idx && idx < NUM_LAYERS)
-            this.layers[idx] = layer;
+        if (0 <= idx && idx < NUM_LAYERS) this.layers[idx] = layer;
     }
     // endregion
 

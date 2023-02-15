@@ -23,6 +23,7 @@ public class Layer {
     private String name;
     /**
      * The list of {@link Key}s in this {@link Layer}
+     * The last keys need to be the navigation keys
      */
     private final Key[] keys;
     //  endregion

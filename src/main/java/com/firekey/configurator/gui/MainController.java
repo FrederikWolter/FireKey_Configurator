@@ -3,6 +3,9 @@ package com.firekey.configurator.gui;
 import com.firekey.configurator.FireKey;
 import com.firekey.configurator.arduino.ArduinoCLI;
 import com.firekey.configurator.config.Config;
+import com.firekey.configurator.config.Key;
+import com.firekey.configurator.config.KeyType;
+import com.firekey.configurator.config.Layer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +50,7 @@ public class MainController implements Initializable {
         this.dataPath = dataPath;
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        //this.arduinoCLI.init(ta);  // TODO cool design pattern?
+        this.arduinoCLI.init(ta);  // TODO cool design pattern?
     }
 
     // region listener
@@ -110,7 +114,12 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);  // TODO handling
         }
 
-        Config config = new Config(dataPath); // TODO load
+        Config config = new Config(1, 2, 3, 4, 5, dataPath); // TODO load
+        Layer layer = new Layer("Test");
+        Key key = new Key("Action1", KeyType.ACTION, "Keyboard.press('t');\nKeyboard.press('z');", Color.rgb(255, 0, 0, 1));
+        layer.setKey(0, key);
+        config.setLayer(0, layer);
+
         try {
             config.toFirmware();
         } catch (IOException e) {
