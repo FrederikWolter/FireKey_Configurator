@@ -2,6 +2,7 @@ package com.firekey.configurator.config;
 
 import com.firekey.configurator.arduino.ArduinoCLI;
 import javafx.scene.paint.Color;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -11,6 +12,8 @@ import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a whole FireKey config including its {@link Layer}s and the corresponding {@link Key}.
@@ -129,7 +132,21 @@ public class Config {
 
     public void toFirmware() throws IOException {
         replaceFirmwareConfigFile();
-        // TODO
+
+        Map<String, String> definitions = new HashMap<>();
+        definitions.put("TEST 5", "TEST 50");
+        definitions.put("{1,2,3}", "{1,2,5}");
+
+        String result = replaceConfigData(
+                "TEST 5\n" +
+                        "{1,2,3}", definitions);
+    }
+
+    private String replaceConfigData(final String text, final Map<String, String> definitions) {
+        final String[] keys = definitions.keySet().toArray(new String[0]);
+        final String[] values = definitions.values().toArray(new String[0]);
+
+        return StringUtils.replaceEach(text, keys, values);
     }
 
     /**
