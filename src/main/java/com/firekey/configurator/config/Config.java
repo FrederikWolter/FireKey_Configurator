@@ -142,6 +142,14 @@ public class Config {
                         "{1,2,3}", definitions);
     }
 
+    /**
+     * TODO
+     * <a href='https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618'> Resource </a>
+     *
+     * @param text
+     * @param definitions
+     * @return
+     */
     private String replaceConfigData(final String text, final Map<String, String> definitions) {
         final String[] keys = definitions.keySet().toArray(new String[0]);
         final String[] values = definitions.values().toArray(new String[0]);
