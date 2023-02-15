@@ -56,9 +56,9 @@ public class ArduinoCLI {
     }
 
     public void upload(String port, TextArea textArea) throws IOException {
-        this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, "-b", "arduino:avr:firekey", "-b", "arduino:avr:micro", dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
+        this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
             try {
-                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, "-b", "arduino:avr:firekey", "-b", "arduino:avr:micro", dataPath + FIRMWARE_DATA_PATH);
+                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -88,13 +88,13 @@ public class ArduinoCLI {
     public void init(TextArea textArea) throws Exception {
         // TODO use constants (+ separator?)
         // region copy required files
-        exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe");
-        exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml");
-        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_DATA_PATH + "Config.h");
-        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_RESOURCE_PATH + "Config_default.h");
-        exportResource(FIRMWARE_RESOURCE_PATH + "Debug.h", FIRMWARE_DATA_PATH + "Debug.h");
-        exportResource(FIRMWARE_RESOURCE_PATH + "Firmware.ino", FIRMWARE_DATA_PATH + "Firmware.ino");
-        exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h");
+        exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe", false);
+        exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml", false);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_DATA_PATH + "Config.h", false);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_RESOURCE_PATH + "Config_default.h", false);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Debug.h", FIRMWARE_DATA_PATH + "Debug.h", false);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Firmware.ino", FIRMWARE_DATA_PATH + "Firmware.ino", false);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h", false);
         // endregion
 
         // region install libs
@@ -110,7 +110,7 @@ public class ArduinoCLI {
         runArduinoCLI(textArea, CORE_CMD, INSTALL_CMD, FIRE_KEY_BOARD_CORE).onExit().thenAccept(process -> {
             try {
                 // copy boards.txt with FireKey corresponding data
-                exportResource("boards.txt", AVR_PATH + "boards.txt");
+                exportResource("boards.txt", AVR_PATH + "boards.txt", true);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -165,10 +165,10 @@ public class ArduinoCLI {
      * @throws Exception If the target file cant be found.
      * @see #dataPath
      */
-    private void exportResource(String resourceName, String targetName) throws Exception {  // TODO generalize this?
+    private void exportResource(String resourceName, String targetName, boolean override) throws Exception {  // TODO generalize this?
         File exportFile = new File(dataPath + targetName);
 
-        if (exportFile.exists())
+        if (exportFile.exists() && !override)
             return;
 
         // We use FireKey here to use the FireKey-level as resource root
