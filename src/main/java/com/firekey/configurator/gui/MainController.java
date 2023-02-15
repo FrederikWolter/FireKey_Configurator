@@ -42,20 +42,32 @@ public class MainController implements Initializable {
         this.dataPath = dataPath;
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        this.arduinoCLI.init(ta);  // TODO cool design pattern?
+        //this.arduinoCLI.init(ta);  // TODO cool design pattern?
     }
 
     // region listener
     @FXML
-    protected void onGeneralButtonClick() {
+    protected void onGeneralClick() {
         paneContent.getChildren().clear();
         paneContent.getChildren().add(general);
     }
 
     @FXML
+    protected void onCommandClick() {
+        paneContent.getChildren().clear();
+        paneContent.getChildren().add(command);
+    }
+
+    @FXML
+    protected void onLayerClick() {
+        paneContent.getChildren().clear();
+        paneContent.getChildren().add(layer);
+    }
+
+    @FXML
     protected void onUploadFirmwareClick() {
         // TODO get correct port
-        TextArea ta = (TextArea) command.lookup("#taCliOutput");
+        TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
         String port = arduinoCLI.getPorts().get(0);
         Pattern pattern = Pattern.compile("(COM[0-9])");
         Matcher matcher = pattern.matcher(port);
@@ -70,18 +82,6 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
-    @FXML
-    protected void onCommandButtonClick() {
-        paneContent.getChildren().clear();
-        paneContent.getChildren().add(command);
-    }
-
-    @FXML
-    protected void onLayerButtonClick() {
-        paneContent.getChildren().clear();
-        paneContent.getChildren().add(layer);
-    }
     // endregion
 
     @Override
@@ -90,7 +90,7 @@ public class MainController implements Initializable {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
             layer   = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
-            onGeneralButtonClick();
+            onGeneralClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
