@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//TODO remove me / rename
 public class MainController implements Initializable {
     // region attributes
     private GridPane general;
@@ -50,6 +49,7 @@ public class MainController implements Initializable {
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
         this.arduinoCLI.init(ta);  // TODO cool design pattern?
+        onCommandClick();
     }
 
     private void updateCOMPortChoiceBox() {
@@ -71,7 +71,6 @@ public class MainController implements Initializable {
         }
         return -1;
     }
-
 
     // region listener
     @FXML
