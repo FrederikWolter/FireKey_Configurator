@@ -28,21 +28,21 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" />
-            <Button mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="1" />
-            <Button layoutX="82.0" layoutY="35.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="2" />
-            <Button layoutX="154.0" layoutY="35.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="3" />
-            <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="4" />
-            <Button layoutX="10.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.rowIndex="1" />
-            <Button layoutX="83.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button layoutX="156.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button layoutX="227.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button layoutX="299.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Button layoutX="10.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.rowIndex="2" />
-            <Button layoutX="83.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button layoutX="156.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button layoutX="227.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button layoutX="299.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Button fx:id="btnAction0" userData="0" onAction="#onMatrixButtonClicked" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" />
+            <Button fx:id="btnAction1" userData="1" onAction="#onMatrixButtonClicked" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="1" />
+            <Button fx:id="btnAction2" userData="2" onAction="#onMatrixButtonClicked" layoutX="82.0" layoutY="35.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="2" />
+            <Button fx:id="btnAction3" userData="3" onAction="#onMatrixButtonClicked" layoutX="154.0" layoutY="35.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="3" />
+            <Button fx:id="btnNavUp" userData="12" onAction="#onMatrixButtonClicked" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="4" />
+            <Button fx:id="btnAction4" userData="4" onAction="#onMatrixButtonClicked" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.rowIndex="1" />
+            <Button fx:id="btnAction5" userData="5" onAction="#onMatrixButtonClicked" layoutX="83.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btnAction6" userData="6" onAction="#onMatrixButtonClicked" layoutX="156.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="btnAction7" userData="7" onAction="#onMatrixButtonClicked" layoutX="227.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="btnNavHome" userData="13" onAction="#onMatrixButtonClicked" layoutX="299.0" layoutY="47.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button fx:id="btnAction8" userData="8" onAction="#onMatrixButtonClicked" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.rowIndex="2" />
+            <Button fx:id="btnAction9" userData="9" onAction="#onMatrixButtonClicked" layoutX="83.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="btnAction10" userData="10" onAction="#onMatrixButtonClicked" layoutX="156.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="btnAction11" userData="11" onAction="#onMatrixButtonClicked" layoutX="227.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="btnNavDown" userData="14" onAction="#onMatrixButtonClicked" layoutX="299.0" layoutY="153.0" mnemonicParsing="false" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
