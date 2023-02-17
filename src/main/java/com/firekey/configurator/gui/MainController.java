@@ -62,10 +62,23 @@ public class MainController implements Initializable {
     private void updateCOMPortChoiceBox(){
         cbPort.getItems().clear();
         cbPort.getItems().addAll(arduinoCLI.getPorts());
-        for(String item : cbPort.getItems()){
-            // TODO select FireKey if exist. else select first.
-        }
+        cbPort.getSelectionModel().select(getCBDefaultSelection());
     }
+
+    private int getCBDefaultSelection() {
+        if(cbPort.getItems().size() > 0){
+            for(int i = 0; i < cbPort.getItems().size(); i++){
+                Pattern pattern = Pattern.compile("FireKey \\(COM[0-9]\\)");
+                Matcher matcher = pattern.matcher(cbPort.getItems().get(i));
+                if(matcher.find()){
+                    return i;
+                }
+            }
+            return 0;
+        }
+        return -1;
+    }
+
 
     // region listener
     @FXML
@@ -132,13 +145,13 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        cbPort.setOnAction(this::onCOMPortChanged);
-
         try {
             this.initArduinoCLI(dataPath);
         } catch (Exception e) {
             throw new RuntimeException(e);  // TODO handling
         }
+
+        cbPort.setOnAction(this::onCOMPortChanged);
 
         // keep always one button in navigation selected
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
