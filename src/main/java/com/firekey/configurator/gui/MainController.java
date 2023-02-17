@@ -6,9 +6,11 @@ import com.firekey.configurator.config.Config;
 import com.firekey.configurator.config.Key;
 import com.firekey.configurator.config.KeyType;
 import com.firekey.configurator.config.Layer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -32,12 +34,16 @@ public class MainController implements Initializable {
 
     private ArduinoCLI arduinoCLI;
     private String dataPath;
+
+    private String comPort;
     // endregion
 
     @FXML
     private AnchorPane paneContent;
     @FXML
     private ToggleGroup tgNavigation;
+    @FXML
+    private ChoiceBox<String> cbPort;
 
 
     /**
@@ -51,6 +57,14 @@ public class MainController implements Initializable {
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
         this.arduinoCLI.init(ta);  // TODO cool design pattern?
+    }
+
+    private void updateCOMPortChoiceBox(){
+        cbPort.getItems().clear();
+        cbPort.getItems().addAll(arduinoCLI.getPorts());
+        for(String item : cbPort.getItems()){
+            // TODO select FireKey if exist. else select first.
+        }
     }
 
     // region listener
@@ -89,6 +103,16 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    protected void onCOMPortChanged(ActionEvent event){
+        Pattern pattern = Pattern.compile("(COM[0-9])");
+        Matcher matcher = pattern.matcher(cbPort.getValue());
+        if (!matcher.find()) {
+            return;
+        }
+        this.comPort = matcher.group();
+    }
+
     // endregion
 
     @Override
@@ -107,6 +131,8 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        cbPort.setOnAction(this::onCOMPortChanged);
 
         try {
             this.initArduinoCLI(dataPath);

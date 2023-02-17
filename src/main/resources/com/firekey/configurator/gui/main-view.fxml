@@ -53,7 +53,7 @@
          </styleClass></HBox>
       <HBox alignment="BOTTOM_RIGHT" spacing="5.0" stylesheets="@main-styling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <ChoiceBox prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
+            <ChoiceBox fx:id="cbPort" prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
             <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
                <graphic>
                   <FontIcon iconLiteral="fas-trash-alt" iconSize="32" styleClass="head-icon" />
@@ -62,7 +62,7 @@
                <graphic>
                   <FontIcon iconLiteral="fas-save" iconSize="32" styleClass="head-icon" />
                </graphic></Button>
-            <Button onAction="#onUploadFirmwareClick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUploadFirmwareClick" styleClass="head-button" stylesheets="@main-styling.css">
                <graphic>
                   <FontIcon iconLiteral="fas-download" iconSize="30" styleClass="head-icon" />
                </graphic></Button>
