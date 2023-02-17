@@ -1,0 +1,9 @@
+.layer-name-input{
+    -fx-pref-height: 40;
+    -fx-font-size: 18;
+}
+
+.key-button{
+    -fx-pref-height: 55;
+    -fx-pref-width: 55;
+}
