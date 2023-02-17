@@ -48,7 +48,7 @@
             <String fx:value="head-background" />
             <String fx:value="head-pane" />
         </styleClass>
-        <ChoiceBox fx:id="cbPort" prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
+        <ComboBox fx:id="cbPort" onAction="#onCOMPortChanged" prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
             <graphic>
                 <FontIcon iconLiteral="fas-trash-alt" iconSize="32" styleClass="head-icon" />

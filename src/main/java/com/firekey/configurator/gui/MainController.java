@@ -2,20 +2,13 @@ package com.firekey.configurator.gui;
 
 import com.firekey.configurator.FireKey;
 import com.firekey.configurator.arduino.ArduinoCLI;
-import com.firekey.configurator.config.Config;
-import com.firekey.configurator.config.Key;
-import com.firekey.configurator.config.KeyType;
-import com.firekey.configurator.config.Layer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +36,7 @@ public class MainController implements Initializable {
     @FXML
     private ToggleGroup tgNavigation;
     @FXML
-    private ChoiceBox<String> cbPort;
+    private ComboBox<String> cbPort;
 
 
     /**
@@ -59,18 +52,18 @@ public class MainController implements Initializable {
         this.arduinoCLI.init(ta);  // TODO cool design pattern?
     }
 
-    private void updateCOMPortChoiceBox(){
+    private void updateCOMPortChoiceBox() {
         cbPort.getItems().clear();
         cbPort.getItems().addAll(arduinoCLI.getPorts());
-        cbPort.getSelectionModel().select(getCBDefaultSelection());
+        cbPort.getSelectionModel().select(getCBDefaultSelectionIdx());
     }
 
-    private int getCBDefaultSelection() {
-        if(cbPort.getItems().size() > 0){
-            for(int i = 0; i < cbPort.getItems().size(); i++){
+    private int getCBDefaultSelectionIdx() {
+        if (!cbPort.getItems().isEmpty()) {
+            for (int i = 0; i < cbPort.getItems().size(); i++) {
                 Pattern pattern = Pattern.compile("FireKey \\(COM[0-9]\\)");
                 Matcher matcher = pattern.matcher(cbPort.getItems().get(i));
-                if(matcher.find()){
+                if (matcher.find()) {
                     return i;
                 }
             }
@@ -101,29 +94,28 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onUploadFirmwareClick() {
-        // TODO get correct port
         TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
-        String port = arduinoCLI.getPorts().get(0);
-        Pattern pattern = Pattern.compile("(COM[0-9])");
-        Matcher matcher = pattern.matcher(port);
-        if (!matcher.find()) {
-            return;
-        }
-        port = matcher.group();
-        try {
-            arduinoCLI.upload(port, ta);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (this.comPort != null) {
+            try {
+                arduinoCLI.upload(this.comPort, ta);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            // TODO Error
         }
     }
 
-    protected void onCOMPortChanged(ActionEvent event){
-        Pattern pattern = Pattern.compile("(COM[0-9])");
-        Matcher matcher = pattern.matcher(cbPort.getValue());
-        if (!matcher.find()) {
-            return;
+    @FXML
+    protected void onCOMPortChanged(ActionEvent event) {
+        if (cbPort.getValue() != null) {
+            Pattern pattern = Pattern.compile("(COM[0-9])");
+            Matcher matcher = pattern.matcher(cbPort.getValue());
+            if (!matcher.find()) {
+                return;
+            }
+            this.comPort = matcher.group();
         }
-        this.comPort = matcher.group();
     }
 
     // endregion
@@ -151,7 +143,9 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);  // TODO handling
         }
 
-        cbPort.setOnAction(this::onCOMPortChanged);
+        updateCOMPortChoiceBox();
+        // update items on open
+        cbPort.addEventHandler(ComboBoxBase.ON_SHOWING, event -> updateCOMPortChoiceBox());
 
         // keep always one button in navigation selected
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {

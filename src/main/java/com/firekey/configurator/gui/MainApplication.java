@@ -8,9 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class MainApplication extends Application {
     @Override
