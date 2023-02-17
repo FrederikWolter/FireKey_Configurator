@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -23,6 +24,7 @@ public class MainController implements Initializable {
     private GridPane general;
     private GridPane command;
     private GridPane layer;
+    private LayerController layerController;
 
     private ArduinoCLI arduinoCLI;
     private String dataPath;
@@ -85,7 +87,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    protected void onLayerClick() {
+    protected void onLayerClick(ActionEvent event) {
+        Node node = (Node) event.getSource();
+        String data = (String) node.getUserData();
+        int layerIdx = Integer.parseInt(data);
+
+        layerController.setLayerIndex(layerIdx);
+
         paneContent.getChildren().clear();
         paneContent.getChildren().add(layer);
     }
@@ -105,7 +113,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    protected void onCOMPortChanged(ActionEvent event) {
+    protected void onCOMPortChanged() {
         if (cbPort.getValue() != null) {
             Pattern pattern = Pattern.compile("(COM[0-9])");
             Matcher matcher = pattern.matcher(cbPort.getValue());
@@ -129,7 +137,9 @@ public class MainController implements Initializable {
         try {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
-            layer = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
+            FXMLLoader layerLoader = new FXMLLoader(getClass().getResource("layer-view.fxml"));
+            layer = layerLoader.load();
+            layerController = layerLoader.getController();
             onGeneralClick();
         } catch (IOException e) {
             throw new RuntimeException(e);

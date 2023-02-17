@@ -25,11 +25,11 @@
         </ToggleButton>
         <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCommandClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Command-Out" toggleGroup="$tgNavigation" />
         <Separator prefWidth="200.0" styleClass="nav-separator" stylesheets="@main-styling.css" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 1" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 2" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 3" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 4" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 5" toggleGroup="$tgNavigation" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="0" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 1" toggleGroup="$tgNavigation" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="1" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 2" toggleGroup="$tgNavigation" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="2" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 3" toggleGroup="$tgNavigation" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="3" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 4" toggleGroup="$tgNavigation" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="4" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 5" toggleGroup="$tgNavigation" />
     </VBox>
     <VBox alignment="CENTER" styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowSpan="2">
         <ImageView fitHeight="100.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
