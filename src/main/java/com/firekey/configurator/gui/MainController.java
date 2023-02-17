@@ -49,7 +49,6 @@ public class MainController implements Initializable {
         this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
         this.arduinoCLI.init(ta);  // TODO cool design pattern?
-        onCommandClick();
     }
 
     private void updateCOMPortChoiceBox() {
