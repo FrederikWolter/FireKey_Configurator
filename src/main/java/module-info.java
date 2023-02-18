@@ -11,6 +11,7 @@ module com.firekey.configurator {
 
     exports com.firekey.configurator;
     exports com.firekey.configurator.gui;
+    exports com.firekey.configurator.gui.components;
     opens com.firekey.configurator to javafx.fxml;
     opens com.firekey.configurator.gui to javafx.fxml;
 }
