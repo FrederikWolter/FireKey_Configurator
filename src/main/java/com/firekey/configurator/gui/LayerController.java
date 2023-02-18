@@ -3,10 +3,12 @@ package com.firekey.configurator.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 public class LayerController {
 
-    private int currentLayerIdx;
+    @FXML
+    private Pane layerPane;
 
     @FXML
     protected void onMatrixButtonClicked(ActionEvent event) {
@@ -14,10 +16,11 @@ public class LayerController {
         String data = (String) node.getUserData();
         int buttonIdx = Integer.parseInt(data);
         System.out.println(buttonIdx); // TODO remove
+        System.out.println(getCurrentLayerIdx()); // TODO remove
     }
 
-    public void setLayerIndex(int layerIdx) {
-        this.currentLayerIdx = layerIdx;
-        System.out.println(this.currentLayerIdx); // TODO remove
+    private int getCurrentLayerIdx(){
+        return (int) layerPane.getUserData();
     }
+
 }

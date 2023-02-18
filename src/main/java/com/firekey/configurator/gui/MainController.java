@@ -24,7 +24,6 @@ public class MainController implements Initializable {
     private GridPane general;
     private GridPane command;
     private GridPane layer;
-    private LayerController layerController;
 
     private ArduinoCLI arduinoCLI;
     private String dataPath;
@@ -92,7 +91,7 @@ public class MainController implements Initializable {
         String data = (String) node.getUserData();
         int layerIdx = Integer.parseInt(data);
 
-        layerController.setLayerIndex(layerIdx);
+        layer.setUserData(layerIdx);
 
         paneContent.getChildren().clear();
         paneContent.getChildren().add(layer);
@@ -137,9 +136,7 @@ public class MainController implements Initializable {
         try {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
-            FXMLLoader layerLoader = new FXMLLoader(getClass().getResource("layer-view.fxml"));
-            layer = layerLoader.load();
-            layerController = layerLoader.getController();
+            layer = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
             onGeneralClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
