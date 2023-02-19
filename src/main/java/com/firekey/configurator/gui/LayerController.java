@@ -37,6 +37,7 @@ public class LayerController implements Initializable {
         this.currentLayerIdx = layerIdx;
         this.currentLayer = layer;
         System.out.println(this.currentLayerIdx); // TODO remove
+        // TODO reset visuals
     }
 
     @Override
