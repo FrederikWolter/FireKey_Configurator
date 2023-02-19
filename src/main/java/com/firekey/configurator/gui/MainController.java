@@ -29,6 +29,8 @@ public class MainController implements Initializable {
     private String dataPath;
 
     private String comPort;
+
+    private LayerController layerController;
     // endregion
 
     @FXML
@@ -91,7 +93,7 @@ public class MainController implements Initializable {
         String data = (String) node.getUserData();
         int layerIdx = Integer.parseInt(data);
 
-        layer.setUserData(layerIdx);
+        layerController.setLayerIndex(layerIdx);
 
         paneContent.getChildren().clear();
         paneContent.getChildren().add(layer);
@@ -136,7 +138,9 @@ public class MainController implements Initializable {
         try {
             general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
-            layer = FXMLLoader.load(getClass().getResource("layer-view.fxml"));
+            FXMLLoader layerLoader = new FXMLLoader(getClass().getResource("layer-view.fxml"));
+            layer = layerLoader.load();
+            layerController = layerLoader.getController();
             onGeneralClick();
         } catch (IOException e) {
             throw new RuntimeException(e);

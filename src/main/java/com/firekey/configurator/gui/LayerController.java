@@ -17,17 +17,19 @@ public class LayerController implements Initializable {
     @FXML
     private AutoCompleteTextArea taFunctionInput;
 
+    private int currentLayerIdx;
+
     @FXML
     protected void onMatrixButtonClicked(ActionEvent event) {
         Node node = (Node) event.getSource();
         String data = (String) node.getUserData();
         int buttonIdx = Integer.parseInt(data);
         System.out.println(buttonIdx); // TODO remove
-        System.out.println(getCurrentLayerIdx()); // TODO remove
     }
 
-    private int getCurrentLayerIdx() {
-        return (int) layerPane.getUserData();
+    public void setLayerIndex(int layerIdx) {
+        this.currentLayerIdx = layerIdx;
+        System.out.println(this.currentLayerIdx); // TODO remove
     }
 
     @Override
