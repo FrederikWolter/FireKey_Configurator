@@ -25,11 +25,11 @@
         </ToggleButton>
         <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCommandClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Command-Out" toggleGroup="$tgNavigation" />
         <Separator prefWidth="200.0" styleClass="nav-separator" stylesheets="@main-styling.css" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="0" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 1" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="1" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 2" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="2" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 3" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="3" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 4" toggleGroup="$tgNavigation" />
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" userData="4" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 5" toggleGroup="$tgNavigation" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 1" toggleGroup="$tgNavigation" userData="0" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 2" toggleGroup="$tgNavigation" userData="1" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 3" toggleGroup="$tgNavigation" userData="2" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 4" toggleGroup="$tgNavigation" userData="3" />
+        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 5" toggleGroup="$tgNavigation" userData="4" />
     </VBox>
     <VBox alignment="CENTER" styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowSpan="2">
         <ImageView fitHeight="100.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
@@ -49,12 +49,12 @@
             <String fx:value="head-pane" />
         </styleClass>
         <ComboBox fx:id="cbPort" onAction="#onCOMPortChanged" prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
-        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResetConfigClick" styleClass="head-button" stylesheets="@main-styling.css">
             <graphic>
                 <FontIcon iconLiteral="fas-trash-alt" iconSize="32" styleClass="head-icon" />
             </graphic>
         </Button>
-        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="head-button" stylesheets="@main-styling.css">
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveConfigClick" styleClass="head-button" stylesheets="@main-styling.css">
             <graphic>
                 <FontIcon iconLiteral="fas-save" iconSize="32" styleClass="head-icon" />
             </graphic>

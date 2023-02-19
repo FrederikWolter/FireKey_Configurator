@@ -121,6 +121,24 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    protected void onSaveConfigClick() {
+        try {
+            config.save();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    protected void onResetConfigClick() {
+        try {
+            config.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     protected void onCOMPortChanged() {
         if (cbPort.getValue() != null) {
             Pattern pattern = Pattern.compile("(COM[0-9])");
