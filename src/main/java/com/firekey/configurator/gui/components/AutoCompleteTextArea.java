@@ -68,10 +68,18 @@ public class AutoCompleteTextArea extends TextArea {
                 } else {
                     populatePopup(searchResult, enteredText);
                     if (!autoCompletePopUp.isShowing()) {
+                        int caretPosition = getCaretPosition();
+                        int lineNumber = 1;
+                        for (int i = 0; i < caretPosition; i++) {
+                            if (getText().charAt(i) == '\n') {
+                                lineNumber++;
+                            }
+                        }
                         Point2D point2D = localToScreen(0, 0);
-                        Text text = new Text(getText());
+                        Text text = new Text("Text"); // Replace with the text you're interested in
                         text.setFont(getFont());
-                        autoCompletePopUp.show(this, point2D.getX(), point2D.getY() + text.getLayoutBounds().getHeight() + 10);
+                        double fontHeight = text.getLayoutBounds().getHeight();
+                        autoCompletePopUp.show(this, point2D.getX(), point2D.getY() + lineNumber*fontHeight+fontHeight/2);
                     }
                 }
 
