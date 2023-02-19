@@ -1,5 +1,7 @@
 package com.firekey.configurator.gui;
 
+import com.firekey.configurator.config.Key;
+import com.firekey.configurator.config.Layer;
 import com.firekey.configurator.gui.components.AutoCompleteTextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,16 +21,24 @@ public class LayerController implements Initializable {
 
     private int currentLayerIdx;
 
+    private Layer currentLayer;
+    private Key currentSelectedKey;
+
     @FXML
     protected void onMatrixButtonClicked(ActionEvent event) {
         Node node = (Node) event.getSource();
         String data = (String) node.getUserData();
         int buttonIdx = Integer.parseInt(data);
         System.out.println(buttonIdx); // TODO remove
+        if (currentLayer != null) {
+            currentSelectedKey = currentLayer.getKey(buttonIdx);
+            // TODO update visuals
+        }
     }
 
-    public void setLayerIndex(int layerIdx) {
+    public void setLayer(int layerIdx, Layer layer) {
         this.currentLayerIdx = layerIdx;
+        this.currentLayer = layer;
         System.out.println(this.currentLayerIdx); // TODO remove
     }
 
