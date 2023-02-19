@@ -49,7 +49,6 @@ public class AutoCompleteTextArea extends TextArea {
                 List<String> searchResult = new LinkedList<>();
                 // Get the current entered line / function
                 String enteredText = getCurrentWord();
-                //System.out.println(enteredText);
                 if (enteredText == null || enteredText.isEmpty()) {
                     autoCompletePopUp.hide();
                     return;
@@ -105,7 +104,6 @@ public class AutoCompleteTextArea extends TextArea {
                 // check if is inside parenthesis
                 // check if is inside parenthesis
                 Point2D bracketIndexes = getSelectedBracketIndexes(lineStart, line, true);
-                //System.out.println(isInsideOtherBrackets(bracketIndexes, line));
                 if (bracketIndexes.getX() != -1) {
                     return line.substring((int) bracketIndexes.getX() + 1, (int) bracketIndexes.getY());
                 }
@@ -121,9 +119,9 @@ public class AutoCompleteTextArea extends TextArea {
      * Get the current word start index inside the textarea. <br>
      * A line new line is started with space or \n
      *
-     * @return The idx where the current word starts.
+     * @return A {@link ReplaceStartIndex}
      */
-    private int getCurrentWordLineStart() {
+    private ReplaceStartIndex getCurrentWordLineStart() {
         // Split on each space or new line but add empty "lines" to the result (spaces are counted as new line)
         String[] lines = getText().split("\\n|\\s");
 
@@ -140,14 +138,14 @@ public class AutoCompleteTextArea extends TextArea {
                 Point2D bracketIndexes = getSelectedBracketIndexes(lineStart, line, false);
                 if (bracketIndexes.getX() != -1) {
                     // if we are inside of parenthesis the start index is the starting parenthesis
-                    return lineStart + (int) bracketIndexes.getX() + 1;
+                    return new ReplaceStartIndex(lineStart + (int) bracketIndexes.getX() + 1, true);
                 }
 
-                return lineStart;
+                return new ReplaceStartIndex(lineStart, false);
             }
             lineStart = lineEnd + 1; // add 1 to skip the newline character
         }
-        return 0;
+        return new ReplaceStartIndex(0, false);
     }
 
     /**
@@ -178,10 +176,15 @@ public class AutoCompleteTextArea extends TextArea {
             CustomMenuItem item = new CustomMenuItem(entryFlow, true);
             item.setOnAction((ActionEvent actionEvent) ->
             {
+                String replacement = result;
                 int textLen = text.length();
-                int startIndex = getCurrentWordLineStart();
+                ReplaceStartIndex replaceStartIndex = getCurrentWordLineStart();
+                if(replaceStartIndex.insideBracket){
+                    // if we replace inside brackets, remove a possible semicolons at the end
+                    replacement = replacement.replaceAll(";$", "");
+                }
                 updateCall = true;
-                replaceText(startIndex, startIndex + textLen, result);
+                replaceText(replaceStartIndex.startIndex, replaceStartIndex.startIndex + textLen, replacement);
                 autoCompletePopUp.hide();
             });
             menuItems.add(item);
@@ -250,7 +253,7 @@ public class AutoCompleteTextArea extends TextArea {
         Map<Integer, Integer> bracketMap = new HashMap<>();
 
         // Create a stack to keep track of the indices of opening brackets
-        Stack<Integer> openingBrackets = new Stack<>();
+        Deque<Integer> openingBrackets = new ArrayDeque<>();
 
         // Loop through each character in the input string
         for (int i = 0; i < input.length(); i++) {
@@ -262,11 +265,9 @@ public class AutoCompleteTextArea extends TextArea {
             }
 
             // If the character is a closing bracket, pop the last opening bracket index off the stack and add it to the map
-            if (c == ')' || c == ']' || c == '}') {
-                if (!openingBrackets.empty()) {
-                    int openIndex = openingBrackets.pop();
-                    bracketMap.put(openIndex, i);
-                }
+            if ((c == ')' || c == ']' || c == '}') && !openingBrackets.isEmpty()) {
+                int openIndex = openingBrackets.pop();
+                bracketMap.put(openIndex, i);
             }
         }
         return bracketMap;
@@ -289,4 +290,13 @@ public class AutoCompleteTextArea extends TextArea {
     public void setMaxEntries(int maxEntries) {
         this.maxEntries = maxEntries;
     }
+
+
+    /**
+     * Used to collect a start index of a replacement text and if it is inside a bracket.
+     * @param startIndex
+     * @param insideBracket
+     */
+    private record ReplaceStartIndex(int startIndex, boolean insideBracket) {}
+
 }
