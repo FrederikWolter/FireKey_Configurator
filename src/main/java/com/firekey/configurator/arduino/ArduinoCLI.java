@@ -91,10 +91,10 @@ public class ArduinoCLI {
         exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe", false);
         exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml", false);
         exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_DATA_PATH + "Config.h", false);
-        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_RESOURCE_PATH + "Config_default.h", false);
-        exportResource(FIRMWARE_RESOURCE_PATH + "Debug.h", FIRMWARE_DATA_PATH + "Debug.h", false);
-        exportResource(FIRMWARE_RESOURCE_PATH + "Firmware.ino", FIRMWARE_DATA_PATH + "Firmware.ino", false);
-        exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h", false);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Config.h", FIRMWARE_RESOURCE_PATH + "Config_default.h", true);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Debug.h", FIRMWARE_DATA_PATH + "Debug.h", true);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Firmware.ino", FIRMWARE_DATA_PATH + "Firmware.ino", true);
+        exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h", true);
         // endregion
 
         // region install libs
