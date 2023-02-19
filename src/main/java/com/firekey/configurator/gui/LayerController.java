@@ -7,15 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LayerController implements Initializable {
 
-    @FXML
-    private Pane layerPane;
     @FXML
     private AutoCompleteTextArea taFunctionInput;
 
