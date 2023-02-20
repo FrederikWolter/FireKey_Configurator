@@ -57,8 +57,8 @@ public class AutoCompleteTextArea extends TextArea {
                 // Check if the current entered text line as suggestions in the autocomplete entries
                 Pattern pattern = Pattern.compile(".*" + Pattern.quote(enteredText) + ".*\\s*.*", Pattern.CASE_INSENSITIVE);
                 for (String entry : autoCompleteEntries) {
-                    Matcher matcher = pattern.matcher(entry);
-                    if (matcher.matches()) {
+                    Matcher matcher = pattern.matcher(Pattern.quote(entry));
+                    if (matcher.find()) {
                         searchResult.add(entry);
                     }
                 }
