@@ -58,7 +58,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextFieldWithLengthLimit fx:id="tfKeyName" onAction="#onKeyNameChanged" prefHeight="0.0" prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextFieldWithLengthLimit fx:id="tfKeyName" prefHeight="0.0" prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ColorPicker fx:id="cpDefaultKeyColor" onAction="#onColorChanged" GridPane.rowIndex="1" />
          </children>
       </GridPane>

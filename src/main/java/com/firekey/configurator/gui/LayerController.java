@@ -23,7 +23,6 @@ public class LayerController implements Initializable {
     @FXML
     private TextFieldWithLengthLimit tfKeyName;
 
-
     private int currentLayerIdx;
 
     private Layer currentLayer;
@@ -57,7 +56,6 @@ public class LayerController implements Initializable {
         this.currentSelectedKey.setDefaultColor(cpDefaultKeyColor.getValue());
     }
 
-    @FXML
     protected void onKeyNameChanged() {
         this.currentSelectedKey.setName(tfKeyName.getText());
     }
@@ -66,6 +64,7 @@ public class LayerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // TODO/CHECK: use focusedProperty and on focus lost?
         taFunctionInput.textProperty().addListener((observable, oldValue, newValue) -> onFunctionTextChanged());
+        tfKeyName.textProperty().addListener((observable, oldValue, newValue) -> onKeyNameChanged());
         tfKeyName.setMaxLength(8);
 
 
