@@ -183,7 +183,7 @@ public class MainController implements Initializable {
 
         config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
         Layer layer = new Layer("Layer1");  // TODO remove
-        Key key = new Key("Action1", KeyType.ACTION, "", Color.rgb(255, 0, 0)); // TODO remove
+        Key key = new Key("Action1", KeyType.ACTION, "Keyboard.press('c');", Color.rgb(255, 0, 0)); // TODO remove
         layer.setKey(0, key); // TODO remove
         config.setLayer(0, layer); // TODO remove
 

@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,15 +37,24 @@ public class LayerController implements Initializable {
         System.out.println(buttonIdx); // TODO remove
         if (currentLayer != null) {
             currentSelectedKey = currentLayer.getKey(buttonIdx);
-            // TODO update visuals
+            setVisualsToKeyData();
         }
+    }
+
+    private void setVisualsToKeyData() {
+        tfKeyName.setText(currentSelectedKey.getName());
+        taFunctionInput.setText(currentSelectedKey.getFunction());
+        cpDefaultKeyColor.setValue(currentSelectedKey.getDefaultColor());
     }
 
     public void setLayer(int layerIdx, Layer layer) {
         this.currentLayerIdx = layerIdx;
         this.currentLayer = layer;
         System.out.println(this.currentLayerIdx); // TODO remove
-        // TODO reset visuals
+        // TODO reset visuals correct
+        tfKeyName.setText("");
+        taFunctionInput.setText("");
+        cpDefaultKeyColor.setValue(Color.WHITE);
     }
 
     protected void onFunctionTextChanged() {
