@@ -1,6 +1,7 @@
 package com.firekey.configurator.gui;
 
 import com.firekey.configurator.config.Key;
+import com.firekey.configurator.config.KeyType;
 import com.firekey.configurator.config.Layer;
 import com.firekey.configurator.gui.components.AutoCompleteTextArea;
 import com.firekey.configurator.gui.components.TextFieldWithLengthLimit;
@@ -34,7 +35,6 @@ public class LayerController implements Initializable {
         Node node = (Node) event.getSource();
         String data = (String) node.getUserData();
         int buttonIdx = Integer.parseInt(data);
-        System.out.println(buttonIdx); // TODO remove
         if (currentLayer != null) {
             currentSelectedKey = currentLayer.getKey(buttonIdx);
             setVisualsToKeyData();
@@ -42,15 +42,22 @@ public class LayerController implements Initializable {
     }
 
     private void setVisualsToKeyData() {
+        if (currentSelectedKey == null) return;
         tfKeyName.setText(currentSelectedKey.getName());
         taFunctionInput.setText(currentSelectedKey.getFunction());
         cpDefaultKeyColor.setValue(currentSelectedKey.getDefaultColor());
+        if (currentSelectedKey.getType() != KeyType.ACTION) {
+            tfKeyName.setEditable(false);
+            taFunctionInput.setEditable(false);
+        } else {
+            tfKeyName.setEditable(true);
+            taFunctionInput.setEditable(true);
+        }
     }
 
     public void setLayer(int layerIdx, Layer layer) {
         this.currentLayerIdx = layerIdx;
         this.currentLayer = layer;
-        System.out.println(this.currentLayerIdx); // TODO remove
         // TODO reset visuals correct
         tfKeyName.setText("");
         taFunctionInput.setText("");
@@ -58,15 +65,18 @@ public class LayerController implements Initializable {
     }
 
     protected void onFunctionTextChanged() {
+        if (currentSelectedKey == null || currentSelectedKey.getType() != KeyType.ACTION) return;
         this.currentSelectedKey.setFunction(taFunctionInput.getText());
     }
 
     @FXML
     protected void onColorChanged() {
+        if (currentSelectedKey == null) return;
         this.currentSelectedKey.setDefaultColor(cpDefaultKeyColor.getValue());
     }
 
     protected void onKeyNameChanged() {
+        if (currentSelectedKey == null || currentSelectedKey.getType() != KeyType.ACTION) return;
         this.currentSelectedKey.setName(tfKeyName.getText());
     }
 

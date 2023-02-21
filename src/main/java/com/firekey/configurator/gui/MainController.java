@@ -182,10 +182,27 @@ public class MainController implements Initializable {
         cbPort.addEventHandler(ComboBoxBase.ON_SHOWING, event -> updateCOMPortChoiceBox());
 
         config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
-        Layer layer = new Layer("Layer1");  // TODO remove
-        Key key = new Key("Action1", KeyType.ACTION, "Keyboard.press('c');", Color.rgb(255, 0, 0)); // TODO remove
-        layer.setKey(0, key); // TODO remove
-        config.setLayer(0, layer); // TODO remove
+        Layer layer;
+        // TODO remove
+        for (int l = 0; l < Config.NUM_LAYERS; l++) {
+            layer = new Layer("Layer" + l);
+            for (int k = 0; k < Layer.NUM_KEYS; k++) {
+                KeyType type;
+                if (k < 12) {
+                    type = KeyType.ACTION;
+                } else if (k == 12) {
+                    type = KeyType.NAV_UP;
+                } else if (k == 13) {
+                    type = KeyType.NAV_HOME;
+                } else {
+                    type = KeyType.NAV_DOWN;
+                }
+
+                Key key = new Key("A" + k + "L" + l, type, "", Color.rgb(0, 255, 0));
+                layer.setKey(k, key);
+            }
+            config.setLayer(l, layer);
+        }
 
         // keep always one button in navigation selected
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
