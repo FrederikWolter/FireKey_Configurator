@@ -24,7 +24,8 @@ public class LayerController implements Initializable {
     @FXML
     private TextFieldWithLengthLimit tfKeyName;
 
-    private int currentLayerIdx;
+    @FXML
+    private TextFieldWithLengthLimit tfLayerName;
 
     private Layer currentLayer;
     private Key currentSelectedKey;
@@ -55,7 +56,6 @@ public class LayerController implements Initializable {
     }
 
     public void setLayer(int layerIdx, Layer layer) {
-        this.currentLayerIdx = layerIdx;
         this.currentLayer = layer;
         // TODO reset visuals correct
         tfKeyName.setText("");
@@ -79,12 +79,19 @@ public class LayerController implements Initializable {
         this.currentSelectedKey.setName(tfKeyName.getText());
     }
 
+    private void onLayerNameChanged() {
+        if (currentLayer == null) return;
+        this.currentLayer.setName(tfLayerName.getText());
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO/CHECK: use focusedProperty and on focus lost?
         taFunctionInput.textProperty().addListener((observable, oldValue, newValue) -> onFunctionTextChanged());
         tfKeyName.textProperty().addListener((observable, oldValue, newValue) -> onKeyNameChanged());
         tfKeyName.setMaxLength(8);
+        tfLayerName.setMaxLength(10);
+        tfKeyName.textProperty().addListener((observable, oldValue, newValue) -> onLayerNameChanged());
 
 
         // TODO add entries
