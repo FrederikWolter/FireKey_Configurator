@@ -142,8 +142,8 @@ public class ArduinoCLI {
                     while ((line = reader.readLine()) != null) {
                         String finalLine = line;
                         Platform.runLater(() -> {
-                                textArea.appendText(">" + finalLine + "\n");
-                                textArea.setScrollTop(Double.MAX_VALUE);
+                            textArea.appendText(">" + finalLine + "\n");
+                            textArea.setScrollTop(Double.MAX_VALUE);
                         });
                     }
                 } catch (IOException e) {

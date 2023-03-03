@@ -60,6 +60,7 @@ public class Key {
     }
 
     // region getter
+
     /**
      * @return The {@link #name} of this {@link Key}
      */
@@ -90,6 +91,7 @@ public class Key {
     // endregion
 
     // region setter
+
     /**
      * Sets the {@link #name} of this {@link Key}.<br>
      * Not used if {@link #type} is {@link KeyType#NAV_UP}, {@link KeyType#NAV_DOWN}, {@link KeyType#NAV_HOME}.

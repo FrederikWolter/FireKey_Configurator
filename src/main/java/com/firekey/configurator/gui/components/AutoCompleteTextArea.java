@@ -79,7 +79,7 @@ public class AutoCompleteTextArea extends TextArea {
                         Text text = new Text("Text"); // Replace with the text you're interested in
                         text.setFont(getFont());
                         double fontHeight = text.getLayoutBounds().getHeight();
-                        autoCompletePopUp.show(this, point2D.getX(), point2D.getY() + lineNumber*fontHeight+fontHeight/2);
+                        autoCompletePopUp.show(this, point2D.getX(), point2D.getY() + lineNumber * fontHeight + fontHeight / 2);
                     }
                 }
 
@@ -187,7 +187,7 @@ public class AutoCompleteTextArea extends TextArea {
                 String replacement = result;
                 int textLen = text.length();
                 ReplaceStartIndex replaceStartIndex = getCurrentWordLineStart();
-                if(replaceStartIndex.insideBracket){
+                if (replaceStartIndex.insideBracket) {
                     // if we replace inside brackets, remove a possible semicolons at the end
                     replacement = replacement.replaceAll(";$", "");
                 }
@@ -302,9 +302,11 @@ public class AutoCompleteTextArea extends TextArea {
 
     /**
      * Used to collect a start index of a replacement text and if it is inside a bracket.
+     *
      * @param startIndex
      * @param insideBracket
      */
-    private record ReplaceStartIndex(int startIndex, boolean insideBracket) {}
+    private record ReplaceStartIndex(int startIndex, boolean insideBracket) {
+    }
 
 }

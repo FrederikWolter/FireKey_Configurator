@@ -59,6 +59,7 @@ public class Layer {
     }
 
     // region getter
+
     /**
      * @return The {@link #name} of the {@link Layer}
      */
@@ -80,6 +81,7 @@ public class Layer {
     // endregion
 
     // region setter
+
     /**
      * Sets the {@link #name} of this {@link Layer}.
      *
