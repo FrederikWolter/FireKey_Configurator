@@ -239,13 +239,20 @@ public class MainController implements Initializable {
             // Show the dialog and wait for the user to make a choice
             Optional<ButtonType> result = alert.showAndWait();
 
+            if(result.isEmpty()){
+                event.consume();
+                return;
+            }
+
             // Handle the user's choice
             if (result.get() == saveButton) {
-                // TODO: Save the file
-                System.out.println("save");
+                try {
+                    config.save();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else if (result.get() == discardButton) {
-                // TODO: Discard changes
-                System.out.println("cancel");
+                System.out.println("Don't save");
             } else {
                 // User clicked Cancel or closed the dialog
                 event.consume(); // Prevent the application from closing
