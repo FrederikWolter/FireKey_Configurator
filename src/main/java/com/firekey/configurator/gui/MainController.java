@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -29,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class MainController implements Initializable {
     // region attributes
-    private GridPane general;
+    private VBox general;
     private GridPane command;
     private GridPane layer;
 
@@ -39,6 +40,7 @@ public class MainController implements Initializable {
     private String comPort;
 
     private LayerController layerController;
+    private GeneralController generalController;
 
     private Config config;
     // endregion
@@ -164,11 +166,17 @@ public class MainController implements Initializable {
         }
 
         try {
-            general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
+            //general = FXMLLoader.load(getClass().getResource("general-view.fxml"));
+            FXMLLoader generalLoader = new FXMLLoader(getClass().getResource("general-view.fxml"));
+            general = generalLoader.load();
+            generalController = generalLoader.getController();
+
             command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
+
             FXMLLoader layerLoader = new FXMLLoader(getClass().getResource("layer-view.fxml"));
             layer = layerLoader.load();
             layerController = layerLoader.getController();
+
             onGeneralClick();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -206,6 +214,8 @@ public class MainController implements Initializable {
             }
             config.setLayer(l, layer);
         }
+
+        generalController.setConfig(config);
 
         // keep always one button in navigation selected
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
