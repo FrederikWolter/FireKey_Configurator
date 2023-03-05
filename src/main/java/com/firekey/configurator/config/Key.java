@@ -3,6 +3,8 @@ package com.firekey.configurator.config;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 /**
  * Represents a single key on a specific {@link Layer} of the macro-keyboard FireKey.
  */
@@ -105,8 +107,9 @@ public class Key {
      * @param name The new name of this {@link Key}
      */
     public void setName(String name) {
+        if(!Objects.equals(this.name, name))
+            fireChangedEvent();
         this.name = name;
-        fireChangedEvent();
     }
 
     /**
@@ -116,7 +119,6 @@ public class Key {
      */
     public void setType(KeyType type) {
         this.type = type;
-        fireChangedEvent();
     }
 
     /**
@@ -126,8 +128,9 @@ public class Key {
      * @param function The new action-function of this {@link Key}
      */
     public void setFunction(String function) {
+        if(!Objects.equals(this.function, function))
+            fireChangedEvent();
         this.function = function;
-        fireChangedEvent();
     }
 
     /**
@@ -136,8 +139,9 @@ public class Key {
      * @param defaultColor The new default layer color of this {@link Key}
      */
     public void setDefaultColor(Color defaultColor) {
+        if(this.defaultColor != defaultColor)
+            fireChangedEvent();
         this.defaultColor = defaultColor;
-        fireChangedEvent();
     }
     // endregion
 

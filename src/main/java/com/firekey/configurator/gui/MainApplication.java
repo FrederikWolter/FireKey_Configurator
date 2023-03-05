@@ -22,6 +22,9 @@ public class MainApplication extends Application {
         stage.setTitle("FireKey-Configurator " + FireKey.VERSION);
         stage.initStyle(StageStyle.DECORATED);      // TODO change to undecorated?
         stage.setScene(scene);
+
+        stage.setOnCloseRequest(controller::onClose);
+
         stage.show();
     }
 }

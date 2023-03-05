@@ -11,19 +11,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ComboBoxBase;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -221,5 +220,36 @@ public class MainController implements Initializable {
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null) oldVal.setSelected(true);
         });
+    }
+
+    public void onClose(WindowEvent event) {
+        if (config.hasChanged()) {
+            // Create a confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Save Changes");
+            alert.setHeaderText("Do you want to save changes to your file before closing?");
+            alert.setContentText("Choose your option.");
+
+            // Add Save, Discard, and Cancel buttons to the dialog
+            ButtonType saveButton = new ButtonType("Save");
+            ButtonType discardButton = new ButtonType("Discard");
+            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(saveButton, discardButton, cancelButton);
+
+            // Show the dialog and wait for the user to make a choice
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Handle the user's choice
+            if (result.get() == saveButton) {
+                // TODO: Save the file
+                System.out.println("save");
+            } else if (result.get() == discardButton) {
+                // TODO: Discard changes
+                System.out.println("cancel");
+            } else {
+                // User clicked Cancel or closed the dialog
+                event.consume(); // Prevent the application from closing
+            }
+        }
     }
 }

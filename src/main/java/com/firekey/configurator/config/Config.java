@@ -306,22 +306,32 @@ public class Config {
 
     // region setter
     public void setSpamDelay(int spamDelay) {
+        if(this.spamDelay != spamDelay)
+            fireChangedEvent();
         this.spamDelay = spamDelay;
     }
 
     public void setHoldDelay(int holdDelay) {
+        if(this.holdDelay != holdDelay)
+            fireChangedEvent();
         this.holdDelay = holdDelay;
     }
 
     public void setDebounceDelay(int debounceDelay) {
+        if(this.debounceDelay != debounceDelay)
+            fireChangedEvent();
         this.debounceDelay = debounceDelay;
     }
 
     public void setSleepDelay(int sleepDelay) {
+        if(this.sleepDelay != sleepDelay)
+            fireChangedEvent();
         this.sleepDelay = sleepDelay;
     }
 
     public void setLedBright(int ledBright) {
+        if(this.ledBright != ledBright)
+            fireChangedEvent();
         this.ledBright = ledBright;
     }
 
@@ -343,5 +353,9 @@ public class Config {
         this.changed = false;
     }
     // endregion
+
+    private void fireChangedEvent(){
+        valueHasChanged();
+    }
 
 }

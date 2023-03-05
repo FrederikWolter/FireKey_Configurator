@@ -3,6 +3,8 @@ package com.firekey.configurator.config;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 /**
  * Represents a single layer of the macro-keyboard FireKey managing all its {@link Key}s.
  */
@@ -94,8 +96,9 @@ public class Layer {
      * @param name The new {@link #name} of this {@link Layer}
      */
     public void setName(String name) {
+        if(!Objects.equals(this.name, name))
+            fireChangedEvent();
         this.name = name;
-        fireChangedEvent();
     }
 
     /**

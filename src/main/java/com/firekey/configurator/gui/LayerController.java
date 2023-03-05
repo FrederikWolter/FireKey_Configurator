@@ -61,6 +61,7 @@ public class LayerController implements Initializable {
         tfKeyName.setText("");
         taFunctionInput.setText("");
         cpDefaultKeyColor.setValue(Color.WHITE);
+        tfLayerName.setText(currentLayer.getName());
     }
 
     protected void onFunctionTextChanged() {
