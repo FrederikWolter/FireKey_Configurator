@@ -45,6 +45,10 @@ public class Config {
     private int ledBright;
     private final Layer[] layers;
     private final String dataPath;
+    /**
+     * True, if a {@link Key} or {@link Layer} has been changed
+     */
+    private boolean changed;
     // endregion
 
     public Config(String dataPath) {
@@ -80,7 +84,7 @@ public class Config {
             JSONObject layerJson = layerJSONArray.optJSONObject(layerIdx);
             if (layerJson != null) {
                 // get layer values
-                Layer layer = new Layer(layerJson.getString(Layer.NAME));
+                Layer layer = new Layer(layerJson.getString(Layer.NAME), this);
 
                 // get keys
                 JSONArray keyJSONArray = layerJson.getJSONArray(Layer.KEYS);
@@ -88,7 +92,7 @@ public class Config {
                     // get current key
                     JSONObject keyJson = keyJSONArray.optJSONObject(keyIdx);
                     if (keyJson != null) {
-                        Key key = new Key(keyJson.getString(Key.NAME), keyJson.getEnum(KeyType.class, Key.TYPE), keyJson.getString(Key.FUNCTION), Color.web(keyJson.getString(Key.DEFAULT_COLOR)));
+                        Key key = new Key(keyJson.getString(Key.NAME), keyJson.getEnum(KeyType.class, Key.TYPE), keyJson.getString(Key.FUNCTION), Color.web(keyJson.getString(Key.DEFAULT_COLOR)), this);
                         // add key to layer
                         layer.setKey(keyIdx, key);
                     }
@@ -290,6 +294,14 @@ public class Config {
         if (0 <= idx && idx < NUM_LAYERS) return this.layers[idx];
         return null;
     }
+
+    /**
+     *
+     * @return True, if a {@link Key} or {@link Layer} has been changed
+     */
+    public boolean hasChanged(){
+        return changed;
+    }
     // endregion
 
     // region setter
@@ -321,6 +333,14 @@ public class Config {
      */
     public void setLayer(int idx, Layer layer) {
         if (0 <= idx && idx < NUM_LAYERS) this.layers[idx] = layer;
+    }
+
+    public void valueHasChanged(){
+        this.changed = true;
+    }
+
+    public void resetChanged(){
+        this.changed = false;
     }
     // endregion
 

@@ -26,6 +26,11 @@ public class Layer {
      * The last keys need to be the navigation keys
      */
     private final Key[] keys;
+    /**
+     * The {@link Config}-object this layer is in.
+     */
+    private final Config config;
+
     //  endregion
 
     /**
@@ -33,9 +38,10 @@ public class Layer {
      *
      * @param name The display name of this {@link Layer}
      */
-    public Layer(String name) {
+    public Layer(String name, Config config) {
         this.name = name;
         this.keys = new Key[NUM_KEYS];
+        this.config = config;
     }
 
     /**
@@ -89,6 +95,7 @@ public class Layer {
      */
     public void setName(String name) {
         this.name = name;
+        fireChangedEvent();
     }
 
     /**
@@ -102,4 +109,8 @@ public class Layer {
             this.keys[idx] = key;
     }
     // endregion
+
+    private void fireChangedEvent(){
+        config.valueHasChanged();
+    }
 }

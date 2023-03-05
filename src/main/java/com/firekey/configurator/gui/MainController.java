@@ -188,7 +188,7 @@ public class MainController implements Initializable {
         Layer layer;
         // TODO remove
         for (int l = 0; l < Config.NUM_LAYERS; l++) {
-            layer = new Layer("Layer" + l);
+            layer = new Layer("Layer" + l, config);
             for (int k = 0; k < Layer.NUM_KEYS; k++) {
                 KeyType type;
                 if (k < 12) {
@@ -201,7 +201,7 @@ public class MainController implements Initializable {
                     type = KeyType.NAV_DOWN;
                 }
 
-                Key key = new Key("A" + k + "L" + l, type, "", Color.rgb(0, 255, 0));
+                Key key = new Key("A" + k + "L" + l, type, "", Color.rgb(0, 255, 0), config);
                 layer.setKey(k, key);
             }
             config.setLayer(l, layer);

@@ -29,6 +29,10 @@ public class Key {
      * The default color of this {@link Key} with the corresponding {@link Layer} selected.
      */
     private Color defaultColor;
+    /**
+     * The {@link Config}-object this key is in.
+     */
+    private Config config;
     // endregion
 
     /**
@@ -38,12 +42,14 @@ public class Key {
      * @param type         The {@link KeyType} of this {@link Key}
      * @param function     The function, this {@link Key} is executing on press.
      * @param defaultColor The default color for this {@link Key}
+     * @param config       The {@link Config} this {@link Key} is part of
      */
-    public Key(String name, KeyType type, String function, Color defaultColor) {
+    public Key(String name, KeyType type, String function, Color defaultColor, Config config) {
         this.name = name;
         this.type = type;
         this.function = function;
         this.defaultColor = defaultColor;
+        this.config = config;
     }
 
     /**
@@ -100,6 +106,7 @@ public class Key {
      */
     public void setName(String name) {
         this.name = name;
+        fireChangedEvent();
     }
 
     /**
@@ -109,6 +116,7 @@ public class Key {
      */
     public void setType(KeyType type) {
         this.type = type;
+        fireChangedEvent();
     }
 
     /**
@@ -119,6 +127,7 @@ public class Key {
      */
     public void setFunction(String function) {
         this.function = function;
+        fireChangedEvent();
     }
 
     /**
@@ -128,7 +137,12 @@ public class Key {
      */
     public void setDefaultColor(Color defaultColor) {
         this.defaultColor = defaultColor;
+        fireChangedEvent();
     }
     // endregion
+
+    private void fireChangedEvent(){
+        config.valueHasChanged();
+    }
 
 }
