@@ -73,6 +73,13 @@ public class Config {
     }
 
     public Config load() throws IOException {
+        // init values
+        this.spamDelay = -1;
+        this.holdDelay = -1;
+        this.debounceDelay = -1;
+        this.sleepDelay = -1;
+        this.ledBright = -1;
+
         JSONObject configJson = this.loadJsonConfig();
 
         // get config values
@@ -132,6 +139,7 @@ public class Config {
     public void save() throws IOException {
         try (FileWriter fw = new FileWriter(dataPath + CONFIG_FILE_NAME)) {
             fw.write(this.toJSON().toString(1));
+            resetChanged();
         } catch (IOException e) {
             throw new IOException();    //TODO own exception?
         }
@@ -301,41 +309,40 @@ public class Config {
     }
 
     /**
-     *
      * @return True, if a {@link Key} or {@link Layer} has been changed
      */
-    public boolean hasChanged(){
+    public boolean hasChanged() {
         return changed;
     }
     // endregion
 
     // region setter
     public void setSpamDelay(int spamDelay) {
-        if(this.spamDelay != spamDelay && this.spamDelay != -1)
+        if (this.spamDelay != spamDelay && this.spamDelay != -1)
             fireChangedEvent();
         this.spamDelay = spamDelay;
     }
 
     public void setHoldDelay(int holdDelay) {
-        if(this.holdDelay != holdDelay && this.holdDelay != -1)
+        if (this.holdDelay != holdDelay && this.holdDelay != -1)
             fireChangedEvent();
         this.holdDelay = holdDelay;
     }
 
     public void setDebounceDelay(int debounceDelay) {
-        if(this.debounceDelay != debounceDelay && this.debounceDelay != -1)
+        if (this.debounceDelay != debounceDelay && this.debounceDelay != -1)
             fireChangedEvent();
         this.debounceDelay = debounceDelay;
     }
 
     public void setSleepDelay(int sleepDelay) {
-        if(this.sleepDelay != sleepDelay && this.sleepDelay != -1)
+        if (this.sleepDelay != sleepDelay && this.sleepDelay != -1)
             fireChangedEvent();
         this.sleepDelay = sleepDelay;
     }
 
     public void setLedBright(int ledBright) {
-        if(this.ledBright != ledBright && this.ledBright != -1)
+        if (this.ledBright != ledBright && this.ledBright != -1)
             fireChangedEvent();
         this.ledBright = ledBright;
     }
@@ -350,16 +357,16 @@ public class Config {
         if (0 <= idx && idx < NUM_LAYERS) this.layers[idx] = layer;
     }
 
-    public void valueHasChanged(){
+    public void valueHasChanged() {
         this.changed = true;
     }
 
-    public void resetChanged(){
+    public void resetChanged() {
         this.changed = false;
     }
     // endregion
 
-    private void fireChangedEvent(){
+    private void fireChangedEvent() {
         valueHasChanged();
     }
 

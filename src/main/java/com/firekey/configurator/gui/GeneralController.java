@@ -8,8 +8,6 @@ import javafx.scene.control.Slider;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class GeneralController implements Initializable {
 
@@ -38,6 +36,10 @@ public class GeneralController implements Initializable {
 
     public void setConfig(Config config) {
         this.config = config;
+        updateVisuals();
+    }
+
+    public void updateVisuals() {
         sliderSpamDelay.setValue(config.getSpamDelay());
         sliderHoldDelay.setValue(config.getHoldDelay());
         sliderDebounceDelay.setValue(config.getDebounceDelay());

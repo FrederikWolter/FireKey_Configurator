@@ -153,8 +153,8 @@ public class MainController implements Initializable {
     @FXML
     protected void onSaveConfigClick() {
         try {
-            // TODO ask before save
             config.save();
+            createInfoPupUp("Save Config", "Save Config", "The Config has been saved!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -162,12 +162,18 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onResetConfigClick() {
-        try {
-            // TODO ask before reset
-            config.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // TODO ask before reset
+        createConfirmationPopUp("Restore Config", "Restore Config", "Do you want to restore your Config?",
+                () -> {
+                    try {
+                        config.load();
+                        createInfoPupUp("Restored Config", "Restored Config", "The Config has been restored!");
+                        generalController.updateVisuals();
+                        onGeneralClick();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 
     @FXML
@@ -261,7 +267,7 @@ public class MainController implements Initializable {
 
     public void onClose(WindowEvent event) {
         if (config.hasChanged()) {
-            createPopUp("Save Changes", "Do you want to save changes to your config before closing?", "Choose your option.",
+            createConfirmationPopUp("Save Changes", "Do you want to save changes to your config before closing?", "Choose your option.",
                     () -> {
                         // on save
                         try {
@@ -281,7 +287,13 @@ public class MainController implements Initializable {
         }
     }
 
-    private void createPopUp(String title, String headerText, String contentText, ICallBack onTrigger, ICallBack onDiscard, ICallBack onAbort) {
+    private void createConfirmationPopUp(String title, String headerText, String contentText, ICallBack onTrigger) {
+        createConfirmationPopUp(title, headerText, contentText, onTrigger, () -> {
+        }, () -> {
+        });
+    }
+
+    private void createConfirmationPopUp(String title, String headerText, String contentText, ICallBack onTrigger, ICallBack onDiscard, ICallBack onAbort) {
         // Create a confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
@@ -289,8 +301,8 @@ public class MainController implements Initializable {
         alert.setContentText(contentText);
 
         // Add Save, Discard, and Cancel buttons to the dialog
-        ButtonType saveButton = new ButtonType("Save");
-        ButtonType discardButton = new ButtonType("Discard");
+        ButtonType saveButton = new ButtonType("Yes");
+        ButtonType discardButton = new ButtonType("No");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(saveButton, discardButton, cancelButton);
 
@@ -310,5 +322,13 @@ public class MainController implements Initializable {
         } else {
             onAbort.invoke();
         }
+    }
+
+    private void createInfoPupUp(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.show();
     }
 }
