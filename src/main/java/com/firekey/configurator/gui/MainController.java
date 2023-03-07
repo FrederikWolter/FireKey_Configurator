@@ -69,6 +69,7 @@ public class MainController implements Initializable {
         cbPort.getItems().clear();
         cbPort.getItems().addAll(arduinoCLI.getPorts());
         cbPort.getSelectionModel().select(getCBDefaultSelectionIdx());
+        onCOMPortChanged();
     }
 
     private int getCBDefaultSelectionIdx() {
@@ -113,8 +114,11 @@ public class MainController implements Initializable {
     @FXML
     protected void onUploadFirmwareClick() {
         TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
-        if (this.comPort != null) {
+        if (this.comPort != null && ta != null) {
             try {
+                ta.appendText("Converting Config to Firmware Config...");
+                config.toFirmware();
+                ta.appendText("Done");
                 arduinoCLI.upload(this.comPort, ta);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -191,7 +195,12 @@ public class MainController implements Initializable {
         // update items on open
         cbPort.addEventHandler(ComboBoxBase.ON_SHOWING, event -> updateCOMPortChoiceBox());
 
-        config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
+        try {
+            config = new Config(dataPath).load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        /*config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
         Layer layer;
         // TODO remove
         for (int l = 0; l < Config.NUM_LAYERS; l++) {
@@ -212,7 +221,7 @@ public class MainController implements Initializable {
                 layer.setKey(k, key);
             }
             config.setLayer(l, layer);
-        }
+        }*/
 
         generalController.setConfig(config);
 

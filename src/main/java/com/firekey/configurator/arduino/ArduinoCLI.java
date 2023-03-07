@@ -56,9 +56,12 @@ public class ArduinoCLI {
     }
 
     public void upload(String port, TextArea textArea) throws IOException {
+        textArea.appendText("Compiling Firmware...");
         this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
+            textArea.appendText("Done");
+            textArea.appendText("Uploading Firmware...");
             try {
-                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH);
+                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process1 -> textArea.appendText("Done"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
