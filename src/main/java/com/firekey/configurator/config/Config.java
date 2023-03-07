@@ -54,6 +54,11 @@ public class Config {
     public Config(String dataPath) {
         this.layers = new Layer[NUM_LAYERS];
         this.dataPath = dataPath;
+        this.spamDelay = -1;
+        this.holdDelay = -1;
+        this.debounceDelay = -1;
+        this.sleepDelay = -1;
+        this.ledBright = -1;
     }
 
     // TODO remove this constructor
@@ -306,31 +311,31 @@ public class Config {
 
     // region setter
     public void setSpamDelay(int spamDelay) {
-        if(this.spamDelay != spamDelay)
+        if(this.spamDelay != spamDelay && this.spamDelay != -1)
             fireChangedEvent();
         this.spamDelay = spamDelay;
     }
 
     public void setHoldDelay(int holdDelay) {
-        if(this.holdDelay != holdDelay)
+        if(this.holdDelay != holdDelay && this.holdDelay != -1)
             fireChangedEvent();
         this.holdDelay = holdDelay;
     }
 
     public void setDebounceDelay(int debounceDelay) {
-        if(this.debounceDelay != debounceDelay)
+        if(this.debounceDelay != debounceDelay && this.debounceDelay != -1)
             fireChangedEvent();
         this.debounceDelay = debounceDelay;
     }
 
     public void setSleepDelay(int sleepDelay) {
-        if(this.sleepDelay != sleepDelay)
+        if(this.sleepDelay != sleepDelay && this.sleepDelay != -1)
             fireChangedEvent();
         this.sleepDelay = sleepDelay;
     }
 
     public void setLedBright(int ledBright) {
-        if(this.ledBright != ledBright)
+        if(this.ledBright != ledBright && this.ledBright != -1)
             fireChangedEvent();
         this.ledBright = ledBright;
     }
