@@ -2,6 +2,7 @@ package com.firekey.configurator.gui;
 
 import com.firekey.configurator.FireKey;
 import com.firekey.configurator.arduino.ArduinoCLI;
+import com.firekey.configurator.auxiliary.ICallBack;
 import com.firekey.configurator.config.Config;
 import com.firekey.configurator.config.Key;
 import com.firekey.configurator.config.KeyType;
@@ -260,39 +261,54 @@ public class MainController implements Initializable {
 
     public void onClose(WindowEvent event) {
         if (config.hasChanged()) {
-            // Create a confirmation dialog
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Save Changes");
-            alert.setHeaderText("Do you want to save changes to your config before closing?");
-            alert.setContentText("Choose your option.");
+            createPopUp("Save Changes", "Do you want to save changes to your config before closing?", "Choose your option.",
+                    () -> {
+                        // on save
+                        try {
+                            config.save();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    },
+                    () -> {
+                        // on discard
+                        System.out.println("Don't save");
+                    },
+                    () -> {
+                        // on abort
+                        event.consume(); // Prevent the application from closing
+                    });
+        }
+    }
 
-            // Add Save, Discard, and Cancel buttons to the dialog
-            ButtonType saveButton = new ButtonType("Save");
-            ButtonType discardButton = new ButtonType("Discard");
-            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(saveButton, discardButton, cancelButton);
+    private void createPopUp(String title, String headerText, String contentText, ICallBack onTrigger, ICallBack onDiscard, ICallBack onAbort) {
+        // Create a confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
 
-            // Show the dialog and wait for the user to make a choice
-            Optional<ButtonType> result = alert.showAndWait();
+        // Add Save, Discard, and Cancel buttons to the dialog
+        ButtonType saveButton = new ButtonType("Save");
+        ButtonType discardButton = new ButtonType("Discard");
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(saveButton, discardButton, cancelButton);
 
-            if (result.isEmpty()) {
-                event.consume();
-                return;
-            }
+        // Show the dialog and wait for the user to make a choice
+        Optional<ButtonType> result = alert.showAndWait();
 
-            // Handle the user's choice
-            if (result.get() == saveButton) {
-                try {
-                    config.save();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (result.get() == discardButton) {
-                System.out.println("Don't save");
-            } else {
-                // User clicked Cancel or closed the dialog
-                event.consume(); // Prevent the application from closing
-            }
+        if (result.isEmpty()) {
+            onAbort.invoke();
+            return;
+        }
+
+        // Handle the user's choice
+        if (result.get() == saveButton) {
+            onTrigger.invoke();
+        } else if (result.get() == discardButton) {
+            onDiscard.invoke();
+        } else {
+            onAbort.invoke();
         }
     }
 }

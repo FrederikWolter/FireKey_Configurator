@@ -64,10 +64,10 @@ public class ArduinoCLI {
             try {
                 this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process1 -> {
                     textArea.appendText(">Done");
-                    onFinished.callBack();
+                    onFinished.invoke();
                 });
             } catch (IOException e) {
-                onError.callBack();
+                onError.invoke();
                 throw new RuntimeException(e);
             }
         });
