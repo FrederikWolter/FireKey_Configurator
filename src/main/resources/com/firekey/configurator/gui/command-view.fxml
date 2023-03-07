@@ -11,7 +11,7 @@
   <rowConstraints>
     <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
-  <TextArea fx:id="taCliOutput" editable="false" focusTraversable="false" mouseTransparent="true" promptText="Command Line Output ..." styleClass="command" stylesheets="@command-styling.css" wrapText="true" />
+  <TextArea fx:id="taCliOutput" editable="false" focusTraversable="false" promptText="Command Line Output ..." styleClass="command" stylesheets="@command-styling.css" wrapText="true" />
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
