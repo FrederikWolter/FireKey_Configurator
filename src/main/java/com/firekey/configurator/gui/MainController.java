@@ -125,12 +125,16 @@ public class MainController implements Initializable {
             }
         } else {
             // TODO Error
+            if(ta != null){
+                ta.appendText("No Port Selected!");
+            }
         }
     }
 
     @FXML
     protected void onSaveConfigClick() {
         try {
+            // TODO ask before save
             config.save();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -140,6 +144,7 @@ public class MainController implements Initializable {
     @FXML
     protected void onResetConfigClick() {
         try {
+            // TODO ask before reset
             config.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
