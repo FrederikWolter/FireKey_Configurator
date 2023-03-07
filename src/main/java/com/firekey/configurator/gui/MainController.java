@@ -115,10 +115,11 @@ public class MainController implements Initializable {
     protected void onUploadFirmwareClick() {
         TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
         if (this.comPort != null && ta != null) {
+            onCommandClick();
             try {
-                ta.appendText("Converting Config to Firmware Config...");
+                ta.appendText(">Converting Config to Firmware Config...\n");        // TODO create helper?
                 config.toFirmware();
-                ta.appendText("Done");
+                ta.appendText(">Done\n");
                 arduinoCLI.upload(this.comPort, ta);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -126,7 +127,8 @@ public class MainController implements Initializable {
         } else {
             // TODO Error
             if(ta != null){
-                ta.appendText("No Port Selected!");
+                onCommandClick();
+                ta.appendText(">No Port Selected!");
             }
         }
     }
@@ -234,6 +236,23 @@ public class MainController implements Initializable {
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null) oldVal.setSelected(true);
         });
+        TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");
+        ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");
     }
 
     public void onClose(WindowEvent event) {
