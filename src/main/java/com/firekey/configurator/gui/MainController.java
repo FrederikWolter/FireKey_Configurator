@@ -227,7 +227,7 @@ public class MainController implements Initializable {
             // Create a confirmation dialog
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save Changes");
-            alert.setHeaderText("Do you want to save changes to your file before closing?");
+            alert.setHeaderText("Do you want to save changes to your config before closing?");
             alert.setContentText("Choose your option.");
 
             // Add Save, Discard, and Cancel buttons to the dialog
