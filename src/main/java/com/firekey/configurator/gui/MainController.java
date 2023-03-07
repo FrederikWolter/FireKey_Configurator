@@ -104,7 +104,7 @@ public class MainController implements Initializable {
         String data = (String) node.getUserData();
         int layerIdx = Integer.parseInt(data);
 
-        layerController.setLayer(layerIdx, config.getLayer(layerIdx));
+        layerController.setLayer(config.getLayer(layerIdx));
 
         paneContent.getChildren().clear();
         paneContent.getChildren().add(layer);

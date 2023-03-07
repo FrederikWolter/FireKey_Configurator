@@ -35,10 +35,8 @@ public class LayerController implements Initializable {
         Node node = (Node) event.getSource();
         String data = (String) node.getUserData();
         int buttonIdx = Integer.parseInt(data);
-        if (currentLayer != null) {
-            currentSelectedKey = currentLayer.getKey(buttonIdx);
-            setVisualsToKeyData();
-        }
+        currentSelectedKey = currentLayer.getKey(buttonIdx);
+        setVisualsToKeyData();
     }
 
     private void setVisualsToKeyData() {
@@ -55,7 +53,7 @@ public class LayerController implements Initializable {
         }
     }
 
-    public void setLayer(int layerIdx, Layer layer) {
+    public void setLayer(Layer layer) {
         this.currentLayer = layer;
         // TODO reset visuals correct
         tfKeyName.setText("");
@@ -91,8 +89,8 @@ public class LayerController implements Initializable {
         taFunctionInput.textProperty().addListener((observable, oldValue, newValue) -> onFunctionTextChanged());
         tfKeyName.textProperty().addListener((observable, oldValue, newValue) -> onKeyNameChanged());
         tfKeyName.setMaxLength(8);
+        tfLayerName.textProperty().addListener((observable, oldValue, newValue) -> onLayerNameChanged());
         tfLayerName.setMaxLength(10);
-        tfKeyName.textProperty().addListener((observable, oldValue, newValue) -> onLayerNameChanged());
 
 
         // TODO add entries
