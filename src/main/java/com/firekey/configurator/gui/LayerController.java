@@ -55,10 +55,12 @@ public class LayerController implements Initializable {
 
     public void setLayer(Layer layer) {
         this.currentLayer = layer;
-        // TODO reset visuals correct
+        // set default values for the key edit fields
+        this.currentSelectedKey = null;
         tfKeyName.setText("");
         taFunctionInput.setText("");
         cpDefaultKeyColor.setValue(Color.WHITE);
+
         tfLayerName.setText(currentLayer.getName());
     }
 
