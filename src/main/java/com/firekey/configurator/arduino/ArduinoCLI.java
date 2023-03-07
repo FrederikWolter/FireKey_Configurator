@@ -2,6 +2,7 @@ package com.firekey.configurator.arduino;
 
 import com.fazecast.jSerialComm.SerialPort;
 import com.firekey.configurator.FireKey;
+import com.firekey.configurator.auxiliary.ICallBack;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
@@ -55,14 +56,18 @@ public class ArduinoCLI {
         this.dataPath = dataPath;
     }
 
-    public void upload(String port, TextArea textArea) throws IOException {
+    public void upload(String port, TextArea textArea, ICallBack onFinished, ICallBack onError) throws IOException {
         textArea.appendText(">Compiling Firmware...\n");
         this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
             textArea.appendText(">Done\n");
             textArea.appendText(">Uploading Firmware...\n");
             try {
-                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process1 -> textArea.appendText("Done"));
+                this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process1 -> {
+                    textArea.appendText(">Done");
+                    onFinished.callBack();
+                });
             } catch (IOException e) {
+                onError.callBack();
                 throw new RuntimeException(e);
             }
         });

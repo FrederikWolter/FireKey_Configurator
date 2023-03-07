@@ -42,6 +42,11 @@ public class MainController implements Initializable {
     private GeneralController generalController;
 
     private Config config;
+
+    /**
+     * True, if an upload process is running
+     */
+    private boolean uploading;
     // endregion
 
     @FXML
@@ -113,22 +118,33 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onUploadFirmwareClick() {
-        TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
-        if (this.comPort != null && ta != null) {
+        // TODO cleanup
+        TextArea ta = (TextArea) command.lookup("#taCliOutput");
+        if (comPort != null && ta != null && !uploading) {
+            uploading = true;
             onCommandClick();
             try {
                 ta.appendText(">Converting Config to Firmware Config...\n");        // TODO create helper?
                 config.toFirmware();
                 ta.appendText(">Done\n");
-                arduinoCLI.upload(this.comPort, ta);
+                arduinoCLI.upload(comPort, ta, () -> {
+                    // On Finished
+                    uploading = false;
+                }, () -> {
+                    // On Error
+                    uploading = false;
+                });
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
             // TODO Error
-            if(ta != null){
+            if (ta != null) {
                 onCommandClick();
-                ta.appendText(">No Port Selected!");
+                if (comPort == null)
+                    ta.appendText(">No Port Selected!");
+                if (uploading)
+                    ta.appendText(">Already Uploading. Please Wait!");
             }
         }
     }
@@ -202,33 +218,37 @@ public class MainController implements Initializable {
         // update items on open
         cbPort.addEventHandler(ComboBoxBase.ON_SHOWING, event -> updateCOMPortChoiceBox());
 
-        try {
+        /*try {
             config = new Config(dataPath).load();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        /*config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
+        }*/
+        config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
         Layer layer;
         // TODO remove
         for (int l = 0; l < Config.NUM_LAYERS; l++) {
             layer = new Layer("Layer" + l, config);
             for (int k = 0; k < Layer.NUM_KEYS; k++) {
                 KeyType type;
+                String name = "A" + k + "L" + l;
                 if (k < 12) {
                     type = KeyType.ACTION;
                 } else if (k == 12) {
                     type = KeyType.NAV_UP;
+                    name = "Nav_Up";
                 } else if (k == 13) {
                     type = KeyType.NAV_HOME;
+                    name = "Nav_Home";
                 } else {
                     type = KeyType.NAV_DOWN;
+                    name = "Nav_Down";
                 }
 
-                Key key = new Key("A" + k + "L" + l, type, "", Color.rgb(0, 255, 0), config);
+                Key key = new Key(name, type, "", Color.rgb(0, 255, 0), config);
                 layer.setKey(k, key);
             }
             config.setLayer(l, layer);
-        }*/
+        }
 
         generalController.setConfig(config);
 
@@ -236,23 +256,6 @@ public class MainController implements Initializable {
         tgNavigation.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null) oldVal.setSelected(true);
         });
-        TextArea ta = (TextArea) command.lookup("#taCliOutput");    // TODO cleanup
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");
-        ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");ta.appendText("asfsaf\n");
     }
 
     public void onClose(WindowEvent event) {
@@ -272,7 +275,7 @@ public class MainController implements Initializable {
             // Show the dialog and wait for the user to make a choice
             Optional<ButtonType> result = alert.showAndWait();
 
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 event.consume();
                 return;
             }
