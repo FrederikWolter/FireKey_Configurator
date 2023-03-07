@@ -41,7 +41,6 @@
             <String fx:value="head-background" />
             <String fx:value="head-pane" />
         </styleClass>
-        <TextField maxWidth="1.7976931348623157E308" promptText="Layer Name" styleClass="head-layer-input" stylesheets="@main-styling.css" HBox.hgrow="SOMETIMES" />
     </HBox>
     <HBox alignment="BOTTOM_RIGHT" spacing="5.0" stylesheets="@main-styling.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <styleClass>
