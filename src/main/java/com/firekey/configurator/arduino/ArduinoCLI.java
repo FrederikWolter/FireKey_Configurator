@@ -45,7 +45,7 @@ public class ArduinoCLI {
     // endregion
 
     // region arduino core
-    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr@1.8.6";  // TODO/CHECK: Don't limit version? really needed as const?
+    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr@1.8.6";  // TODO/CHECK: Don't limit version?
     // endregion
 
     // region attributes
