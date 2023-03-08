@@ -168,7 +168,6 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onResetConfigClick() {
-        // TODO ask before reset
         createConfirmationPopUp("Restore Config", "Restore Config", "Do you want to restore your Config?",
                 () -> {
                     try {
