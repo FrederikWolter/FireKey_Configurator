@@ -18,12 +18,12 @@
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <VBox styleClass="nav-background" stylesheets="@main-styling.css" GridPane.rowIndex="2">
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGeneralClick" selected="true" styleClass="nav-button" stylesheets="@main-styling.css" text="General">
+        <ToggleButton fx:id="tbGeneral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGeneralClick" selected="true" styleClass="nav-button" stylesheets="@main-styling.css" text="General">
             <toggleGroup>
                 <ToggleGroup fx:id="tgNavigation" />
             </toggleGroup>
         </ToggleButton>
-        <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCommandClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Command-Out" toggleGroup="$tgNavigation" />
+        <ToggleButton fx:id="tbCLI" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCommandClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Command-Out" toggleGroup="$tgNavigation" />
         <Separator prefWidth="200.0" styleClass="nav-separator" stylesheets="@main-styling.css" />
         <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 1" toggleGroup="$tgNavigation" userData="0" />
         <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLayerClick" styleClass="nav-button" stylesheets="@main-styling.css" text="Layer 2" toggleGroup="$tgNavigation" userData="1" />

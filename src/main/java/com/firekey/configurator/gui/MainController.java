@@ -56,6 +56,10 @@ public class MainController implements Initializable {
     private ToggleGroup tgNavigation;
     @FXML
     private ComboBox<String> cbPort;
+    @FXML
+    private ToggleButton tbGeneral;
+    @FXML
+    private ToggleButton tbCLI;
 
 
     /**
@@ -124,6 +128,7 @@ public class MainController implements Initializable {
         if (comPort != null && ta != null && !uploading) {
             uploading = true;
             onCommandClick();
+            tbCLI.setSelected(true);
             try {
                 ta.appendText(">Converting Config to Firmware Config...\n");        // TODO create helper?
                 config.toFirmware();
@@ -142,6 +147,7 @@ public class MainController implements Initializable {
             // TODO Error
             if (ta != null) {
                 onCommandClick();
+                tbCLI.setSelected(true);
                 if (comPort == null)
                     ta.appendText(">No Port Selected!");
                 if (uploading)
@@ -170,6 +176,7 @@ public class MainController implements Initializable {
                         createInfoPupUp("Restored Config", "Restored Config", "The Config has been restored!");
                         generalController.updateVisuals();
                         onGeneralClick();
+                        tbGeneral.setSelected(true);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
