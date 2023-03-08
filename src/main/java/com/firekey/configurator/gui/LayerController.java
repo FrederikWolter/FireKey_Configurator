@@ -27,24 +27,37 @@ public class LayerController implements Initializable {
     @FXML
     private TextFieldWithLengthLimit tfLayerName;
 
+    /**
+     * The current selected {@link Layer} object
+     */
     private Layer currentLayer;
+
+    /**
+     * The current selected {@link Key} object inside the {@link #currentLayer}
+     */
     private Key currentSelectedKey;
 
     @FXML
     protected void onMatrixButtonClicked(ActionEvent event) {
+        // Get the selected key index from the user data
         Node node = (Node) event.getSource();
         String data = (String) node.getUserData();
         int buttonIdx = Integer.parseInt(data);
+
+        // Set the selected index & update the visuals to this key
         currentSelectedKey = currentLayer.getKey(buttonIdx);
         setVisualsToKeyData();
     }
 
     private void setVisualsToKeyData() {
         if (currentSelectedKey == null) return;
+        // We have a key selected so update the visuals
         tfKeyName.setText(currentSelectedKey.getName());
         taFunctionInput.setText(currentSelectedKey.getFunction());
         cpDefaultKeyColor.setValue(currentSelectedKey.getDefaultColor());
+
         if (currentSelectedKey.getType() != KeyType.ACTION) {
+            // If the current selected key is not a action key, disable the name and function input
             tfKeyName.setEditable(false);
             taFunctionInput.setEditable(false);
         } else {
@@ -55,12 +68,14 @@ public class LayerController implements Initializable {
 
     public void setLayer(Layer layer) {
         this.currentLayer = layer;
+
         // set default values for the key edit fields
         this.currentSelectedKey = null;
         tfKeyName.setText("");
         taFunctionInput.setText("");
         cpDefaultKeyColor.setValue(Color.WHITE);
 
+        // Set the layer name to the input field
         tfLayerName.setText(currentLayer.getName());
     }
 
