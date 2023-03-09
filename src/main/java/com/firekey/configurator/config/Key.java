@@ -9,28 +9,52 @@ import java.util.Objects;
  * Represents a single key on a specific {@link Layer} of the macro-keyboard FireKey.
  */
 public class Key {
-    public static final String NAME = "name";
-    public static final String TYPE = "type";
-    public static final String FUNCTION = "function";
-    public static final String DEFAULT_COLOR = "defaultColor";
+
     // region attributes
+
+    // region constants
+    /**
+     * Name of the 'Name' field inside the json-obj
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Name of the 'Type' field inside the json-obj
+     */
+    public static final String TYPE = "type";
+
+    /**
+     * Name of the 'function' field inside the json-obj
+     */
+    public static final String FUNCTION = "function";
+
+    /**
+     * Name of the 'default color' field inside the json-obj
+     */
+    public static final String DEFAULT_COLOR = "defaultColor";
+    // endregion
+
     /**
      * The display name of this {@link Key}
      */
     private String name;
+
     /**
      * The {@link KeyType} of this {@link Key}<br>
      * This can be used to identify how to interpret other attributes like {@link #function}.
      */
     private KeyType type;
+
     /**
      * The function of this {@link Key} executed on the keyboard if the key is pressed with the corresponding {@link Layer} selected .
      */
     private String function;
+
     /**
      * The default color of this {@link Key} with the corresponding {@link Layer} selected.
      */
     private Color defaultColor;
+
     /**
      * The {@link Config}-object this key is in.
      */
@@ -145,6 +169,9 @@ public class Key {
     }
     // endregion
 
+    /**
+     * Fires a changed event to {@link Config#valueHasChanged()}
+     */
     private void fireChangedEvent(){
         config.valueHasChanged();
     }
