@@ -157,9 +157,7 @@ public class LayerController implements Initializable {
         // TODO add entries
         taFunctionInput.addAutoCompleteEntry("Keyboard.press();")
                 .addAutoCompleteEntry("KEY_LEFT_CTRL")
-                .addAutoCompleteEntry("if(){\n\n}")
-                .addAutoCompleteEntry("else {\n\n}")
-                .addAutoCompleteEntry("if(){\n\n} else {\n\n}")
+                .addAutoCompleteEntry("if() { } else { }")
                 .addAutoCompleteEntry("key->setLedRGB(255,255,255);")
                 .addAutoCompleteEntry("key->setLedRGB(0,255,255,255);")
                 .addAutoCompleteEntry("key->setLedRGB();")
