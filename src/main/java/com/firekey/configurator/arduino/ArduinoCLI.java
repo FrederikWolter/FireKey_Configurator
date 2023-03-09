@@ -20,35 +20,95 @@ public class ArduinoCLI {
 
     // region constants
     /**
-     * Path to the firmware-files inside the resources.
+     * Path to the firmware-files inside the resources. <br>
      * We have to use '/', because this is the separator inside a jar file.
      */
     private static final String FIRMWARE_RESOURCE_PATH = "firmware/";
+
+    /**
+     * Defines the path to the firmware-files in the {@link #dataPath}
+     */
     public static final String FIRMWARE_DATA_PATH = "Firmware" + File.separator;
+
+    /**
+     * Defines the path to the arduino-cli resources in the {@link #dataPath}
+     */
     private static final String CLI_RESOURCES_PATH = "Arduino" + File.separator;
 
+    /**
+     * Defines the path to the avr path where the 'boards.txt' is (in the {@link #dataPath})
+     */
     private static final String AVR_PATH = CLI_RESOURCES_PATH + "data" + File.separator + "packages" + File.separator + "arduino" + File.separator + "hardware" + File.separator + "avr" + File.separator + "1.8.6" + File.separator;
 
+    // region arduino-cli commands
+    /**
+     * The Lib command where we can install a lib
+     */
     private static final String LIB_CMD = "lib";
+
+    /**
+     * The core (boards) command
+     */
     private static final String CORE_CMD = "core";
+
+    /**
+     * Sub command to install a board or lib
+     */
     private static final String INSTALL_CMD = "install";
+    /**
+     * Command to upload an ino-file
+     */
     private static final String UPLOAD_CMD = "upload";
+
+    /**
+     * Command to compile an ino-file
+     */
     private static final String COMPILE_CMD = "compile";
+    // endregion
 
     // region libs
+    /**
+     * Name of the keyboard lib.
+     */
     private static final String KEYBOARD_LIB = "Keyboard";
+
+    /**
+     * Name of the usb-host lib.
+     */
     private static final String USB_HOST_LIB = "USBHost";
+
+    /**
+     * Name of the keyboard lib.
+     */
     private static final String NEO_PIXEL_LIB = "\"Adafruit NeoPixel\"";
+
+    /**
+     * Name of the bus-io lib.
+     */
     private static final String BUS_IO_LIB = "\"Adafruit BusIO\"";
+
+    /**
+     * Name of the adafruit-gfx-lib.
+     */
     private static final String GFX_LIB = "\"Adafruit GFX Library\"";
+
+    /**
+     * Name of the display u8g2 lib.
+     */
     private static final String U8G2_LIB = "\"U8g2\"";
     // endregion
 
     // region arduino core
-    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr@1.8.6";  // TODO/CHECK: Don't limit version?
+    /**
+     * The board version limited to a specific version, because we need to update inside this path the boards.txt (could change in future)
+     */
+    private static final String FIRE_KEY_BOARD_CORE = "arduino:avr@1.8.6";
     // endregion
 
     // region attributes
+    /**
+     * The resources directory for this app
+     */
     private final String dataPath;
     // endregion
 
@@ -56,6 +116,16 @@ public class ArduinoCLI {
         this.dataPath = dataPath;
     }
 
+    /**
+     * Uploads the FireKey-Firmware to the selected board
+     *
+     * @param port       The selected COM-Port of the FireKey (e.G. COM5)
+     * @param textArea   The reference to the text area where the log is written
+     * @param onFinished Called, after the upload is finished
+     * @param onError    Called, if an error occurs
+     * @throws IOException If an I/O error occurs
+     * @see #runArduinoCLI(TextArea, String...)
+     */
     public void upload(String port, TextArea textArea, ICallBack onFinished, ICallBack onError) throws IOException {
         textArea.appendText(">Compiling Firmware...\n");
         this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
@@ -126,6 +196,15 @@ public class ArduinoCLI {
         // region install board
     }
 
+    /**
+     * Executes an arduino-cli command inside a process
+     *
+     * @param textArea The reference to the text area where the log is written
+     * @param commands The array of the command snippets which will be executed
+     * @return The started {@link Process}
+     * @throws IOException If an I/O error occurs
+     * @see #buildArduinoCLIProcess(TextArea, List)
+     */
     private Process runArduinoCLI(TextArea textArea, String... commands) throws IOException {
         List<String> runCommands = new ArrayList<>();
         runCommands.add(dataPath + CLI_RESOURCES_PATH + "arduino-cli.exe");
@@ -133,6 +212,14 @@ public class ArduinoCLI {
         return buildArduinoCLIProcess(textArea, runCommands);
     }
 
+    /**
+     * Creates the arduino-cmd command and executes it
+     *
+     * @param textArea The reference to the text area where the log is written
+     * @param commands The snippets of the command, which will be executed
+     * @throws IOException If an I/O error occurs ({@link ProcessBuilder#start()}
+     * @returnThe started {@link Process}
+     */
     private Process buildArduinoCLIProcess(TextArea textArea, List<String> commands) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(commands);
         processBuilder.environment().put("config-file", dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
@@ -170,6 +257,7 @@ public class ArduinoCLI {
      *
      * @param resourceName TThe name of the resource to copy
      * @param targetName   The target output file
+     * @param override     True, if a file should be forced to be overwritten
      * @throws Exception If the target file cant be found.
      * @see #dataPath
      */
