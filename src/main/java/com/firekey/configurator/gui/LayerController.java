@@ -156,8 +156,20 @@ public class LayerController implements Initializable {
         // Add auto complete items to the function text area
         // TODO add entries
         taFunctionInput.addAutoCompleteEntry("Keyboard.press();")
+                // Modifiers
                 .addAutoCompleteEntry("KEY_LEFT_CTRL")
+                .addAutoCompleteEntry("KEY_LEFT_SHIFT")
+                .addAutoCompleteEntry("KEY_LEFT_ALT")
+                .addAutoCompleteEntry("KEY_LEFT_GUI")
+                .addAutoCompleteEntry("KEY_RIGHT_CTRL")
+                .addAutoCompleteEntry("KEY_RIGHT_SHIFT")
+                .addAutoCompleteEntry("KEY_RIGHT_ALT")
+                .addAutoCompleteEntry("KEY_RIGHT_GUI")
+                // Num Block Keys
+                .addAutoCompleteEntry("KEY_KP_SLASH")
+                // C-Helpers
                 .addAutoCompleteEntry("if() { } else { }")
+                // Fire-Key-Functions
                 .addAutoCompleteEntry("key->setLedRGB(255,255,255);")
                 .addAutoCompleteEntry("key->setLedRGB(0,255,255,255);")
                 .addAutoCompleteEntry("key->setLedRGB();")
@@ -166,6 +178,27 @@ public class LayerController implements Initializable {
                 .addAutoCompleteEntry("key->setState(true);")
                 .addAutoCompleteEntry("key->setLedDefault();")
                 .addAutoCompleteEntry("key->setLedOff();")
-                .addAutoCompleteEntry("key->setLedOn();");
+                .addAutoCompleteEntry("key->setLedOn();")
+                //FN-Keys
+                .addAutoCompleteEntry("KEY_F1")
+                .addAutoCompleteEntry("KEY_F2")
+                .addAutoCompleteEntry("KEY_F3")
+                .addAutoCompleteEntry("KEY_F4")
+                .addAutoCompleteEntry("KEY_F5")
+                .addAutoCompleteEntry("KEY_F6")
+                .addAutoCompleteEntry("KEY_F7")
+                .addAutoCompleteEntry("KEY_F8")
+                .addAutoCompleteEntry("KEY_F9")
+                .addAutoCompleteEntry("KEY_F10")
+                .addAutoCompleteEntry("KEY_F11")
+                .addAutoCompleteEntry("KEY_F12")
+                .addAutoCompleteEntry("KEY_F13")
+                .addAutoCompleteEntry("KEY_F14")
+                .addAutoCompleteEntry("KEY_F15")
+                .addAutoCompleteEntry("KEY_F16")
+                .addAutoCompleteEntry("KEY_F17")
+                .addAutoCompleteEntry("KEY_F18")
+                .addAutoCompleteEntry("KEY_F19")
+                .addAutoCompleteEntry("KEY_F20");
     }
 }
