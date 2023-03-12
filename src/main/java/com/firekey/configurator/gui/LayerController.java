@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
@@ -52,6 +53,12 @@ public class LayerController implements Initializable {
     private ToggleGroup tgKeyMatrix;
 
     /**
+     * Button to save the color to the whole layer
+     */
+    @FXML
+    private Button btnSaveColorToAll;
+
+    /**
      * The current selected {@link Layer} object
      */
     private Layer currentLayer;
@@ -75,6 +82,7 @@ public class LayerController implements Initializable {
             tfKeyName.setDisable(true);
             taFunctionInput.setDisable(true);
             cpDefaultKeyColor.setDisable(true);
+            btnSaveColorToAll.setDisable(true);
             return;
         }
         // We have a key selected so update the visuals
@@ -86,12 +94,12 @@ public class LayerController implements Initializable {
             // If the current selected key is not an action key, disable the name and function input
             tfKeyName.setDisable(true);
             taFunctionInput.setDisable(true);
-            cpDefaultKeyColor.setDisable(false);
         } else {
             tfKeyName.setDisable(false);
             taFunctionInput.setDisable(false);
-            cpDefaultKeyColor.setDisable(false);
         }
+        cpDefaultKeyColor.setDisable(false);
+        btnSaveColorToAll.setDisable(false);
     }
 
     /**
