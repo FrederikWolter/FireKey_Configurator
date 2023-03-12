@@ -60,19 +60,30 @@ public class LayerController implements Initializable {
      * Updates the visuals for a selected key
      */
     private void setVisualsToKeyData() {
-        if (currentSelectedKey == null) return;
+        if (currentSelectedKey == null) {
+            tfKeyName.setText("");
+            taFunctionInput.setText("");
+            cpDefaultKeyColor.setValue(Color.WHITE);
+
+            tfKeyName.setDisable(true);
+            taFunctionInput.setDisable(true);
+            cpDefaultKeyColor.setDisable(true);
+            return;
+        }
         // We have a key selected so update the visuals
         tfKeyName.setText(currentSelectedKey.getName());
         taFunctionInput.setText(currentSelectedKey.getFunction());
         cpDefaultKeyColor.setValue(currentSelectedKey.getDefaultColor());
 
         if (currentSelectedKey.getType() != KeyType.ACTION) {
-            // If the current selected key is not a action key, disable the name and function input
-            tfKeyName.setEditable(false);
-            taFunctionInput.setEditable(false);
+            // If the current selected key is not an action key, disable the name and function input
+            tfKeyName.setDisable(true);
+            taFunctionInput.setDisable(true);
+            cpDefaultKeyColor.setDisable(false);
         } else {
-            tfKeyName.setEditable(true);
-            taFunctionInput.setEditable(true);
+            tfKeyName.setDisable(false);
+            taFunctionInput.setDisable(false);
+            cpDefaultKeyColor.setDisable(false);
         }
     }
 
@@ -86,9 +97,7 @@ public class LayerController implements Initializable {
 
         // set default values for the key edit fields
         this.currentSelectedKey = null;
-        tfKeyName.setText("");
-        taFunctionInput.setText("");
-        cpDefaultKeyColor.setValue(Color.WHITE);
+        setVisualsToKeyData();
 
         // Set the layer name to the input field
         tfLayerName.setText(currentLayer.getName());
