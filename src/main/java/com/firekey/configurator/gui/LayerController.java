@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -43,6 +44,9 @@ public class LayerController implements Initializable {
      */
     @FXML
     private TextFieldWithLengthLimit tfLayerName;
+
+    @FXML
+    private ToggleGroup tgKeyMatrix;
 
     /**
      * The current selected {@link Layer} object
@@ -97,6 +101,7 @@ public class LayerController implements Initializable {
 
         // set default values for the key edit fields
         this.currentSelectedKey = null;
+        this.tgKeyMatrix.selectToggle(null);
         setVisualsToKeyData();
 
         // Set the layer name to the input field
@@ -161,6 +166,11 @@ public class LayerController implements Initializable {
 
         tfLayerName.textProperty().addListener((observable, oldValue, newValue) -> onLayerNameChanged());
         tfLayerName.setMaxLength(10);
+
+        // keep always one button in navigation selected
+        tgKeyMatrix.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+            if (newVal == null && currentSelectedKey != null) oldVal.setSelected(true);
+        });
 
         // Add auto complete items to the function text area
         // TODO add entries

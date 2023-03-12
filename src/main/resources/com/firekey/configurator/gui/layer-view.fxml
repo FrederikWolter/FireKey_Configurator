@@ -29,24 +29,28 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnAction0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="0" />
-            <Button fx:id="btnAction1" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="1" GridPane.columnIndex="1" />
-            <Button fx:id="btnAction2" layoutX="82.0" layoutY="35.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="2" GridPane.columnIndex="2" />
-            <Button fx:id="btnAction3" layoutX="154.0" layoutY="35.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="3" GridPane.columnIndex="3" />
-            <Button fx:id="btnNavUp" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="12" GridPane.columnIndex="4" />
-            <Button fx:id="btnAction4" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="4" GridPane.rowIndex="1" />
-            <Button fx:id="btnAction5" layoutX="83.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btnAction6" layoutX="156.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="btnAction7" layoutX="227.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="7" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button fx:id="btnNavHome" layoutX="299.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="13" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Button fx:id="btnAction8" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="8" GridPane.rowIndex="2" />
-            <Button fx:id="btnAction9" layoutX="83.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="9" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btnAction10" layoutX="156.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="10" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="btnAction11" layoutX="227.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="11" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button fx:id="btnNavDown" layoutX="299.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="14" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ToggleButton fx:id="btnAction0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" userData="0">
+                <toggleGroup>
+                    <ToggleGroup fx:id="tgKeyMatrix" />
+                </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="btnAction1" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="1" GridPane.columnIndex="1" />
+            <ToggleButton fx:id="btnAction2" layoutX="82.0" layoutY="35.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="2" GridPane.columnIndex="2" />
+            <ToggleButton fx:id="btnAction3" layoutX="154.0" layoutY="35.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="3" GridPane.columnIndex="3" />
+            <ToggleButton fx:id="btnNavUp" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="12" GridPane.columnIndex="4" />
+            <ToggleButton fx:id="btnAction4" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="4" GridPane.rowIndex="1" />
+            <ToggleButton fx:id="btnAction5" layoutX="83.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ToggleButton fx:id="btnAction6" layoutX="156.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ToggleButton fx:id="btnAction7" layoutX="227.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="7" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ToggleButton fx:id="btnNavHome" layoutX="299.0" layoutY="47.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="13" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ToggleButton fx:id="btnAction8" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="8" GridPane.rowIndex="2" />
+            <ToggleButton fx:id="btnAction9" layoutX="83.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="9" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ToggleButton fx:id="btnAction10" layoutX="156.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="10" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ToggleButton fx:id="btnAction11" layoutX="227.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="11" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ToggleButton fx:id="btnNavDown" layoutX="299.0" layoutY="153.0" mnemonicParsing="false" onAction="#onMatrixButtonClicked" styleClass="key-button" stylesheets="@layer-styling.css" text="Button" toggleGroup="$tgKeyMatrix" userData="14" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <AutoCompleteTextArea fx:id="taFunctionInput" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+      <AutoCompleteTextArea fx:id="taFunctionInput" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <GridPane alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -57,8 +61,18 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextFieldWithLengthLimit fx:id="tfKeyName" prefHeight="0.0" prefWidth="360.0" />
-            <ColorPicker fx:id="cpDefaultKeyColor" onAction="#onColorChanged" GridPane.rowIndex="1" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Button Name:" />
+                  <TextFieldWithLengthLimit fx:id="tfKeyName" prefHeight="0.0" prefWidth="360.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <ColorPicker fx:id="cpDefaultKeyColor" onAction="#onColorChanged" />
+                  <Button fx:id="btnSaveColorToAll" mnemonicParsing="false" text="Add to all" />
+               </children>
+            </VBox>
          </children>
       </GridPane>
    </children>
