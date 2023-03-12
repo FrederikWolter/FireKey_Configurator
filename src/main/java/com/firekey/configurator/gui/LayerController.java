@@ -36,15 +36,18 @@ public class LayerController implements Initializable {
     /**
      * Text field for the key name
      */
-
     @FXML
     private TextFieldWithLengthLimit tfKeyName;
+
     /**
      * Text field for the layer name
      */
     @FXML
     private TextFieldWithLengthLimit tfLayerName;
 
+    /**
+     * The toggle group of the key matrix
+     */
     @FXML
     private ToggleGroup tgKeyMatrix;
 
@@ -99,9 +102,11 @@ public class LayerController implements Initializable {
     public void setLayer(Layer layer) {
         this.currentLayer = layer;
 
-        // set default values for the key edit fields
+        // reset selects
         this.currentSelectedKey = null;
         this.tgKeyMatrix.selectToggle(null);
+
+        // update visuals
         setVisualsToKeyData();
 
         // Set the layer name to the input field
