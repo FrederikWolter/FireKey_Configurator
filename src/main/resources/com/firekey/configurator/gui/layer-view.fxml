@@ -70,7 +70,7 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <ColorPicker fx:id="cpDefaultKeyColor" onAction="#onColorChanged" />
-                  <Button fx:id="btnSaveColorToAll" mnemonicParsing="false" text="Add to all" />
+                  <Button fx:id="btnSaveColorToAll" mnemonicParsing="false" onAction="#onSaveColorToAllClicked" text="Add to all" />
                </children>
             </VBox>
          </children>

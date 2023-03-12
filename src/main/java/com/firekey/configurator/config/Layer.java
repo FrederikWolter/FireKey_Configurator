@@ -1,5 +1,6 @@
 package com.firekey.configurator.config;
 
+import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -104,7 +105,7 @@ public class Layer {
      * @param name The new {@link #name} of this {@link Layer}
      */
     public void setName(String name) {
-        if(!Objects.equals(this.name, name))
+        if (!Objects.equals(this.name, name))
             fireChangedEvent();
         this.name = name;
     }
@@ -119,12 +120,25 @@ public class Layer {
         if (0 <= idx && idx < NUM_KEYS)
             this.keys[idx] = key;
     }
+
+    /**
+     * Sets the default color to all keys of a layer.
+     *
+     * @param defaultColor The "default" color object
+     * @see Key#setDefaultColor(Color)
+     */
+    public void setDefaultColorToAllKeys(Color defaultColor) {
+        for (Key key : keys) {
+            key.setDefaultColor(defaultColor);
+            fireChangedEvent();
+        }
+    }
     // endregion
 
     /**
      * Fires a changed event to {@link Config#valueHasChanged()}
      */
-    private void fireChangedEvent(){
+    private void fireChangedEvent() {
         config.valueHasChanged();
     }
 }

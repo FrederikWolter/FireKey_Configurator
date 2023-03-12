@@ -154,6 +154,15 @@ public class LayerController implements Initializable {
     }
 
     /**
+     * Updates the default color for all keys of the layer
+     */
+    @FXML
+    protected void onSaveColorToAllClicked() {
+        if (currentSelectedKey == null && currentLayer == null) return;
+        this.currentLayer.setDefaultColorToAllKeys(cpDefaultKeyColor.getValue());
+    }
+
+    /**
      * Updates the name for a selected key
      */
     protected void onKeyNameChanged() {
