@@ -149,9 +149,9 @@ public class MainController implements Initializable {
                 onCommandClick();
                 tbCLI.setSelected(true);
                 if (comPort == null)
-                    ta.appendText(">No Port Selected!");
+                    ta.appendText(">No Port Selected!\n");
                 if (uploading)
-                    ta.appendText(">Already Uploading. Please Wait!");
+                    ta.appendText(">Already Uploading. Please Wait!\n");
             }
         }
     }

@@ -133,7 +133,7 @@ public class ArduinoCLI {
             textArea.appendText(">Uploading Firmware...\n");
             try {
                 this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process1 -> {
-                    textArea.appendText(">Done");
+                    textArea.appendText(">Done\n");
                     onFinished.invoke();
                 });
             } catch (IOException e) {
