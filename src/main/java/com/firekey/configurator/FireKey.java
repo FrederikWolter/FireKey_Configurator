@@ -8,7 +8,7 @@ import javafx.application.Application;
  */
 public class FireKey {
 
-    public static final String VERSION = "V0.0.0"; // TODO Use?
+    public static final String VERSION = "V0.5.2"; // TODO Use?
 
     public static void main(String[] args) {
         Application.launch(MainApplication.class, args);
