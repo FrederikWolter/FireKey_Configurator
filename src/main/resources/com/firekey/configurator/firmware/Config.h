@@ -219,29 +219,6 @@ const byte defaultLEDColors[MAX_LAYER][LED_COUNT][3] PROGMEM = {
   },
 };
 
-/**
- * last led rgb color for each key used to restore after wakeup.
- * first index: led-index
- * second index: 0=red; 1=green; 2=blue values
- */
-byte lastLEDColors[LED_COUNT][3] = {
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0},
-  {0, 0, 0}
-};
-
 // ============ LIBS =============
 #include <avr/pgmspace.h>
 // #include <MemoryFree.h>  //TODO remove?
