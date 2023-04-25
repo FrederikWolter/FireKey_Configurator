@@ -12,6 +12,10 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * TextArea with autocompletion functionality. <br>
+ * Works like a kind of minimalist IDE.
+ */
 public class AutoCompleteTextArea extends TextArea {
 
     /**
@@ -77,7 +81,7 @@ public class AutoCompleteTextArea extends TextArea {
                             }
                         }
                         Point2D point2D = localToScreen(0, 0);
-                        Text text = new Text("Text"); // Replace with the text you're interested in
+                        Text text = new Text("Text"); // dummy
                         text.setFont(getFont());
                         double fontHeight = text.getLayoutBounds().getHeight();
                         autoCompletePopUp.show(this, point2D.getX(), point2D.getY() + lineNumber * fontHeight + fontHeight / 2);
