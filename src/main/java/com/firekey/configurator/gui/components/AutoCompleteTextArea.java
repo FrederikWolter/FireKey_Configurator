@@ -98,7 +98,7 @@ public class AutoCompleteTextArea extends TextArea {
      * @return The current word/function a user is typing.
      */
     private String getCurrentWord() {
-        // Split on each space or new line but add empty "lines" to the result (spaces are counted as new line)
+        // Split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
         String[] lines = getText().split("\\n|\\s|;");
 
         int caretPos = getCaretPosition();
@@ -130,7 +130,7 @@ public class AutoCompleteTextArea extends TextArea {
      * @return A {@link ReplaceStartIndex}
      */
     private ReplaceStartIndex getCurrentWordLineStart() {
-        // Split on each space or new line but add empty "lines" to the result (spaces are counted as new line)
+        // Split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
         String[] lines = getText().split("\\n|\\s|;");
 
         int caretPos = getCaretPosition();
@@ -197,9 +197,9 @@ public class AutoCompleteTextArea extends TextArea {
             });
             menuItems.add(item);
         }
+
         autoCompletePopUp.getItems().clear();
         autoCompletePopUp.getItems().addAll(menuItems);
-
     }
 
     /**
