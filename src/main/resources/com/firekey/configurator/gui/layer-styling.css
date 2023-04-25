@@ -4,8 +4,8 @@
 }
 
 .key-button{
-    -fx-pref-height: 55;
-    -fx-pref-width: 55;
+    -fx-pref-height: 65;
+    -fx-pref-width: 65;
     -fx-text-fill: #c7c7c7;
     -fx-background-color: #161616;
 }
