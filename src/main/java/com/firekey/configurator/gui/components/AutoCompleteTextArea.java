@@ -109,8 +109,7 @@ public class AutoCompleteTextArea extends TextArea {
             // check if the current line is the line where the caret is at
             if (lineEnd >= caretPos + 1) {
 
-                // check if is inside parenthesis
-                // check if is inside parenthesis
+                // check if it is inside parenthesis
                 Point2D bracketIndexes = getSelectedBracketIndexes(lineStart, line, true);
                 if (bracketIndexes.getX() != -1) {
                     return line.substring((int) bracketIndexes.getX() + 1, (int) bracketIndexes.getY());

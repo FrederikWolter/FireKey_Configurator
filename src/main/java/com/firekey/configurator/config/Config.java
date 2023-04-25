@@ -202,7 +202,7 @@ public class Config {
             Layer layer = this.getLayer(layerIdx);
             if (layer != null) {
                 // update layer name
-                definitions.put("Layer" + layerIdx, layer.getName());
+                definitions.put("Layer" + layerIdx, layer.getName());   // placeholders are Layer0, Layer1, ...
                 addKeyDefinitions(definitions, layerIdx, layer);
             }
         }
@@ -220,17 +220,17 @@ public class Config {
             Key key = layer.getKey(keyIdx);
             if (key != null) {
                 // add key function name
-                if (key.getType() != KeyType.NAV_DOWN && key.getType() != KeyType.NAV_UP && key.getType() != KeyType.NAV_HOME)  // we can't change the navigation texts
-                    definitions.put("L" + layerIdx + "K" + keyIdx, key.getName());
+                if (key.getType() != KeyType.NAV_DOWN && key.getType() != KeyType.NAV_UP && key.getType() != KeyType.NAV_HOME)  // we should not change the navigation texts
+                    definitions.put("L" + layerIdx + "K" + keyIdx, key.getName());  // placeholders are e.g. L0K0 for: layer 0 key 0
 
                 // add default color
                 int red = (int) (key.getDefaultColor().getRed() * 255);
                 int green = (int) (key.getDefaultColor().getGreen() * 255);
                 int blue = (int) (key.getDefaultColor().getBlue() * 255);
-                definitions.put("{ 0, " + layerIdx + ", " + keyIdx + " }", "{ " + red + ", " + green + ", " + blue + " }");
+                definitions.put("{ 0, " + layerIdx + ", " + keyIdx + " }", "{ " + red + ", " + green + ", " + blue + " }"); // placeholders corresponding to sequential number sequences
 
                 // add function
-                if (key.getType() != KeyType.NAV_DOWN && key.getType() != KeyType.NAV_UP && key.getType() != KeyType.NAV_HOME) // we can't change the navigation functions
+                if (key.getType() != KeyType.NAV_DOWN && key.getType() != KeyType.NAV_UP && key.getType() != KeyType.NAV_HOME) // we should not change the navigation functions
                     definitions.put("//K" + (keyIdx + 1) + "L" + layerIdx, key.getFunction());
             }
         }
