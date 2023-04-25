@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Helper class to execute ArduinoCLI commands in an OS-Shell
+ */
 public class ArduinoCLI {
 
     // region constants

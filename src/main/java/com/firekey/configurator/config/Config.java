@@ -22,28 +22,81 @@ import java.util.Map;
  * Represents a whole FireKey config including its {@link Layer}s and the corresponding {@link Key}.
  */
 public class Config {
-    // TODO comments
-    // TODO implement changed system incl. getter
-
     // region constants
+    /**
+     * Number of available layers
+     */
     public static final int NUM_LAYERS = 5;
+    /**
+     * Name of the custom config file
+     */
     private static final String CONFIG_FILE_NAME = "firekey_config.json";
+    /**
+     * Name of the default config file
+     */
     private static final String DEFAULT_CONFIG_FILE_NAME = "firekey_config_default.json";
+
+    // region json-names
+    /**
+     * Name of the JSON-entry for the {@link #holdDelay}-field
+     */
     public static final String HOLD_DELAY = "holdDelay";
+    /**
+     * Name of the JSON-entry for the {@link #debounceDelay}-field
+     */
     public static final String DEBOUNCE_DELAY = "debounceDelay";
+    /**
+     * Name of the JSON-entry for the {@link #spamDelay}-field
+     */
     public static final String SLEEP_DELAY = "sleepDelay";
+    /**
+     * Name of the JSON-entry for the {@link #ledBright}-field
+     */
     public static final String LED_BRIGHT = "ledBright";
+    /**
+     * Name of the JSON-entry for the {@link #spamDelay}-field
+     */
     public static final String SPAM_DELAY = "spamDelay";
+    /**
+     * Name of the JSON-entry for the {@link #layers}-array
+     */
     public static final String LAYERS = "layers";
     // endregion
 
+    // endregion
+
     // region attributes
-    private int spamDelay;
+    /**
+     * Defines how long a key on the macro keyboard must be pressed before it is considered "pressed" <br>
+     * In milliseconds!
+     */
     private int holdDelay;
+    /**
+     * Defines how often a key is pressed logically when it is held down. <br>
+     * In milliseconds!
+     */
+    private int spamDelay;
+    /**
+     * Defines the delay for software debouncing
+     */
     private int debounceDelay;
+    /**
+     * Defines the timeout from when the macro keyboard switches to sleep mode. <br>
+     * In seconds!
+     */
     private int sleepDelay;
+    /**
+     * Defines the brightness of the LEDs. <br>
+     * Between 0 and 255!
+     */
     private int ledBright;
+    /**
+     * The array of {@link Layer}-Objects
+     */
     private final Layer[] layers;
+    /**
+     * Defines the path to the working directory of the configurator
+     */
     private final String dataPath;
     /**
      * True, if a {@link Key} or {@link Layer} has been changed
@@ -51,6 +104,11 @@ public class Config {
     private boolean changed;
     // endregion
 
+    /**
+     * Creates a new config-object
+     *
+     * @param dataPath Path to the working directory of the configurator
+     */
     public Config(String dataPath) {
         this.layers = new Layer[NUM_LAYERS];
         this.dataPath = dataPath;
@@ -72,6 +130,13 @@ public class Config {
         this.dataPath = dataPath;
     }
 
+    /**
+     * Loads the default configuration file or the custom configuration file if available and adjusts the corresponding fields of this class. <br>
+     * In addition, the necessary layer and key objects are created.
+     *
+     * @return This config object.
+     * @throws IOException If no config file could be found.
+     */
     public Config load() throws IOException {
         // init values
         this.spamDelay = -1;
@@ -116,6 +181,12 @@ public class Config {
         return this;
     }
 
+    /**
+     * Loads the default configuration file or the custom configuration file if available.
+     *
+     * @return A {@link File}-object of the found config file.
+     * @throws IOException If no config file could be found.
+     */
     private JSONObject loadJsonConfig() throws IOException {
         File configFile = new File(dataPath + CONFIG_FILE_NAME);
 
@@ -134,7 +205,7 @@ public class Config {
     /**
      * Saves this {@link Config} to the {@link #CONFIG_FILE_NAME}-file next to the jar-file.
      *
-     * @throws IOException
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
      */
     public void save() throws IOException {
         try (FileWriter fw = new FileWriter(dataPath + CONFIG_FILE_NAME)) {
@@ -167,10 +238,11 @@ public class Config {
     }
 
     /**
-     * Build the config replacement map.
+     * Build the config replacement map. <br>
+     * Keys are the strings, which should be replaced with the value-string. <br>
      * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50' means replace the string 'SPAM_DELAY 15' with 'SPAM_DELAY 50'
      *
-     * @return
+     * @return The config replacement map.
      */
     private Map<String, String> buildConfigDefinitionsMap() {
         Map<String, String> definitions = new HashMap<>();
@@ -239,7 +311,7 @@ public class Config {
     /**
      * Replaces in a given string all strings based on the definitions map.
      * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50' means replace the string 'SPAM_DELAY 15' with 'SPAM_DELAY 50'
-     * <a href='https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618'> Code from Stackoverflow </a>
+     * <a href='https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618'>Code from Stackoverflow</a>
      *
      * @param text        The text, in which the strings should be replaced
      * @param definitions The string replacement map
@@ -351,7 +423,7 @@ public class Config {
      * Sets a {@link Layer} to the {@link #layers} array.<br>
      *
      * @param idx   The idx between 0 and {@link #NUM_LAYERS}-1
-     * @param layer The {@link Layer}-Object to store
+     * @param layer The {@link Layer}-object to store
      */
     public void setLayer(int idx, Layer layer) {
         if (0 <= idx && idx < NUM_LAYERS) this.layers[idx] = layer;
@@ -361,11 +433,17 @@ public class Config {
         this.changed = true;
     }
 
+    /**
+     * Resets the changed-flag.
+     */
     public void resetChanged() {
         this.changed = false;
     }
     // endregion
 
+    /**
+     * Fires a changed event to {@link #valueHasChanged()}.
+     */
     private void fireChangedEvent() {
         valueHasChanged();
     }

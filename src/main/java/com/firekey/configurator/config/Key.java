@@ -14,22 +14,22 @@ public class Key {
 
     // region constants
     /**
-     * Name of the 'Name' field inside the json-obj
+     * Name of the JSON-entry for the {@link #name}-field
      */
     public static final String NAME = "name";
 
     /**
-     * Name of the 'Type' field inside the json-obj
+     * Name of the JSON-entry for the {@link #type}-field
      */
     public static final String TYPE = "type";
 
     /**
-     * Name of the 'function' field inside the json-obj
+     * Name of the JSON-entry for the {@link #function}-field
      */
     public static final String FUNCTION = "function";
 
     /**
-     * Name of the 'default color' field inside the json-obj
+     * Name of the JSON-entry for the {@link #defaultColor}-field
      */
     public static final String DEFAULT_COLOR = "defaultColor";
     // endregion

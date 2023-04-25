@@ -15,14 +15,12 @@ public class Layer {
      * Number of keys per {@link Layer} the macro-keyboard FireKey has.
      */
     public static final int NUM_KEYS = 15;
-
     /**
-     * Name of the 'Name' field inside the json-obj
+     * Name of the JSON-entry for the {@link #name}-field
      */
     public static final String NAME = "name";
-
     /**
-     * Name of the 'Keys' array inside the json-obj
+     * Name of the JSON-entry for the {@link #keys}-array
      */
     public static final String KEYS = "keys";
     // endregion
@@ -41,7 +39,6 @@ public class Layer {
      * The {@link Config}-object this layer is in.
      */
     private final Config config;
-
     //  endregion
 
     /**
