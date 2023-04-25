@@ -43,6 +43,7 @@ public class AutoCompleteTextArea extends TextArea {
 
         textProperty().addListener((observable, oldValue, newValue) -> {
             if (getText().isEmpty() || updateCall) {
+                // no text inside the textarea, or it is an update-call after the user selected a recommendation
                 autoCompletePopUp.hide();
                 updateCall = false;
             } else {
@@ -98,7 +99,7 @@ public class AutoCompleteTextArea extends TextArea {
      */
     private String getCurrentWord() {
         // Split on each space or new line but add empty "lines" to the result (spaces are counted as new line)
-        String[] lines = getText().split("\\n|\\s");
+        String[] lines = getText().split("\\n|\\s|;");
 
         int caretPos = getCaretPosition();
 
@@ -130,7 +131,7 @@ public class AutoCompleteTextArea extends TextArea {
      */
     private ReplaceStartIndex getCurrentWordLineStart() {
         // Split on each space or new line but add empty "lines" to the result (spaces are counted as new line)
-        String[] lines = getText().split("\\n|\\s");
+        String[] lines = getText().split("\\n|\\s|;");
 
         int caretPos = getCaretPosition();
 
