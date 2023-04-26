@@ -221,7 +221,6 @@ const byte defaultLEDColors[MAX_LAYER][LED_COUNT][3] PROGMEM = {
 
 // ============ LIBS =============
 #include <avr/pgmspace.h>
-// #include <MemoryFree.h>  //TODO remove?
 #include <Keyboard.h>
 #include <Keyboard_de_DE.h>
 #include <KeyboardLayout.h>

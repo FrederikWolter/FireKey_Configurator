@@ -89,8 +89,6 @@ void setup() {
 
 // ============ LOOP =============
 void loop() {
-  //Serial.println(freeMemory()); // TODO remove?
-
   // check if debounce time is over
   if ((millis() - lastRefresh) > DEBOUNCE_DELAY) {
     readMatrix();
