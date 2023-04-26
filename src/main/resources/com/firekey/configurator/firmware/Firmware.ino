@@ -19,7 +19,6 @@
 *************************************************************************/
 
 // TODO header split (.h & .cpp)? [nice to have]
-// TODO change USB Device information? [Nice to have]
 
 
 // ===== LIBRARIES & CONFIG ======
