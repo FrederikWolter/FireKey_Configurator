@@ -32,7 +32,7 @@ javafx {
     version = '17.0.2'
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
-// TODO cleanup file
+
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -75,7 +75,7 @@ jlinkZip {
     group = 'distribution'
 }
 
-/* re-add to build jar with all dep.
+/* TODO re-add to build jar with all dep.
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
