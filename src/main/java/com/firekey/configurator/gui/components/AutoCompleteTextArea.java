@@ -53,14 +53,14 @@ public class AutoCompleteTextArea extends TextArea {
                 updateCall = false;
             } else {
                 List<String> searchResult = new LinkedList<>();
-                // Get the current entered line / function
+                // get the current entered line / function
                 String enteredText = getCurrentWord();
                 if (enteredText == null || enteredText.isEmpty()) {
                     autoCompletePopUp.hide();
                     return;
                 }
 
-                // Check if the current entered text line as suggestions in the autocomplete entries
+                // check if the current entered text line as suggestions in the autocomplete entries
                 Pattern pattern = Pattern.compile(".*" + Pattern.quote(enteredText) + ".*\\s*.*", Pattern.CASE_INSENSITIVE);
                 for (String entry : autoCompleteEntries) {
                     Matcher matcher = pattern.matcher(Pattern.quote(entry));
@@ -103,7 +103,7 @@ public class AutoCompleteTextArea extends TextArea {
      * @return The current word/function a user is typing.
      */
     private String getCurrentWord() {
-        // Split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
+        // split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
         String[] lines = getText().split("\\n|\\s|;");
 
         int caretPos = getCaretPosition();
@@ -135,7 +135,7 @@ public class AutoCompleteTextArea extends TextArea {
      * @return A {@link ReplaceStartIndex}
      */
     private ReplaceStartIndex getCurrentWordLineStart() {
-        // Split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
+        // split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
         String[] lines = getText().split("\\n|\\s|;");
 
         int caretPos = getCaretPosition();
@@ -177,11 +177,11 @@ public class AutoCompleteTextArea extends TextArea {
             if (occurence < 0) {
                 continue;
             }
-            // Part before occurence (might be empty)
+            // part before occurrence (might be empty)
             Text pre = new Text(result.substring(0, occurence));
-            // Part of (first) occurence
+            // part of (first) occurrence
             Text in = new Text(result.substring(occurence, occurence + text.length()));
-            //Part after occurence
+            // part after occurrence
             Text post = new Text(result.substring(occurence + text.length()));
 
             TextFlow entryFlow = new TextFlow(pre, in, post);
@@ -218,7 +218,7 @@ public class AutoCompleteTextArea extends TextArea {
     private Point2D getSelectedBracketIndexes(Integer lineStart, String input, boolean update) {
 
         Map<Integer, Integer> bracketMap = getBracketMap(input);
-        // If it is an update, the caret is moved after the text is appended. so we need to add +1 manually
+        // if it is an update, the caret is moved after the text is appended. so we need to add +1 manually
         int caretPos = update ? getCaretPosition() + 1 : getCaretPosition();
 
         Point2D bracketIndexes = new Point2D(-1, -1);
@@ -262,22 +262,22 @@ public class AutoCompleteTextArea extends TextArea {
      * @return The calculated brackets map
      */
     private Map<Integer, Integer> getBracketMap(String input) {
-        // Create a HashMap to store the indices of opening brackets and their corresponding closing brackets
+        // create a HashMap to store the indices of opening brackets and their corresponding closing brackets
         Map<Integer, Integer> bracketMap = new HashMap<>();
 
-        // Create a stack to keep track of the indices of opening brackets
+        // create a stack to keep track of the indices of opening brackets
         Deque<Integer> openingBrackets = new ArrayDeque<>();
 
-        // Loop through each character in the input string
+        // loop through each character in the input string
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
 
-            // If the character is an opening bracket, push its index onto the stack
+            // if the character is an opening bracket, push its index onto the stack
             if (c == '(' || c == '[' || c == '{') {
                 openingBrackets.push(i);
             }
 
-            // If the character is a closing bracket, pop the last opening bracket index off the stack and add it to the map
+            // if the character is a closing bracket, pop the last opening bracket index off the stack and add it to the map
             if ((c == ')' || c == ']' || c == '}') && !openingBrackets.isEmpty()) {
                 int openIndex = openingBrackets.pop();
                 bracketMap.put(openIndex, i);
