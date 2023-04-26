@@ -97,14 +97,13 @@ public class AutoCompleteTextArea extends TextArea {
     }
 
     /**
-     * Gets the current line a user is typing a word in. <br>
-     * A line new line is started with space or \n
+     * Gets the current line a user is typing a word in.
      *
      * @return The current word/function a user is typing.
      */
     private String getCurrentWord() {
         // split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
-        String[] lines = getText().split("\\n|\\s|;");
+        String[] lines = getText().split("\\n|\\s|;|}|\\{");
 
         int caretPos = getCaretPosition();
 
@@ -115,7 +114,7 @@ public class AutoCompleteTextArea extends TextArea {
             // check if the current line is the line where the caret is at
             if (lineEnd >= caretPos + 1) {
 
-                // check if it is inside parenthesis
+                // check if it is inside round parenthesis
                 Point2D bracketIndexes = getSelectedBracketIndexes(lineStart, line, true);
                 if (bracketIndexes.getX() != -1) {
                     return line.substring((int) bracketIndexes.getX() + 1, (int) bracketIndexes.getY());
@@ -129,14 +128,13 @@ public class AutoCompleteTextArea extends TextArea {
     }
 
     /**
-     * Get the current word start index inside the textarea. <br>
-     * A line new line is started with space or \n
+     * Get the current word start index inside the textarea.
      *
      * @return A {@link ReplaceStartIndex}
      */
     private ReplaceStartIndex getCurrentWordLineStart() {
         // split on each space or new line but add empty "lines" to the result (spaces and semicolons are counted as new line)
-        String[] lines = getText().split("\\n|\\s|;");
+        String[] lines = getText().split("\\n|\\s|;|}|\\{");
 
         int caretPos = getCaretPosition();
 
@@ -147,10 +145,10 @@ public class AutoCompleteTextArea extends TextArea {
             // check if the current line is the line where the caret is at
             if (lineEnd >= caretPos) {
 
-                // check if is inside parenthesis
+                // check if is inside round parenthesis
                 Point2D bracketIndexes = getSelectedBracketIndexes(lineStart, line, false);
                 if (bracketIndexes.getX() != -1) {
-                    // if we are inside of parenthesis the start index is the starting parenthesis
+                    // if we are inside of round parenthesis the start index is the starting parenthesis
                     return new ReplaceStartIndex(lineStart + (int) bracketIndexes.getX() + 1, true);
                 }
 
@@ -208,7 +206,7 @@ public class AutoCompleteTextArea extends TextArea {
     }
 
     /**
-     * Gets the indices of the caret surrounding brackets
+     * Gets the indices of the caret surrounding round brackets
      *
      * @param lineStart The start of the current line
      * @param input     The input text
@@ -234,28 +232,7 @@ public class AutoCompleteTextArea extends TextArea {
     }
 
     /**
-     * Checks if a given bracket pair is inside another bracket pair
-     *
-     * @param bracket The bracket pair to check
-     * @param input   The input text to calculate the other brackets
-     * @return true, if the bracket is inside other brackets.
-     */
-    private boolean isInsideOtherBrackets(Point2D bracket, String input) {
-        Map<Integer, Integer> bracketMap = getBracketMap(input);
-
-        if (bracket.getX() != -1)
-            return false;
-
-        for (Map.Entry<Integer, Integer> entry : bracketMap.entrySet()) {
-            if (bracket.getX() > entry.getKey()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Calculates the brackets map. <br>
+     * Calculates the brackets map for the round brackets. <br>
      * Key is the index of the opening bracket, value is the key of the closing bracket.
      *
      * @param input The input text on which the calculation happens.
@@ -273,12 +250,12 @@ public class AutoCompleteTextArea extends TextArea {
             char c = input.charAt(i);
 
             // if the character is an opening bracket, push its index onto the stack
-            if (c == '(' || c == '{') {
+            if (c == '(') {
                 openingBrackets.push(i);
             }
 
             // if the character is a closing bracket, pop the last opening bracket index off the stack and add it to the map
-            if ((c == ')' || c == '}') && !openingBrackets.isEmpty()) {
+            if ((c == ')') && !openingBrackets.isEmpty()) {
                 int openIndex = openingBrackets.pop();
                 bracketMap.put(openIndex, i);
             }
