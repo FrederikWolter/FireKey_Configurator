@@ -113,10 +113,13 @@ public class ArduinoCLI {
      * The resources directory for this app
      */
     private final String dataPath;
+
+    private boolean isInstalled;
     // endregion
 
     public ArduinoCLI(String dataPath) {
         this.dataPath = dataPath;
+        this.isInstalled = false;
     }
 
     /**
@@ -167,7 +170,6 @@ public class ArduinoCLI {
      * @throws Exception
      */
     public void init(TextArea textArea) throws Exception {
-        // TODO use constants (+ separator?)
         // region copy required files
         exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe", false);
         exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml", false);
@@ -192,6 +194,7 @@ public class ArduinoCLI {
             try {
                 // copy boards.txt with FireKey corresponding data
                 exportResource("boards.txt", AVR_PATH + "boards.txt", true);
+                this.isInstalled = true;
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -225,7 +228,7 @@ public class ArduinoCLI {
      */
     private Process buildArduinoCLIProcess(TextArea textArea, List<String> commands) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(commands);
-        processBuilder.environment().put("config-file", dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml\"");
+        processBuilder.environment().put("config-file", dataPath + CLI_RESOURCES_PATH + "arduino-cli.yaml");
         processBuilder.directory(new File(dataPath + CLI_RESOURCES_PATH));
         processBuilder.redirectErrorStream(true);
         Process p = processBuilder.start();
@@ -285,4 +288,12 @@ public class ArduinoCLI {
             Files.copy(stream, newFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
     }   // TODO cleanup installation / file moving procedure
+
+    /**
+     *
+     * @return true, if the ArduinoCLI is ready to use
+     */
+    public boolean isInstalled() {
+        return isInstalled;
+    }
 }

@@ -125,7 +125,7 @@ public class MainController implements Initializable {
     protected void onUploadFirmwareClick() {
         // TODO cleanup
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        if (comPort != null && ta != null && !uploading) {
+        if (comPort != null && ta != null && !uploading && arduinoCLI.isInstalled()) {
             uploading = true;
             onCommandClick();
             tbCLI.setSelected(true);
@@ -152,6 +152,8 @@ public class MainController implements Initializable {
                     ta.appendText(">No Port Selected!\n");
                 if (uploading)
                     ta.appendText(">Already Uploading. Please Wait!\n");
+                if(!arduinoCLI.isInstalled())
+                    ta.appendText(">ArduinoCLI is not ready. Please Wait!\n");
             }
         }
     }
