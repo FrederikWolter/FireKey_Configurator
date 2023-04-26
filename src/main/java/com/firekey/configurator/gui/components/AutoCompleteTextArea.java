@@ -273,12 +273,12 @@ public class AutoCompleteTextArea extends TextArea {
             char c = input.charAt(i);
 
             // if the character is an opening bracket, push its index onto the stack
-            if (c == '(' || c == '[' || c == '{') {
+            if (c == '(' || c == '{') {
                 openingBrackets.push(i);
             }
 
             // if the character is a closing bracket, pop the last opening bracket index off the stack and add it to the map
-            if ((c == ')' || c == ']' || c == '}') && !openingBrackets.isEmpty()) {
+            if ((c == ')' || c == '}') && !openingBrackets.isEmpty()) {
                 int openIndex = openingBrackets.pop();
                 bracketMap.put(openIndex, i);
             }
