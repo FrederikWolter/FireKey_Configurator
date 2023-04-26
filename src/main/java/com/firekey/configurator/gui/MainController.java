@@ -66,13 +66,12 @@ public class MainController implements Initializable {
      * Init the {@link ArduinoCLI}
      *
      * @param dataPath The root resource path next to the jar.
-     * @throws Exception TODO
+     * @throws Exception If an I/O error occurs ({@link ProcessBuilder#start()}
      */
     public void initArduinoCLI(String dataPath) throws Exception {
         this.dataPath = dataPath;
-        this.arduinoCLI = new ArduinoCLI(this.dataPath);
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        this.arduinoCLI.init(ta);  // TODO cool design pattern?
+        this.arduinoCLI = new ArduinoCLI(this.dataPath).init(ta);
     }
 
     private void updateCOMPortChoiceBox() {

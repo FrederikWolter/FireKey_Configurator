@@ -167,9 +167,10 @@ public class ArduinoCLI {
     /**
      * Install all required libs and boards
      *
-     * @throws Exception
+     * @return This object
+     * @throws Exception If an I/O error occurs ({@link ProcessBuilder#start()}
      */
-    public void init(TextArea textArea) throws Exception {
+    public ArduinoCLI init(TextArea textArea) throws Exception {
         // region copy required files
         exportResource("arduino-cli.exe", CLI_RESOURCES_PATH + "arduino-cli.exe", false);
         exportResource("arduino-cli.yaml", CLI_RESOURCES_PATH + "arduino-cli.yaml", false);
@@ -200,6 +201,7 @@ public class ArduinoCLI {
             }
         });
         // region install board
+        return this;
     }
 
     /**
@@ -208,7 +210,7 @@ public class ArduinoCLI {
      * @param textArea The reference to the text area where the log is written
      * @param commands The array of the command snippets which will be executed
      * @return The started {@link Process}
-     * @throws IOException If an I/O error occurs
+     * @throws IOException If an I/O error occurs ({@link ProcessBuilder#start()}
      * @see #buildArduinoCLIProcess(TextArea, List)
      */
     private Process runArduinoCLI(TextArea textArea, String... commands) throws IOException {
@@ -232,7 +234,7 @@ public class ArduinoCLI {
         processBuilder.directory(new File(dataPath + CLI_RESOURCES_PATH));
         processBuilder.redirectErrorStream(true);
         Process p = processBuilder.start();
-        // TODO use cool design pattern for chaining?
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
 
         Task<Void> task = new Task<>() {
