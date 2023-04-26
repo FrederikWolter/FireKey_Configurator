@@ -216,7 +216,7 @@ public class LayerController implements Initializable {
                 .addAutoCompleteEntry("KEY_KP_SLASH")
                 // C-Helpers
                 .addAutoCompleteEntry("if() { } else { }")
-                // Fire-Key-Functions
+                // FireKey-Functions
                 .addAutoCompleteEntry("key->setLedRGB(255,255,255);")
                 .addAutoCompleteEntry("key->setLedRGB(0,255,255,255);")
                 .addAutoCompleteEntry("key->setLedRGB();")
@@ -226,7 +226,7 @@ public class LayerController implements Initializable {
                 .addAutoCompleteEntry("key->setLedDefault();")
                 .addAutoCompleteEntry("key->setLedOff();")
                 .addAutoCompleteEntry("key->setLedOn();")
-                //FN-Keys
+                // F-Keys
                 .addAutoCompleteEntry("KEY_F1")
                 .addAutoCompleteEntry("KEY_F2")
                 .addAutoCompleteEntry("KEY_F3")
