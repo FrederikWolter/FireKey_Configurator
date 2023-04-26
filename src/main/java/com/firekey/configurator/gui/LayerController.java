@@ -196,7 +196,13 @@ public class LayerController implements Initializable {
 
         // Add auto complete items to the function text area
         // TODO add entries
-        taFunctionInput.addAutoCompleteEntry("Keyboard.press();")
+        taFunctionInput
+                // Keyboard-Lib
+                .addAutoCompleteEntry("Keyboard.press();")
+                .addAutoCompleteEntry("Keyboard.release();")
+                .addAutoCompleteEntry("Keyboard.releaseAll();")
+                .addAutoCompleteEntry("Keyboard.print();")
+                .addAutoCompleteEntry("Keyboard.println();")
                 // Modifiers
                 .addAutoCompleteEntry("KEY_LEFT_CTRL")
                 .addAutoCompleteEntry("KEY_LEFT_SHIFT")
