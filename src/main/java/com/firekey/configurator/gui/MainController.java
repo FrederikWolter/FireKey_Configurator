@@ -129,15 +129,17 @@ public class MainController implements Initializable {
             onCommandClick();
             tbCLI.setSelected(true);
             try {
-                ta.appendText(">Converting Config to Firmware Config...\n");        // TODO create helper?
+                ta.appendText(">Converting config...\n");        // TODO create helper?
                 config.toFirmware();
                 ta.appendText(">Done\n");
                 arduinoCLI.upload(comPort, ta, () -> {
                     // On Finished
                     uploading = false;
+                    ta.appendText(">Firmware was successfully uploaded to the unit with COM port "+comPort+".\n");
                 }, () -> {
                     // On Error
                     uploading = false;
+                    ta.appendText(">An error occurred while uploading the firmware to the selected device.\n");
                 });
             } catch (IOException e) {
                 throw new RuntimeException(e);
