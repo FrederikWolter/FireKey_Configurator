@@ -74,6 +74,7 @@ public class AutoCompleteTextArea extends TextArea {
                 } else {
                     populatePopup(searchResult, enteredText);
                     if (!autoCompletePopUp.isShowing()) {
+                        // position ContextMenu-object near to the current line
                         int caretPosition = getCaretPosition();
                         int lineNumber = 1;
                         for (int i = 0; i < caretPosition; i++) {
