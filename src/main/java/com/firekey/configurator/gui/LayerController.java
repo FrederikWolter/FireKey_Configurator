@@ -214,6 +214,19 @@ public class LayerController implements Initializable {
                 .addAutoCompleteEntry("KEY_RIGHT_GUI")
                 // Num Block Keys
                 .addAutoCompleteEntry("KEY_KP_SLASH")
+                // Special Keys
+                .addAutoCompleteEntry("KEY_RETURN")
+                .addAutoCompleteEntry("KEY_BACKSPACE")
+                .addAutoCompleteEntry("KEY_TAB")
+                .addAutoCompleteEntry("KEY_INSERT")
+                .addAutoCompleteEntry("KEY_DELETE")
+                .addAutoCompleteEntry("KEY_ESC")
+                // Arrow Keys
+                .addAutoCompleteEntry("KEY_UP_ARROW")
+                .addAutoCompleteEntry("KEY_DOWN_ARROW")
+                .addAutoCompleteEntry("KEY_LEFT_ARROW")
+                .addAutoCompleteEntry("KEY_RIGHT_ARROW")
+                .addAutoCompleteEntry("KEY_KP_SLASH")
                 // C-Helpers
                 .addAutoCompleteEntry("if() { } else { }")
                 // FireKey-Functions
@@ -246,6 +259,10 @@ public class LayerController implements Initializable {
                 .addAutoCompleteEntry("KEY_F17")
                 .addAutoCompleteEntry("KEY_F18")
                 .addAutoCompleteEntry("KEY_F19")
-                .addAutoCompleteEntry("KEY_F20");
+                .addAutoCompleteEntry("KEY_F20")
+                .addAutoCompleteEntry("KEY_F21")
+                .addAutoCompleteEntry("KEY_F22")
+                .addAutoCompleteEntry("KEY_F23")
+                .addAutoCompleteEntry("KEY_F24");
     }
 }
