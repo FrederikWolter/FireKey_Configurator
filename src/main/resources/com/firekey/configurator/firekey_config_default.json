@@ -457,19 +457,19 @@
      "type": "ACTION"
     },
     {
-     "defaultColor": "0x00ff00ff",
+     "defaultColor": "0x990000ff",
      "function": "",
      "name": "Nav_Up",
      "type": "NAV_UP"
     },
     {
-     "defaultColor": "0x00ff00ff",
+     "defaultColor": "0xffffffff",
      "function": "",
      "name": "Nav_Home",
      "type": "NAV_HOME"
     },
     {
-     "defaultColor": "0x00ff00ff",
+     "defaultColor": "0x001a80ff",
      "function": "",
      "name": "Nav_Down",
      "type": "NAV_DOWN"
