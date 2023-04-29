@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * TextArea with autocompletion functionality. <br>
  * Works like a kind of minimalist IDE. <br>
- * Based on: <a href='https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions/56173327#56173327'>StackOverflow</a>
+ * Based on: <a href="https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions/56173327#56173327">StackOverflow</a>
  */
 public class AutoCompleteTextArea extends TextArea {
 

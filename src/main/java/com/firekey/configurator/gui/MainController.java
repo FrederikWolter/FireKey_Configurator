@@ -29,6 +29,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Central gui controller of this app
+ */
 public class MainController implements Initializable {
     // region attributes
     /**
