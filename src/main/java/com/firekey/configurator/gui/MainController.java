@@ -277,8 +277,8 @@ public class MainController implements Initializable {
 
         try {
             config = new Config(dataPath).load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);  // TODO handling
         }
 
         generalController.setConfig(config);

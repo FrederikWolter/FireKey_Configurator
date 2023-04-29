@@ -182,10 +182,6 @@ public class ArduinoCLI {
         exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h", true);
         // endregion
 
-        // region copy default config
-        exportResource(Config.DEFAULT_CONFIG_FILE_NAME, Config.DEFAULT_CONFIG_FILE_NAME, false);    //TODO/Check: Let Config do this?
-        // endregion
-
         // region install libs
         runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, KEYBOARD_LIB);
         runArduinoCLI(textArea, LIB_CMD, INSTALL_CMD, USB_HOST_LIB);

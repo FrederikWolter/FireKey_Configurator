@@ -1,5 +1,6 @@
 package com.firekey.configurator.config;
 
+import com.firekey.configurator.FireKey;
 import com.firekey.configurator.arduino.ArduinoCLI;
 import javafx.scene.paint.Color;
 import org.apache.commons.lang3.StringUtils;
@@ -7,14 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public class Config {
     /**
      * Name of the default config file
      */
-    public static final String DEFAULT_CONFIG_FILE_NAME = "firekey_config_default.json";
+    private static final String DEFAULT_CONFIG_FILE_NAME = "firekey_config_default.json";
 
     // region json-names
     /**
@@ -109,7 +108,7 @@ public class Config {
      *
      * @param dataPath Path to the working directory of the configurator
      */
-    public Config(String dataPath) {
+    public Config(String dataPath) throws Exception {
         this.layers = new Layer[NUM_LAYERS];
         this.dataPath = dataPath;
         this.spamDelay = -1;
@@ -117,6 +116,7 @@ public class Config {
         this.debounceDelay = -1;
         this.sleepDelay = -1;
         this.ledBright = -1;
+        this.exportDefaultConfig();
     }
 
     // TODO remove this constructor
@@ -335,6 +335,16 @@ public class Config {
         }
         // TODO/CHECK: instead of copy the file inside the data path, copy it from the resources?
         Files.copy(Path.of(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config_default.h"), Path.of(dataPath + ArduinoCLI.FIRMWARE_DATA_PATH + "Config.h"), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    private void exportDefaultConfig() throws Exception {
+        try (InputStream stream = FireKey.class.getResourceAsStream(DEFAULT_CONFIG_FILE_NAME)) {
+            if (stream == null) {
+                throw new Exception("Cannot get resource \"" + DEFAULT_CONFIG_FILE_NAME + "\" from Jar file."); // TODO custom exception?
+            }
+            // copy file
+            Files.copy(stream, Path.of(dataPath + DEFAULT_CONFIG_FILE_NAME), StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
     /**
