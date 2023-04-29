@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -30,26 +31,49 @@ import java.util.regex.Pattern;
 
 public class MainController implements Initializable {
     // region attributes
+    /**
+     * The {@link GeneralController} central view-element
+     */
     private VBox general;
+    /**
+     * The {@link CommandController} central view-element
+     */
     private GridPane command;
-    private GridPane layer;
-
-    private ArduinoCLI arduinoCLI;
-    private String dataPath;
-
-    private String comPort;
-
-    private LayerController layerController;
+    /**
+     * Object to the general-tab-controller
+     */
     private GeneralController generalController;
-
+    /**
+     * The {@link LayerController} central view-element
+     */
+    private GridPane layer;
+    /**
+     * Object to the layer-tab-controller
+     */
+    private LayerController layerController;
+    /**
+     * The {@link ArduinoCLI}-object to handle compile and upload of the firmware
+     */
+    private ArduinoCLI arduinoCLI;
+    /**
+     * The working directory of this configurator-software
+     */
+    private String dataPath;
+    /**
+     * Holds the selected com-port
+     */
+    private String comPort;
+    /**
+     * the currently edited configuration-object of the firmware
+     */
     private Config config;
-
     /**
      * True, if an upload process is running
      */
     private boolean uploading;
     // endregion
 
+    // region JavaFX-Elements
     @FXML
     private AnchorPane paneContent;
     @FXML
@@ -60,6 +84,7 @@ public class MainController implements Initializable {
     private ToggleButton tbGeneral;
     @FXML
     private ToggleButton tbCLI;
+    // endregion
 
 
     /**
@@ -74,6 +99,9 @@ public class MainController implements Initializable {
         this.arduinoCLI = new ArduinoCLI(this.dataPath).init(ta);
     }
 
+    /**
+     * Updates the entries of the dropdown-menu and tries to select an usb-device named "FireKey"
+     */
     private void updateCOMPortChoiceBox() {
         cbPort.getItems().clear();
         cbPort.getItems().addAll(arduinoCLI.getPorts());
@@ -81,6 +109,11 @@ public class MainController implements Initializable {
         onCOMPortChanged();
     }
 
+    /**
+     * Tries to select an usb-device named "FireKey". If it cant, the first Element will be selected.
+     *
+     * @return The entry-index of the {@link #cbPort}-ChoiceBox
+     */
     private int getCBDefaultSelectionIdx() {
         if (!cbPort.getItems().isEmpty()) {
             for (int i = 0; i < cbPort.getItems().size(); i++) {
@@ -135,7 +168,7 @@ public class MainController implements Initializable {
                 arduinoCLI.upload(comPort, ta, () -> {
                     // On Finished
                     uploading = false;
-                    ta.appendText(">Firmware was successfully uploaded to the unit with COM port "+comPort+".\n");
+                    ta.appendText(">Firmware was successfully uploaded to the unit with COM port " + comPort + ".\n");
                 }, () -> {
                     // On Error
                     uploading = false;
@@ -153,7 +186,7 @@ public class MainController implements Initializable {
                     ta.appendText(">No Port Selected!\n");
                 if (uploading)
                     ta.appendText(">Already Uploading. Please Wait!\n");
-                if(!arduinoCLI.isInstalled())
+                if (!arduinoCLI.isInstalled())
                     ta.appendText(">ArduinoCLI is not ready. Please Wait!\n");
             }
         }
@@ -213,7 +246,7 @@ public class MainController implements Initializable {
             general = generalLoader.load();
             generalController = generalLoader.getController();
 
-            command = FXMLLoader.load(getClass().getResource("command-view.fxml"));
+            command = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("command-view.fxml")));
 
             FXMLLoader layerLoader = new FXMLLoader(getClass().getResource("layer-view.fxml"));
             layer = layerLoader.load();
@@ -296,12 +329,30 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Creates and opens a confirmation dialog window.
+     *
+     * @param title       The title of the dialog
+     * @param headerText  The text inside the header of the dialog
+     * @param contentText The content of the dialog
+     * @param onTrigger   Action to handle, if the "yes" is pressed
+     */
     private void createConfirmationPopUp(String title, String headerText, String contentText, ICallBack onTrigger) {
         createConfirmationPopUp(title, headerText, contentText, onTrigger, () -> {
         }, () -> {
         });
     }
 
+    /**
+     * Creates and opens a confirmation dialog window.
+     *
+     * @param title       The title of the dialog
+     * @param headerText  The text inside the header of the dialog
+     * @param contentText The content of the dialog
+     * @param onTrigger   Action to handle, if the "yes" is pressed
+     * @param onDiscard   Action to handle, if the "no" is pressed
+     * @param onAbort     Action to handle, if the dialog gets aborted
+     */
     private void createConfirmationPopUp(String title, String headerText, String contentText, ICallBack onTrigger, ICallBack onDiscard, ICallBack onAbort) {
         // Create a confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -333,6 +384,13 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Creates and opens an information dialog window.
+     *
+     * @param title       The title of the dialog
+     * @param headerText  The text inside the header of the dialog
+     * @param contentText The content of the dialog
+     */
     private void createInfoPupUp(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
