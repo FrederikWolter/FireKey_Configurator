@@ -162,7 +162,7 @@ public class MainController implements Initializable {
             onCommandClick();
             tbCLI.setSelected(true);
             try {
-                ta.appendText(">Converting config...\n");        // TODO create helper?
+                ta.appendText(">Converting config...\n");
                 config.toFirmware();
                 ta.appendText(">Done\n");
                 arduinoCLI.upload(comPort, ta, () -> {
@@ -178,7 +178,6 @@ public class MainController implements Initializable {
                 throw new RuntimeException(e);
             }
         } else {
-            // TODO Error
             if (ta != null) {
                 onCommandClick();
                 tbCLI.setSelected(true);
@@ -188,6 +187,13 @@ public class MainController implements Initializable {
                     ta.appendText(">Already Uploading. Please Wait!\n");
                 if (!arduinoCLI.isInstalled())
                     ta.appendText(">ArduinoCLI is not ready. Please Wait!\n");
+            } else {
+                if (comPort == null)
+                    createInfoPupUp("Warning", "No device selected", "You have not selected a com-device!");
+                if (uploading)
+                    createInfoPupUp("Uploading", "Already uploading", "An upload process is already running please wait!");
+                if (!arduinoCLI.isInstalled())
+                    createInfoPupUp("Installing", "ArduinoCLI not ready", "ArduinoCLI is not ready. Please Wait!");
             }
         }
     }
