@@ -196,6 +196,7 @@ public class LayerController implements Initializable {
         taFunctionInput
                 // Keyboard-Lib
                 .addAutoCompleteEntry("Keyboard.press();")
+                .addAutoCompleteEntry("Keyboard.press('');")
                 .addAutoCompleteEntry("Keyboard.release();")
                 .addAutoCompleteEntry("Keyboard.releaseAll();")
                 .addAutoCompleteEntry("Keyboard.print();")
