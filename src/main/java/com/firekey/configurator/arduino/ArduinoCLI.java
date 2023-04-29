@@ -3,6 +3,7 @@ package com.firekey.configurator.arduino;
 import com.fazecast.jSerialComm.SerialPort;
 import com.firekey.configurator.FireKey;
 import com.firekey.configurator.auxiliary.ICallBack;
+import com.firekey.configurator.config.Config;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
@@ -179,6 +180,10 @@ public class ArduinoCLI {
         exportResource(FIRMWARE_RESOURCE_PATH + "Debug.h", FIRMWARE_DATA_PATH + "Debug.h", true);
         exportResource(FIRMWARE_RESOURCE_PATH + "Firmware.ino", FIRMWARE_DATA_PATH + "Firmware.ino", true);
         exportResource(FIRMWARE_RESOURCE_PATH + "Key.h", FIRMWARE_DATA_PATH + "Key.h", true);
+        // endregion
+
+        // region copy default config
+        exportResource(Config.DEFAULT_CONFIG_FILE_NAME, Config.DEFAULT_CONFIG_FILE_NAME, false);    //TODO/Check: Let Config do this?
         // endregion
 
         // region install libs

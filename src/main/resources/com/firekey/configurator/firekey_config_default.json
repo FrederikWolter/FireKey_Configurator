@@ -1,0 +1,484 @@
+{
+ "spamDelay": 15,
+ "holdDelay": 100,
+ "layers": [
+  {
+   "keys": [
+    {
+     "defaultColor": "0xff00ffff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('t');\n",
+     "name": "GitPull",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xff00ffff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('k');",
+     "name": "GitPush",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x003300ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('c');",
+     "name": "Copy",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x003300ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('v');",
+     "name": "Paste",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('b');",
+     "name": "JumpDef",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_ALT);\nKeyboard.press('l');\n",
+     "name": "Format",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_ALT);\nKeyboard.press('o');",
+     "name": "RM Imp",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_KP_SLASH);",
+     "name": "Comment",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('w');",
+     "name": "MoveCode",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.release(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.release(KEY_LEFT_CTRL);",
+     "name": "Search",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_ALT);\nKeyboard.press(KEY_RETURN);",
+     "name": "Complet",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xb3661aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_F10);",
+     "name": "Run/Stop",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x990000ff",
+     "function": "",
+     "name": "Nav_Up",
+     "type": "NAV_UP"
+    },
+    {
+     "defaultColor": "0xffffffff",
+     "function": "",
+     "name": "Nav_Home",
+     "type": "NAV_HOME"
+    },
+    {
+     "defaultColor": "0x001a80ff",
+     "function": "",
+     "name": "Nav_Down",
+     "type": "NAV_DOWN"
+    }
+   ],
+   "name": "IntelliJ"
+  },
+  {
+   "keys": [
+    {
+     "defaultColor": "0x008080ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('n');",
+     "name": "NewFile",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xd33e43ff",
+     "function": "if(key->getState()) {\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('v');\nkey->setState(false);\nkey->setLedRGB(211,62,67);\n} else {\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('x');\nkey->setState(true);\nkey->setLedRGB(102,99,112);\n}\n",
+     "name": "CutPaste",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x003300ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('c');",
+     "name": "Copy",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x003300ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('v');",
+     "name": "Paste",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x008080ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('m');",
+     "name": "SerialMo",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x008080ff",
+     "function": "Keyboard.press(KEY_LEFT_ALT);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('f');",
+     "name": "Format",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x2fbf71ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('r');",
+     "name": "Verify",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0xed7d3aff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('u');",
+     "name": "Upload",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "Keyboard.press(KEY_F12);",
+     "name": "JumpDef",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x008080ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('f');",
+     "name": "Search",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x6f6866ff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('#');",
+     "name": "LineCom",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x6f6866ff",
+     "function": "Keyboard.press(KEY_LEFT_ALT);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('a');",
+     "name": "BlockCom",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x990000ff",
+     "function": "",
+     "name": "Nav_Up",
+     "type": "NAV_UP"
+    },
+    {
+     "defaultColor": "0xffffffff",
+     "function": "",
+     "name": "Nav_Home",
+     "type": "NAV_HOME"
+    },
+    {
+     "defaultColor": "0x001a80ff",
+     "function": "",
+     "name": "Nav_Down",
+     "type": "NAV_DOWN"
+    }
+   ],
+   "name": "ArduinoIDE"
+  },
+  {
+   "keys": [
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('a');\nKeyboard.releaseAll();\nKeyboard.press(KEY_F9);",
+     "name": "Refresh",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "Keyboard.press(KEY_LEFT_ALT);\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('f');",
+     "name": "AddFootN",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "Keyboard.press(KEY_LEFT_ALT);\nKeyboard.press(KEY_LEFT_SHIFT);\nKeyboard.press('x');",
+     "name": "AddIndex",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x4d66ccff",
+     "function": "",
+     "name": "Empty",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x990000ff",
+     "function": "",
+     "name": "Nav_Up",
+     "type": "NAV_UP"
+    },
+    {
+     "defaultColor": "0xffffffff",
+     "function": "",
+     "name": "Nav_Home",
+     "type": "NAV_HOME"
+    },
+    {
+     "defaultColor": "0x001a80ff",
+     "function": "",
+     "name": "Nav_Down",
+     "type": "NAV_DOWN"
+    }
+   ],
+   "name": "Word"
+  },
+  {
+   "keys": [
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A0L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A1L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A2L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A3L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A4L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A5L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A6L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A7L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A8L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A9L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A10L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A11L3",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x990000ff",
+     "function": "",
+     "name": "Nav_Up",
+     "type": "NAV_UP"
+    },
+    {
+     "defaultColor": "0xffffffff",
+     "function": "",
+     "name": "Nav_Home",
+     "type": "NAV_HOME"
+    },
+    {
+     "defaultColor": "0x001a80ff",
+     "function": "",
+     "name": "Nav_Down",
+     "type": "NAV_DOWN"
+    }
+   ],
+   "name": "NotDefined"
+  },
+  {
+   "keys": [
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A0L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A1L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A2L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A3L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A4L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A5L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A6L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A7L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A8L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A9L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A10L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "A11L4",
+     "type": "ACTION"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "Nav_Up",
+     "type": "NAV_UP"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "Nav_Home",
+     "type": "NAV_HOME"
+    },
+    {
+     "defaultColor": "0x00ff00ff",
+     "function": "",
+     "name": "Nav_Down",
+     "type": "NAV_DOWN"
+    }
+   ],
+   "name": "NotDefined"
+  }
+ ],
+ "sleepDelay": 60,
+ "ledBright": 128,
+ "debounceDelay": 10
+}

@@ -275,36 +275,10 @@ public class MainController implements Initializable {
         // update items on open
         cbPort.addEventHandler(ComboBoxBase.ON_SHOWING, event -> updateCOMPortChoiceBox());
 
-        /*try {
+        try {
             config = new Config(dataPath).load();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
-        config = new Config(1, 2, 3, 4, 5, dataPath);//.load(); // TODO load
-        Layer layer;
-        // TODO remove
-        for (int l = 0; l < Config.NUM_LAYERS; l++) {
-            layer = new Layer("Layer" + l, config);
-            for (int k = 0; k < Layer.NUM_KEYS; k++) {
-                KeyType type;
-                String name = "A" + k + "L" + l;
-                if (k < 12) {
-                    type = KeyType.ACTION;
-                } else if (k == 12) {
-                    type = KeyType.NAV_UP;
-                    name = "Nav_Up";
-                } else if (k == 13) {
-                    type = KeyType.NAV_HOME;
-                    name = "Nav_Home";
-                } else {
-                    type = KeyType.NAV_DOWN;
-                    name = "Nav_Down";
-                }
-
-                Key key = new Key(name, type, "", Color.rgb(0, 255, 0), config);
-                layer.setKey(k, key);
-            }
-            config.setLayer(l, layer);
         }
 
         generalController.setConfig(config);

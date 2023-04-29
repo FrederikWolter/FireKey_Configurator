@@ -34,7 +34,7 @@ public class Config {
     /**
      * Name of the default config file
      */
-    private static final String DEFAULT_CONFIG_FILE_NAME = "firekey_config_default.json";
+    public static final String DEFAULT_CONFIG_FILE_NAME = "firekey_config_default.json";
 
     // region json-names
     /**
