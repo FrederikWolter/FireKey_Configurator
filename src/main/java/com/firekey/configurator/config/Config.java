@@ -119,17 +119,6 @@ public class Config {
         this.exportDefaultConfig();
     }
 
-    // TODO remove this constructor
-    public Config(int spamDelay, int holdDelay, int debounceDelay, int sleepDelay, int ledBright, String dataPath) {
-        this.spamDelay = spamDelay;
-        this.holdDelay = holdDelay;
-        this.debounceDelay = debounceDelay;
-        this.sleepDelay = sleepDelay;
-        this.ledBright = ledBright;
-        this.layers = new Layer[NUM_LAYERS];
-        this.dataPath = dataPath;
-    }
-
     /**
      * Loads the default configuration file or the custom configuration file if available and adjusts the corresponding fields of this class. <br>
      * In addition, the necessary layer and key objects are created.
