@@ -4,9 +4,6 @@ import com.firekey.configurator.FireKey;
 import com.firekey.configurator.arduino.ArduinoCLI;
 import com.firekey.configurator.auxiliary.ICallBack;
 import com.firekey.configurator.config.Config;
-import com.firekey.configurator.config.Key;
-import com.firekey.configurator.config.KeyType;
-import com.firekey.configurator.config.Layer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 
 import java.io.File;
@@ -70,10 +66,6 @@ public class MainController implements Initializable {
      * The currently edited configuration-object of the firmware
      */
     private Config config;
-    /**
-     * True, if an upload process is running
-     */
-    private boolean uploading;
     // endregion
 
     // region javafx-elements
@@ -159,8 +151,7 @@ public class MainController implements Initializable {
     protected void onUploadFirmwareClick() {
         // TODO cleanup
         TextArea ta = (TextArea) command.lookup("#taCliOutput");
-        if (comPort != null && ta != null && !uploading && arduinoCLI.isInstalled()) {
-            uploading = true;
+        if (comPort != null && ta != null && !arduinoCLI.isUploading() && arduinoCLI.isInstalled()) {
             onCommandClick();
             tbCLI.setSelected(true);
             try {
@@ -169,11 +160,9 @@ public class MainController implements Initializable {
                 ta.appendText(">Done\n");
                 arduinoCLI.upload(comPort, ta, () -> {
                     // On Finished
-                    uploading = false;
                     ta.appendText(">Firmware was successfully uploaded to the unit with COM port " + comPort + ".\n");
                 }, () -> {
                     // On Error
-                    uploading = false;
                     ta.appendText(">An error occurred while uploading the firmware to the selected device.\n");
                 });
             } catch (IOException e) {
@@ -185,14 +174,14 @@ public class MainController implements Initializable {
                 tbCLI.setSelected(true);
                 if (comPort == null)
                     ta.appendText(">No Port Selected!\n");
-                if (uploading)
+                if (arduinoCLI.isUploading())
                     ta.appendText(">Already Uploading. Please Wait!\n");
                 if (!arduinoCLI.isInstalled())
                     ta.appendText(">ArduinoCLI is not ready. Please Wait!\n");
             } else {
                 if (comPort == null)
                     createInfoPupUp("Warning", "No device selected", "You have not selected a com-device!");
-                if (uploading)
+                if (arduinoCLI.isUploading())
                     createInfoPupUp("Uploading", "Already uploading", "An upload process is already running please wait!");
                 if (!arduinoCLI.isInstalled())
                     createInfoPupUp("Installing", "ArduinoCLI not ready", "ArduinoCLI is not ready. Please Wait!");
@@ -303,6 +292,34 @@ public class MainController implements Initializable {
                     () -> {
                         // on discard
                         System.out.println("Don't save");
+                    },
+                    () -> {
+                        // on abort
+                        event.consume(); // Prevent the application from closing
+                    });
+        }
+        if(!arduinoCLI.isInstalled()){
+            createConfirmationPopUp("ArduinoIDE", "ArduinoIDE is still installing the required resources. Do you want to wait?", "Choose your option.",
+                    () -> {
+                        // on yes
+                        event.consume(); // Prevent the application from closing
+                    },
+                    () -> {
+                        // on no
+                    },
+                    () -> {
+                        // on abort
+                        event.consume(); // Prevent the application from closing
+                    });
+        }
+        if(arduinoCLI.isUploading()){
+            createConfirmationPopUp("ArduinoIDE", "ArduinoIDE is uploading the Firmware. Do you want to wait?", "Choose your option.",
+                    () -> {
+                        // on yes
+                        event.consume(); // Prevent the application from closing
+                    },
+                    () -> {
+                        // on no
                     },
                     () -> {
                         // on abort

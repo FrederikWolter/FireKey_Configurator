@@ -114,13 +114,21 @@ public class ArduinoCLI {
      * The resources directory for this app
      */
     private final String dataPath;
-
+    /**
+     * Flag that defines, if all resources for the firmware are installed.
+     */
     private boolean isInstalled;
+
+    /**
+     * Flag that defines, if an upload process is running.
+     */
+    private boolean uploading;
     // endregion
 
     public ArduinoCLI(String dataPath) {
         this.dataPath = dataPath;
         this.isInstalled = false;
+        this.uploading = false;
     }
 
     /**
@@ -135,15 +143,18 @@ public class ArduinoCLI {
      */
     public void upload(String port, TextArea textArea, ICallBack onFinished, ICallBack onError) throws IOException {
         textArea.appendText(">Compiling Firmware...\n");
+        this.uploading = true;
         this.runArduinoCLI(textArea, COMPILE_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process -> {
             textArea.appendText(">Done\n");
             textArea.appendText(">Uploading Firmware...\n");
             try {
                 this.runArduinoCLI(textArea, UPLOAD_CMD, "-p", port, dataPath + FIRMWARE_DATA_PATH).onExit().thenAccept(process1 -> {
                     textArea.appendText(">Done\n");
+                    this.uploading = false;
                     onFinished.invoke();
                 });
             } catch (IOException e) {
+                this.uploading = false;
                 onError.invoke();
                 throw new RuntimeException(e);
             }
@@ -298,5 +309,13 @@ public class ArduinoCLI {
      */
     public boolean isInstalled() {
         return isInstalled;
+    }
+
+    /**
+     *
+     * @return true, if an upload process is running
+     */
+    public boolean isUploading() {
+        return uploading;
     }
 }

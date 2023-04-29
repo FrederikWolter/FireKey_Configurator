@@ -178,6 +178,7 @@ public class Config {
                 this.setLayer(layerIdx, layer);
             }
         }
+        resetChanged();
         return this;
     }
 
