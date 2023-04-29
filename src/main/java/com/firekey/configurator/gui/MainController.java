@@ -64,7 +64,7 @@ public class MainController implements Initializable {
      */
     private String comPort;
     /**
-     * the currently edited configuration-object of the firmware
+     * The currently edited configuration-object of the firmware
      */
     private Config config;
     /**
@@ -73,7 +73,7 @@ public class MainController implements Initializable {
     private boolean uploading;
     // endregion
 
-    // region JavaFX-Elements
+    // region javafx-elements
     @FXML
     private AnchorPane paneContent;
     @FXML
@@ -85,7 +85,6 @@ public class MainController implements Initializable {
     @FXML
     private ToggleButton tbCLI;
     // endregion
-
 
     /**
      * Init the {@link ArduinoCLI}

@@ -24,6 +24,17 @@ public class LayerController implements Initializable {
 
     // region attributes
     /**
+     * The current selected {@link Key} object inside the {@link #currentLayer}
+     */
+    private Key currentSelectedKey;
+    /**
+     * The current selected {@link Layer} object
+     */
+    private Layer currentLayer;
+    // endregion
+
+    // region javafx-elements
+    /**
      * The function text area
      */
     @FXML
@@ -31,7 +42,6 @@ public class LayerController implements Initializable {
     /**
      * The default color picker
      */
-
     @FXML
     private ColorPicker cpDefaultKeyColor;
     /**
@@ -45,28 +55,16 @@ public class LayerController implements Initializable {
      */
     @FXML
     private TextFieldWithLengthLimit tfLayerName;
-
     /**
      * The toggle group of the key matrix
      */
     @FXML
     private ToggleGroup tgKeyMatrix;
-
     /**
      * Button to save the color to the whole layer
      */
     @FXML
     private Button btnSaveColorToAll;
-
-    /**
-     * The current selected {@link Layer} object
-     */
-    private Layer currentLayer;
-
-    /**
-     * The current selected {@link Key} object inside the {@link #currentLayer}
-     */
-    private Key currentSelectedKey;
 
     // endregion
 
@@ -195,7 +193,6 @@ public class LayerController implements Initializable {
         });
 
         // Add auto complete items to the function text area
-        // TODO add entries
         taFunctionInput
                 // Keyboard-Lib
                 .addAutoCompleteEntry("Keyboard.press();")

@@ -11,8 +11,14 @@ import java.util.ResourceBundle;
 
 public class GeneralController implements Initializable {
 
+    // region attributes
+    /**
+     * The currently edited configuration-object of the firmware
+     */
     private Config config;
+    //endregion
 
+    //region javafx-elements
     @FXML
     private Label lbSpamDelay;
     @FXML
@@ -33,12 +39,11 @@ public class GeneralController implements Initializable {
     private Label lbLEDBright;
     @FXML
     private Slider sliderLEDBright;
+    // endregion
 
-    public void setConfig(Config config) {
-        this.config = config;
-        updateVisuals();
-    }
-
+    /**
+     * Updates all sliders
+     */
     public void updateVisuals() {
         sliderSpamDelay.setValue(config.getSpamDelay());
         sliderHoldDelay.setValue(config.getHoldDelay());
@@ -74,5 +79,15 @@ public class GeneralController implements Initializable {
             config.setLedBright(value);
             lbLEDBright.setText(lbLEDBright.getText().replaceAll("\\((.*)\\)", "(" + value + ")"));
         });
+    }
+
+    /**
+     * Sets the current active configuration
+     *
+     * @param config The config element
+     */
+    public void setConfig(Config config) {
+        this.config = config;
+        updateVisuals();
     }
 }
