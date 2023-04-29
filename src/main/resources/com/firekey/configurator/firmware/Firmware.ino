@@ -1,6 +1,6 @@
 /*************************************************************************
 * FIREKEY-PROJECT
-* Firmware Version 1.1.2
+* Firmware Version 1.1.5
 * 
 * Required Library:
 * - Keyboard          (https://github.com/arduino-libraries/Keyboard) 
