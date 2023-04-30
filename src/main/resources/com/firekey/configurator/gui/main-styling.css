@@ -1,3 +1,8 @@
+.no-focus {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
 /* region Navigation on the left */
 .nav-background {
     -fx-background-color: #161616;
@@ -40,11 +45,6 @@
     -fx-padding: 10 10 10 10;
 }
 
-.head-layer-input {
-    -fx-pref-height: 40;
-    -fx-font-size: 18;
-}
-
 .head-button {
     -fx-pref-height: 40;
     -fx-pref-width: 40;
@@ -52,6 +52,8 @@
 
 .head-ports {
     -fx-pref-height: 40;
+    -fx-pref-width: 225;
+    -fx-font-size: 14;
 }
 
 .head-icon {

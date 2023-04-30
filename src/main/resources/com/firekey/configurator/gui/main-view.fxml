@@ -47,20 +47,36 @@
             <String fx:value="head-background" />
             <String fx:value="head-pane" />
         </styleClass>
-        <ComboBox fx:id="cbPort" onAction="#onCOMPortChanged" prefWidth="150.0" styleClass="head-ports" stylesheets="@main-styling.css" />
+        <ComboBox fx:id="cbPort" onAction="#onCOMPortChanged" stylesheets="@main-styling.css">
+         <styleClass>
+            <String fx:value="head-ports" />
+            <String fx:value="no-focus" />
+         </styleClass></ComboBox>
         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResetConfigClick" styleClass="head-button" stylesheets="@main-styling.css">
             <graphic>
-                <FontIcon iconLiteral="fas-trash-alt" iconSize="32" styleClass="head-icon" />
+                <FontIcon iconLiteral="fas-trash-alt" iconSize="32">
+               <styleClass>
+                  <String fx:value="head-icon" />
+                  <String fx:value="no-focus" />
+               </styleClass></FontIcon>
             </graphic>
         </Button>
         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveConfigClick" styleClass="head-button" stylesheets="@main-styling.css">
             <graphic>
-                <FontIcon iconLiteral="fas-save" iconSize="32" styleClass="head-icon" />
+                <FontIcon iconLiteral="fas-save" iconSize="32">
+               <styleClass>
+                  <String fx:value="head-icon" />
+                  <String fx:value="no-focus" />
+               </styleClass></FontIcon>
             </graphic>
         </Button>
         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUploadFirmwareClick" styleClass="head-button" stylesheets="@main-styling.css">
             <graphic>
-                <FontIcon iconLiteral="fas-download" iconSize="30" styleClass="head-icon" />
+                <FontIcon iconLiteral="fas-download" iconSize="30">
+               <styleClass>
+                  <String fx:value="head-icon" />
+                  <String fx:value="no-focus" />
+               </styleClass></FontIcon>
             </graphic>
         </Button>
     </HBox>
