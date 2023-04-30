@@ -47,37 +47,49 @@
             <String fx:value="head-background" />
             <String fx:value="head-pane" />
         </styleClass>
-        <ComboBox fx:id="cbPort" onAction="#onCOMPortChanged" stylesheets="@main-styling.css">
+        <ComboBox fx:id="cbPort" onAction="#onCOMPortChanged" promptText="Select COM-Port" stylesheets="@main-styling.css">
          <styleClass>
             <String fx:value="head-ports" />
-            <String fx:value="no-focus" />
+            <String fx:value="custom-focus" />
          </styleClass></ComboBox>
-        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResetConfigClick" styleClass="head-button" stylesheets="@main-styling.css">
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResetConfigClick" stylesheets="@main-styling.css">
             <graphic>
                 <FontIcon iconLiteral="fas-trash-alt" iconSize="32">
                <styleClass>
                   <String fx:value="head-icon" />
-                  <String fx:value="no-focus" />
+                  <String fx:value="custom-focus" />
                </styleClass></FontIcon>
             </graphic>
+         <styleClass>
+            <String fx:value="head-button" />
+            <String fx:value="custom-focus" />
+         </styleClass>
         </Button>
-        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveConfigClick" styleClass="head-button" stylesheets="@main-styling.css">
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveConfigClick" stylesheets="@main-styling.css">
             <graphic>
                 <FontIcon iconLiteral="fas-save" iconSize="32">
                <styleClass>
                   <String fx:value="head-icon" />
-                  <String fx:value="no-focus" />
+                  <String fx:value="custom-focus" />
                </styleClass></FontIcon>
             </graphic>
+         <styleClass>
+            <String fx:value="head-button" />
+            <String fx:value="custom-focus" />
+         </styleClass>
         </Button>
-        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUploadFirmwareClick" styleClass="head-button" stylesheets="@main-styling.css">
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUploadFirmwareClick" stylesheets="@main-styling.css">
             <graphic>
                 <FontIcon iconLiteral="fas-download" iconSize="30">
                <styleClass>
                   <String fx:value="head-icon" />
-                  <String fx:value="no-focus" />
+                  <String fx:value="custom-focus" />
                </styleClass></FontIcon>
             </graphic>
+         <styleClass>
+            <String fx:value="head-button" />
+            <String fx:value="custom-focus" />
+         </styleClass>
         </Button>
     </HBox>
     <HBox alignment="TOP_RIGHT" styleClass="head-background" stylesheets="@main-styling.css" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />

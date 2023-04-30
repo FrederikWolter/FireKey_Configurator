@@ -1,5 +1,6 @@
 .slider-general {
-    -fx-focus-color: transparent;
+    -fx-focus-color: rgba(246, 123, 66, 1);
+    -fx-faint-focus-color: rgba(246, 123, 66, 0.25);
     -fx-padding: 0 20 20 20;
 }
 

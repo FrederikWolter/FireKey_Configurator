@@ -1,3 +1,8 @@
+.custom-focus {
+    -fx-focus-color: rgba(246, 123, 66, 1);
+    -fx-faint-focus-color: rgba(246, 123, 66, 0.25);
+}
+
 .layer-name-input {
     -fx-pref-height: 40;
     -fx-font-size: 18;

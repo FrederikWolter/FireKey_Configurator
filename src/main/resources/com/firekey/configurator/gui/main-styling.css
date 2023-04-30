@@ -1,6 +1,6 @@
-.no-focus {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+.custom-focus {
+    -fx-focus-color: rgba(246, 123, 66, 1);
+    -fx-faint-focus-color: rgba(246, 123, 66, 0.25);
 }
 
 /* region Navigation on the left */
@@ -54,6 +54,14 @@
     -fx-pref-height: 40;
     -fx-pref-width: 225;
     -fx-font-size: 14;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color:  #f67b42;
+}
+
+.combo-box-popup .cell:selected {
+    -fx-background-color:  #f67b42;
 }
 
 .head-icon {
