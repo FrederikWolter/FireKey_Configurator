@@ -58,7 +58,7 @@ public class Key {
     /**
      * The {@link Config}-object this key is in.
      */
-    private Config config;
+    private final Config config;
     // endregion
 
     /**
