@@ -298,9 +298,9 @@ public class Config {
     }
 
     /**
-     * Replaces in a given string all strings based on the definitions map.
-     * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50' means replace the string 'SPAM_DELAY 15' with 'SPAM_DELAY 50'
-     * <a href='https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618'>Code from Stackoverflow</a>
+     * Replaces in a given string all strings based on the definitions map.<br>
+     * E.g. 'SPAM_DELAY 15' : 'SPAM_DELAY 50' means replace the string 'SPAM_DELAY 15' with 'SPAM_DELAY 50'<br>
+     * <a href="https://stackoverflow.com/questions/1326682/java-replacing-multiple-different-substring-in-a-string-at-once-or-in-the-most/40836618#40836618">Code from Stackoverflow</a>
      *
      * @param text        The text, in which the strings should be replaced
      * @param definitions The string replacement map
