@@ -131,7 +131,7 @@ public class Key {
      * @param name The new name of this {@link Key}
      */
     public void setName(String name) {
-        if(!Objects.equals(this.name, name))
+        if (!Objects.equals(this.name, name))
             fireChangedEvent();
         this.name = name;
     }
@@ -152,7 +152,7 @@ public class Key {
      * @param function The new action-function of this {@link Key}
      */
     public void setFunction(String function) {
-        if(!Objects.equals(this.function, function))
+        if (!Objects.equals(this.function, function))
             fireChangedEvent();
         this.function = function;
     }
@@ -163,7 +163,7 @@ public class Key {
      * @param defaultColor The new default layer color of this {@link Key}
      */
     public void setDefaultColor(Color defaultColor) {
-        if(this.defaultColor != defaultColor)
+        if (this.defaultColor != defaultColor)
             fireChangedEvent();
         this.defaultColor = defaultColor;
     }
@@ -172,7 +172,7 @@ public class Key {
     /**
      * Fires a changed event to {@link Config#valueHasChanged()}
      */
-    private void fireChangedEvent(){
+    private void fireChangedEvent() {
         config.valueHasChanged();
     }
 

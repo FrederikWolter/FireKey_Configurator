@@ -3,7 +3,6 @@ package com.firekey.configurator.arduino;
 import com.fazecast.jSerialComm.SerialPort;
 import com.firekey.configurator.FireKey;
 import com.firekey.configurator.auxiliary.ICallBack;
-import com.firekey.configurator.config.Config;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
@@ -306,7 +305,6 @@ public class ArduinoCLI {
     }   // TODO cleanup installation / file moving procedure
 
     /**
-     *
      * @return true, if the ArduinoCLI is ready to use
      */
     public boolean isInstalled() {
@@ -314,7 +312,6 @@ public class ArduinoCLI {
     }
 
     /**
-     *
      * @return true, if an upload process is running
      */
     public boolean isUploading() {

@@ -8,8 +8,8 @@ This student research project named *FireKey* is part of the winter semester 202
 Applied Computer Science course at DHBW Mannheim. The aim is to create a macro keyboard with individually configurable
 keys that allow the input of simple key combinations up to more complex sequences.
 
-This repository is used for developing the *configuration software* of *FireKey*. The corresponding firmware is developed in
-the [FireKey_Firmware](https://github.com/FrederikWolter/FireKey_Firmware) repository and the hardware
+This repository is used for developing the *configuration software* of *FireKey*. The corresponding firmware is
+developed in the [FireKey_Firmware](https://github.com/FrederikWolter/FireKey_Firmware) repository and the hardware
 in [FireKey_Hardware](https://github.com/FrederikWolter/FireKey_Hardware).
 
 ## Structure

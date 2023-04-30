@@ -298,7 +298,7 @@ public class MainController implements Initializable {
                         event.consume(); // Prevent the application from closing
                     });
         }
-        if(!arduinoCLI.isInstalled()){
+        if (!arduinoCLI.isInstalled()) {
             createConfirmationPopUp("ArduinoIDE", "ArduinoIDE is still installing the required resources. Do you want to wait?", "Choose your option.",
                     () -> {
                         // on yes
@@ -312,7 +312,7 @@ public class MainController implements Initializable {
                         event.consume(); // Prevent the application from closing
                     });
         }
-        if(arduinoCLI.isUploading()){
+        if (arduinoCLI.isUploading()) {
             createConfirmationPopUp("ArduinoIDE", "ArduinoIDE is uploading the Firmware. Do you want to wait?", "Choose your option.",
                     () -> {
                         // on yes
