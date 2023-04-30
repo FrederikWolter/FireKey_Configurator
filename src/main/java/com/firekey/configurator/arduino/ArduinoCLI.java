@@ -239,7 +239,7 @@ public class ArduinoCLI {
      * @param textArea The reference to the text area where the log is written
      * @param commands The snippets of the command, which will be executed
      * @throws IOException If an I/O error occurs ({@link ProcessBuilder#start()}
-     * @returnThe started {@link Process}
+     * @return The started {@link Process}
      */
     private Process buildArduinoCLIProcess(TextArea textArea, List<String> commands) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(commands);
