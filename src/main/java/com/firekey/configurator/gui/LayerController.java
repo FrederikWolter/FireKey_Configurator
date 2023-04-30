@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 
@@ -61,6 +62,11 @@ public class LayerController implements Initializable {
     @FXML
     private ToggleGroup tgKeyMatrix;
     /**
+     * The first Button of key matrix
+     */
+    @FXML
+    private ToggleButton btnAction0;
+    /**
      * Button to save the color to the whole layer
      */
     @FXML
@@ -108,9 +114,8 @@ public class LayerController implements Initializable {
     public void setLayer(Layer layer) {
         this.currentLayer = layer;
 
-        // reset selects
-        this.currentSelectedKey = null;
-        this.tgKeyMatrix.selectToggle(null);
+        // always select key one for better usability
+        btnAction0.fire();
 
         // update visuals
         setVisualsToKeyData();
