@@ -171,17 +171,17 @@ public class AutoCompleteTextArea extends TextArea {
         int count = Math.min(searchResult.size(), this.maxEntries);
         for (int i = 0; i < count; i++) {
             final String result = searchResult.get(i);
-            int occurence = result.toLowerCase().indexOf(text.toLowerCase());
+            int occurrence = result.toLowerCase().indexOf(text.toLowerCase());
 
-            if (occurence < 0) {
+            if (occurrence < 0) {
                 continue;
             }
             // part before occurrence (might be empty)
-            Text pre = new Text(result.substring(0, occurence));
+            Text pre = new Text(result.substring(0, occurrence));
             // part of (first) occurrence
-            Text in = new Text(result.substring(occurence, occurence + text.length()));
+            Text in = new Text(result.substring(occurrence, occurrence + text.length()));
             // part after occurrence
-            Text post = new Text(result.substring(occurence + text.length()));
+            Text post = new Text(result.substring(occurrence + text.length()));
 
             TextFlow entryFlow = new TextFlow(pre, in, post);
 
