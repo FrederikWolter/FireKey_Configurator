@@ -148,7 +148,7 @@
      "type": "ACTION"
     },
     {
-     "defaultColor": "0x00ff00ff",
+     "defaultColor": "0x008080ff",
      "function": "Keyboard.press(KEY_F12);",
      "name": "JumpDef",
      "type": "ACTION"
