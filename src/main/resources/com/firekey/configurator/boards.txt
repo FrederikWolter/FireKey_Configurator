@@ -1,3 +1,5 @@
+# Custom boards.txt for FireKey Project
+#    used by ArduinoCLI for compiling and flashing the board
 # See: https://arduino.github.io/arduino-cli/latest/platform-specification/
 
 menu.cpu=Processor
