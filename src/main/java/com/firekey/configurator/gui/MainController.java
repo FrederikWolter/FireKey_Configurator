@@ -111,7 +111,7 @@ public class MainController implements Initializable {
     private int getCBDefaultSelectionIdx() {
         if (!cbPort.getItems().isEmpty()) {
             for (int i = 0; i < cbPort.getItems().size(); i++) {
-                Pattern pattern = Pattern.compile("FireKey \\(COM[0-9]\\)");
+                Pattern pattern = Pattern.compile("FireKey \\(COM\\d\\)");
                 Matcher matcher = pattern.matcher(cbPort.getItems().get(i));
                 if (matcher.find()) {
                     return i;
@@ -158,13 +158,12 @@ public class MainController implements Initializable {
                 ta.appendText(">Converting config...\n");
                 config.toFirmware();
                 ta.appendText(">Done\n");
-                arduinoCLI.upload(comPort, ta, () -> {
-                    // On Finished
-                    ta.appendText(">Firmware was successfully uploaded to the unit with COM port " + comPort + ".\n");
-                }, () -> {
-                    // On Error
-                    ta.appendText(">An error occurred while uploading the firmware to the selected device.\n");
-                });
+                arduinoCLI.upload(comPort, ta,
+                        // On Finished
+                        () -> ta.appendText(">Firmware was successfully uploaded to the unit with COM port " + comPort + ".\n"),
+                        // On Error
+                        () -> ta.appendText(">An error occurred while uploading the firmware to the selected device.\n")
+                );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -218,7 +217,7 @@ public class MainController implements Initializable {
     @FXML
     protected void onCOMPortChanged() {
         if (cbPort.getValue() != null) {
-            Pattern pattern = Pattern.compile("(COM[0-9])");
+            Pattern pattern = Pattern.compile("(COM\\d)");
             Matcher matcher = pattern.matcher(cbPort.getValue());
             if (!matcher.find()) {
                 return;
@@ -280,51 +279,54 @@ public class MainController implements Initializable {
 
     public void onClose(WindowEvent event) {
         if (config.hasChanged()) {
-            createConfirmationPopUp("Save Changes", "Do you want to save changes to your config before closing?", "Choose your option.",
+            // Prevent the application from closing
+            createConfirmationPopUp(
+                    "Save Changes",
+                    "Do you want to save changes to your config before closing?",
+                    "",
+                    // on save
                     () -> {
-                        // on save
                         try {
                             config.save();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     },
-                    () -> {
-                        // on discard
-                        System.out.println("Don't save");
-                    },
-                    () -> {
-                        // on abort
-                        event.consume(); // Prevent the application from closing
-                    });
+                    // on discard
+                    () -> System.out.println("Don't save"),
+                    // on abort - prevent application from closing
+                    event::consume
+            );
         }
         if (!arduinoCLI.isInstalled()) {
-            createConfirmationPopUp("ArduinoIDE", "ArduinoIDE is still installing the required resources. Do you want to wait?", "Choose your option.",
-                    () -> {
-                        // on yes
-                        event.consume(); // Prevent the application from closing
-                    },
-                    () -> {
-                        // on no
-                    },
-                    () -> {
-                        // on abort
-                        event.consume(); // Prevent the application from closing
-                    });
+            //
+            // Prevent the application from closing
+            createConfirmationPopUp(
+                    "ArduinoCLI",
+                    "ArduinoCLI is still installing the required resources. Do you want to wait?",
+                    "",
+                    // on yes - prevent application from closing
+                    event::consume,
+                    // on no
+                    () -> {  },
+                    // on abort - prevent application from closing
+                    event::consume
+            );
         }
         if (arduinoCLI.isUploading()) {
-            createConfirmationPopUp("ArduinoIDE", "ArduinoIDE is uploading the Firmware. Do you want to wait?", "Choose your option.",
-                    () -> {
-                        // on yes
-                        event.consume(); // Prevent the application from closing
-                    },
-                    () -> {
-                        // on no
-                    },
-                    () -> {
-                        // on abort
-                        event.consume(); // Prevent the application from closing
-                    });
+            // Prevent the application from closing
+            // Prevent the application from closing
+            createConfirmationPopUp(
+                    "ArduinoIDE",
+                    "ArduinoCLI is uploading the Firmware. Do you want to wait?",
+                    "",
+                    // on yes - prevent application from closing
+                    event::consume,
+                    // on no
+                    () -> {  },
+                    // on abort - prevent application from closing
+                    event::consume
+            );
         }
     }
 
