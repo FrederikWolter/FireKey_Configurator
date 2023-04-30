@@ -85,7 +85,7 @@ public class AutoCompleteTextArea extends TextArea {
                         Point2D point2D = localToScreen(0, 0);
                         Text text = new Text("Text"); // dummy
                         text.setFont(getFont());
-                        double fontHeight = text.getLayoutBounds().getHeight();
+                        double fontHeight = text.getLayoutBounds().getHeight() + 6;  // offset needed for consolas
                         autoCompletePopUp.show(this, point2D.getX(), point2D.getY() + lineNumber * fontHeight + fontHeight / 2);
                     }
                 }

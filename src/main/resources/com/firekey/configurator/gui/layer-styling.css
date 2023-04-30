@@ -6,11 +6,34 @@
 .layer-name-input {
     -fx-pref-height: 40;
     -fx-font-size: 18;
+    -fx-font-weight: bold;
 }
 
+.key-name-input {
+    -fx-pref-height: 35;
+    -fx-font-size: 16;
+}
+
+.action-input{
+    -fx-font-size: 12;
+    -fx-line-spacing: 150;
+    -fx-font-family: Consolas;
+}
+
+.action-input .text {
+    -fx-line-spacing: 2;
+}
+
+.input-label {
+    -fx-font-size: 13;
+}
+
+/* region keys */
 .key-button {
     -fx-pref-height: 65;
     -fx-pref-width: 65;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
     -fx-text-fill: #c7c7c7;
     -fx-background-color: #161616;
 }
@@ -22,3 +45,4 @@
 .key-button:selected {
     -fx-background-color: #0178ba;
 }
+/* endregion */
