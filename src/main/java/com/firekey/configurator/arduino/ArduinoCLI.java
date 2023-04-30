@@ -109,6 +109,8 @@ public class ArduinoCLI {
     private static final String FIRE_KEY_BOARD_CORE = "arduino:avr@1.8.6";
     // endregion
 
+    // endregion
+
     // region attributes
     /**
      * The resources directory for this app
