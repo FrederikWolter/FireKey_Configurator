@@ -285,7 +285,7 @@
      "type": "NAV_DOWN"
     }
    ],
-   "name": "Word"
+   "name": "MS Word"
   },
   {
    "keys": [
@@ -380,7 +380,7 @@
      "type": "NAV_DOWN"
     }
    ],
-   "name": "NotDefined"
+   "name": "empty"
   },
   {
    "keys": [
@@ -475,10 +475,10 @@
      "type": "NAV_DOWN"
     }
    ],
-   "name": "NotDefined"
+   "name": "empty"
   }
  ],
  "sleepDelay": 60,
- "ledBright": 128,
+ "ledBright": 64,
  "debounceDelay": 10
 }
