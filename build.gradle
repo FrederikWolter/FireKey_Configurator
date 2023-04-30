@@ -79,7 +79,7 @@ jlinkZip {
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes 'Main-Class': "${application.classMain}"
+        attributes 'Main-Class': 'com.firekey.configurator.FireKey'
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
