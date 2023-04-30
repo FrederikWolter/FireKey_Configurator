@@ -3,17 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="720.0" style="´: #ff0000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.firekey.configurator.gui.GeneralController">
+<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="720.0" style="´: #ff0000;" stylesheets="@general-styling.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.firekey.configurator.gui.GeneralController">
    <children>
-      <Label fx:id="lbSpamDelay" text="Spam Delay in Milliseconds (x)" />
-      <Slider fx:id="sliderSpamDelay" blockIncrement="5.0" majorTickUnit="5.0" minorTickCount="1" showTickLabels="true" />
-      <Label fx:id="lbHoldDelay" text="Hold Delay in Milliseconds (x)" />
-      <Slider fx:id="sliderHoldDelay" blockIncrement="5.0" max="255.0" minorTickCount="5" showTickLabels="true" />
-      <Label fx:id="lbDebounceDelay" text="Debounce Delay in Milliseconds (x)" />
-      <Slider fx:id="sliderDebounceDelay" blockIncrement="5.0" majorTickUnit="5.0" showTickLabels="true" />
-      <Label fx:id="lbSleepDelay" text="Sleep Delay in Seconds (x)" />
-      <Slider fx:id="sliderSleepDelay" blockIncrement="5.0" majorTickUnit="5.0" showTickLabels="true" />
-      <Label fx:id="lbLEDBright" text="LED Brightness (x)" />
-      <Slider fx:id="sliderLEDBright" blockIncrement="5.0" max="255.0" minorTickCount="5" showTickLabels="true" />
+      <Label fx:id="lbSpamDelay" styleClass="slider-label" stylesheets="@general-styling.css" text="Spam Delay in Milliseconds (x)" />
+      <Slider fx:id="sliderSpamDelay" majorTickUnit="10.0" max="200.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" styleClass="slider-general" stylesheets="@general-styling.css" />
+      <Label fx:id="lbHoldDelay" styleClass="slider-label" stylesheets="@general-styling.css" text="Hold Delay in Milliseconds (x)" />
+      <Slider fx:id="sliderHoldDelay" blockIncrement="5.0" max="255.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" styleClass="slider-general" stylesheets="@general-styling.css" />
+      <Label fx:id="lbDebounceDelay" styleClass="slider-label" stylesheets="@general-styling.css" text="Debounce Delay in Milliseconds (x)" />
+      <Slider fx:id="sliderDebounceDelay" blockIncrement="5.0" majorTickUnit="5.0" showTickLabels="true" showTickMarks="true" styleClass="slider-general" stylesheets="@general-styling.css" />
+      <Label fx:id="lbSleepDelay" styleClass="slider-label" stylesheets="@general-styling.css" text="Sleep Delay in Seconds (x)" />
+      <Slider fx:id="sliderSleepDelay" majorTickUnit="10.0" max="200.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" styleClass="slider-general" stylesheets="@general-styling.css" />
+      <Label fx:id="lbLEDBright" styleClass="slider-label" stylesheets="@general-styling.css" text="LED Brightness (x)" />
+      <Slider fx:id="sliderLEDBright" blockIncrement="5.0" max="255.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" styleClass="slider-general" stylesheets="@general-styling.css" />
    </children>
 </VBox>
