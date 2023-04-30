@@ -6,7 +6,7 @@
    "keys": [
     {
      "defaultColor": "0xff00ffff",
-     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('t');\n",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('t');",
      "name": "GitPull",
      "type": "ACTION"
     },
@@ -36,7 +36,7 @@
     },
     {
      "defaultColor": "0xb3661aff",
-     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_ALT);\nKeyboard.press('l');\n",
+     "function": "Keyboard.press(KEY_LEFT_CTRL);\nKeyboard.press(KEY_LEFT_ALT);\nKeyboard.press('l');",
      "name": "Format",
      "type": "ACTION"
     },
@@ -107,7 +107,7 @@
     },
     {
      "defaultColor": "0xd33e43ff",
-     "function": "if(key->getState()) {\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('v');\nkey->setState(false);\nkey->setLedRGB(211,62,67);\n} else {\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('x');\nkey->setState(true);\nkey->setLedRGB(102,99,112);\n}\n",
+     "function": "if(key->getState()) {\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('v');\nkey->setState(false);\nkey->setLedRGB(211,62,67);\n} else {\nKeyboard.press(KEY_LEFT_CTRL);\nKeyboard.press('x');\nkey->setState(true);\nkey->setLedRGB(102,99,112);\n}",
      "name": "CutPaste",
      "type": "ACTION"
     },
